@@ -3,15 +3,26 @@ import Image from 'next/image';
 export default function Home() {
   return (
     <main className="bg-gray-50 min-h-screen">
+      <div className="z-0 relative min-h-screen">
+        {/* TODO: make 3js landing page */}
+        <Image
+          src="/images/TrustCircle.png"
+          alt="TrustCircle Logo"
+          priority
+          width={300}
+          height={300}
+          className="absolute top-1/4 left-[40%]"
+        />
+      </div>
       {/* Hero Section */}
-      <section className="flex flex-col items-center justify-center text-center py-16 px-6">
-        <h1 className="text-4xl font-bold mb-4">
+      <section className="flex flex-col items-center justify-center text-center py-16 px-6 absolute top-2/3 left-1/3">
+        <h1 className="text-4xl font-bold mb-4 drop-shadow-lg">
           Share Your Shopping Stories.
         </h1>
-        <h2 className="text-3xl font-extrabold text-blue-900">
+        <h2 className="text-3xl font-extrabold text-blue-900 drop-shadow-lg">
           Build a Circle of Trust.
         </h2>
-        <div className="mt-8 flex justify-center">
+        <div className="mt-2 flex justify-center">
           <input
             type="text"
             placeholder="Search for a shop..."
@@ -25,47 +36,41 @@ export default function Home() {
 
       {/* Features Section */}
       <section className="grid grid-cols-1 md:grid-cols-3 gap-8 px-6 md:px-16 py-12">
-        {/* Trusted Shops */}
-        <div className="flex flex-col items-center text-center bg-white shadow-lg p-6 rounded-lg">
-          <Image
-            src="/icons/trusted-shops.svg"
-            alt="Trusted Shops"
-            width={100}
-            height={100}
-          />
-          <h3 className="text-xl font-semibold mt-4">Trusted Shops</h3>
-          <p className="text-gray-600 mt-2">
-            Discover top-rated and trusted online stores recommended by others.
-          </p>
-        </div>
-
-        {/* User Stories */}
-        <div className="flex flex-col items-center text-center bg-white shadow-lg p-6 rounded-lg">
-          <Image
-            src="/icons/user-stories.svg"
-            alt="User Stories"
-            width={100}
-            height={100}
-          />
-          <h3 className="text-xl font-semibold mt-4">User Stories</h3>
-          <p className="text-gray-600 mt-2">
-            Explore real shopping experiences shared by our community.
-          </p>
-        </div>
-
-        {/* Write a Review */}
-        <div className="flex flex-col items-center text-center bg-white shadow-lg p-6 rounded-lg">
-          <Image
-            src="/icons/write-review.svg"
-            alt="Write a Review"
-            width={100}
-            height={100}
-          />
-          <h3 className="text-xl font-semibold mt-4">Write a Review</h3>
-          <p className="text-gray-600 mt-2">
-            Share your experience and help others shop smarter.
-          </p>
-        </div>
+        {/* Feature Cards */}
+        {[
+          {
+            icon: '/images/bag-2.jpg',
+            title: 'Trusted Shops',
+            description:
+              'Discover top-rated and trusted online stores recommended by others.',
+          },
+          {
+            icon: '/images/sphere-3.jpg',
+            title: 'User Stories',
+            description:
+              'Explore real shopping experiences shared by our community.',
+          },
+          {
+            icon: '/images/phone.jpg',
+            title: 'Write a Review',
+            description: 'Share your experience and help others shop smarter.',
+          },
+        ].map((feature, index) => (
+          <div
+            key={index}
+            className="flex flex-col items-center text-center bg-white shadow-lg p-6 rounded-lg hover:shadow-xl transition"
+          >
+            <Image
+              src={feature.icon}
+              alt={feature.title}
+              width={100}
+              height={100}
+              className="mb-4"
+            />
+            <h3 className="text-xl font-semibold mt-4">{feature.title}</h3>
+            <p className="text-gray-600 mt-2">{feature.description}</p>
+          </div>
+        ))}
       </section>
 
       {/* Call-to-Action Section */}
