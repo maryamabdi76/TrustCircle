@@ -2,19 +2,19 @@ import type { Metadata } from 'next';
 import localFont from 'next/font/local';
 import './globals.css';
 import { Navbar } from '@/components/layout';
-import { AntdRegistry } from '@ant-design/nextjs-registry';
 import { NextIntlClientProvider } from 'next-intl';
 import { getLocale, getMessages } from 'next-intl/server';
 
-const geistSans = localFont({
-  src: './fonts/GeistVF.woff',
-  variable: '--font-geist-sans',
-  weight: '100 900',
+const vazirFontRegular = localFont({
+  src: './fonts/Vazirmatn-Regular.woff2',
+  variable: '--font-vazir-regular',
+  weight: '400',
 });
-const geistMono = localFont({
-  src: './fonts/GeistMonoVF.woff',
-  variable: '--font-geist-mono',
-  weight: '100 900',
+
+const vazirFontBold = localFont({
+  src: './fonts/Vazirmatn-Bold.woff2',
+  variable: '--font-vazir-bold',
+  weight: '700',
 });
 
 export const metadata: Metadata = {
@@ -32,13 +32,11 @@ export default async function RootLayout({
   return (
     <html lang={locale} dir="rtl">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${vazirFontRegular.variable} ${vazirFontBold.variable} antialiased bg-gray-50 text-gray-800`}
       >
         <NextIntlClientProvider messages={messages}>
-          <AntdRegistry>
-            <Navbar />
-            <main className="pt-16 min-h-screen">{children}</main>
-          </AntdRegistry>
+          <Navbar />
+          <main className="pt-16 min-h-screen">{children}</main>
         </NextIntlClientProvider>
       </body>
     </html>

@@ -1,13 +1,24 @@
-import Form from 'antd/es/form/Form';
-import Button from 'antd/es/button';
-import Link from 'next/link';
-import { PATHS } from '@/constants/PATHS';
-import Input from 'antd/es/input/Input';
-import FormItem from 'antd/es/form/FormItem';
+'use client';
+
 import { useTranslations } from 'next-intl';
+import Link from 'next/link';
+import { Button } from '@/components/ui/button';
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import { PATHS } from '@/constants/PATHS';
+import { useSignUp } from './useSignUp';
 
 export const SignUp = () => {
   const t = useTranslations('SignUpPage');
+  const { form, onSubmit } = useSignUp();
   return (
     <div
       className="min-h-screen flex items-center justify-center bg-cover bg-center bg-no-repeat"
@@ -18,36 +29,60 @@ export const SignUp = () => {
           {t('title')}
         </h1>
         {/* Signup Form */}
-        <Form>
-          <div className="mb-4">
-            <label className="block text-gray-700">Full Name</label>
-            <FormItem rules={[{ required: true }]}>
-              <Input type="text" placeholder="John Doe" />
-            </FormItem>
-          </div>
-          <div className="mb-4">
-            <label className="block text-gray-700">Email Address</label>
-            <FormItem rules={[{ required: true }]}>
-              <Input type="email" placeholder="you@example.com" />
-            </FormItem>
-          </div>
-          <div className="mb-6">
-            <label className="block text-gray-700">Password</label>
-            <FormItem rules={[{ required: true }]}>
-              <Input type="password" placeholder="••••••••" />
-            </FormItem>
-          </div>
-          <Button htmlType="submit" type="primary" className="w-full">
-            Sign Up
-          </Button>
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+            <FormField
+              control={form.control}
+              name="fullName"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>{t('full-name')}</FormLabel>
+                  <FormControl>
+                    <Input placeholder={t('full-name')} {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="email"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>{t('email')}</FormLabel>
+                  <FormControl>
+                    <Input placeholder={t('email')} {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="password"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>{t('password')}</FormLabel>
+                  <FormControl>
+                    <Input placeholder={t('password')} {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <Button type="submit" className="w-full">
+              {t('submit')}
+            </Button>
+          </form>
         </Form>
         <p className="mt-6 text-center text-gray-600">
-          Already have an account?{' '}
+          {t('already-have-account')}
           <Link
             href={PATHS.SIGNUP.ROOT}
             className="text-blue-500 hover:underline"
           >
-            Log in
+            {t('login')}
           </Link>
         </p>
       </div>

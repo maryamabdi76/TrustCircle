@@ -8,4 +8,10 @@ export const PATHS = {
   LOGIN: {
     ROOT: '/login',
   },
+  BLOG: {
+    ROOT: '/blog',
+  },
+  REVIEW: {
+    WRITE: '/write-review',
+  },
 };

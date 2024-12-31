@@ -1,5 +1,17 @@
 {
   "SignUpPage": {
-    "title": "ثبت نام"
+    "title": "ثبت‌نام",
+    "full-name": "نام و نام خانوادگی",
+    "email": "ایمیل",
+    "password": "رمز عبور",
+    "confirm-password": "تأیید رمز عبور",
+    "sign-up": "ثبت‌نام",
+    "already-have-account": "حساب کاربری دارید؟",
+    "login": "ورود",
+    "submit": "ارسال",
+    "invalid-email": "ایمیل نامعتبر است",
+    "password-not-match": "رمز عبور و تأیید آن یکسان نیستند",
+    "password-length": "رمز عبور باید حداقل ۶ کاراکتر باشد",
+    "required": "این فیلد اجباری است"
   }
 }
