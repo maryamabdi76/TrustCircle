@@ -12,7 +12,7 @@ import {
 export const Navbar = () => {
   return (
     <nav className="fixed top-0 left-0 right-0 bg-white shadow-md z-50">
-      <div className="container mx-auto flex items-center justify-between py-4 px-6">
+      <div className=" mx-auto flex items-center justify-between py-4 px-6">
         {/* Logo */}
         <Link href={PATHS.LANDING.ROOT} className="flex items-center gap-3">
           <Image
