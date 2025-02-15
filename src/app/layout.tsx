@@ -5,6 +5,7 @@ import { Navbar } from '@/components/layout';
 import { NextIntlClientProvider } from 'next-intl';
 import { getLocale, getMessages } from 'next-intl/server';
 import Footer from '@/components/layout/footer';
+import { ThemeProvider } from '@/components/theme-provider';
 
 const vazirFontRegular = localFont({
   src: './fonts/Vazirmatn-Regular.woff2',
@@ -36,9 +37,11 @@ export default async function RootLayout({
         className={`${vazirFontRegular.variable} ${vazirFontBold.variable} antialiased bg-gray-50 text-gray-800`}
       >
         <NextIntlClientProvider messages={messages}>
-          <Navbar />
-          <main className="pt-16 min-h-screen">{children}</main>
-          <Footer />
+          <ThemeProvider attribute="class" defaultTheme="system">
+            <Navbar />
+            <main className="pt-16 min-h-screen">{children}</main>
+            <Footer />
+          </ThemeProvider>
         </NextIntlClientProvider>
       </body>
     </html>

@@ -1,23 +1,72 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslations } from 'next-intl';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
+
+const emailSchema = z.object({
+  email: z.string().email({ message: 'Invalid email address' }),
+  password: z
+    .string()
+    .min(8, { message: 'Password must be at least 8 characters' }),
+});
+
+const mobileSchema = z.object({
+  mobile: z
+    .string()
+    .regex(/^\+?[1-9]\d{1,14}$/, { message: 'Invalid mobile number' }),
+  otp: z.string().length(6, { message: 'OTP must be 6 digits' }),
+});
 
 export const useSignUp = () => {
   const t = useTranslations('SignUpPage');
 
-  const formSchema = z.object({
-    fullName: z.string().nonempty(t('required')),
-    email: z.string().nonempty(t('required')).email(t('invalid-email')),
-    password: z.string().nonempty(t('required')).min(6, t('password-length')),
+  const [activeTab, setActiveTab] = useState<'email' | 'mobile'>('email');
+  const [isOtpSent, setIsOtpSent] = useState(false);
+
+  const emailForm = useForm<z.infer<typeof emailSchema>>({
+    resolver: zodResolver(emailSchema),
+    defaultValues: {
+      email: '',
+      password: '',
+    },
   });
 
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const mobileForm = useForm<z.infer<typeof mobileSchema>>({
+    resolver: zodResolver(mobileSchema),
+    defaultValues: {
+      mobile: '',
+      otp: '',
+    },
   });
 
-  const onSubmit = (values: z.infer<typeof formSchema>) => {
-    console.log('🚀 ~ onSubmit ~ values:', values);
+  const onEmailSubmit = (values: z.infer<typeof emailSchema>) => {
+    console.log(values);
+    // Handle email registration logic here
   };
-  return { form, onSubmit };
+
+  const onMobileSubmit = (values: z.infer<typeof mobileSchema>) => {
+    console.log(values);
+    // Handle mobile registration logic here
+  };
+
+  const sendOTP = () => {
+    const mobile = mobileForm.getValues('mobile');
+    if (mobile) {
+      console.log('Sending OTP to', mobile);
+      // Here you would typically send the OTP to the user's mobile number
+      setIsOtpSent(true);
+    }
+  };
+
+  return {
+    activeTab,
+    emailForm,
+    isOtpSent,
+    mobileForm,
+    setActiveTab,
+    onEmailSubmit,
+    onMobileSubmit,
+    sendOTP,
+  };
 };
