@@ -13,7 +13,7 @@ export default function Newsletter() {
           <Input
             type="email"
             placeholder="Enter your email"
-            className="flex-grow"
+            className="grow"
           />
           <Button type="submit">Subscribe</Button>
         </form>
