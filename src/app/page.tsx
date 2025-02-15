@@ -1,10 +1,12 @@
-import Benefits from '@/components/pages/landing/benefits';
-import CTA from '@/components/pages/landing/cta';
-import Features from '@/components/pages/landing/features';
-import Hero from '@/components/pages/landing/hero';
-import Newsletter from '@/components/pages/landing/newsletter';
-import Statistics from '@/components/pages/landing/statistics';
-import Testimonials from '@/components/pages/landing/testimonials';
+import {
+  Hero,
+  Features,
+  Testimonials,
+  CTA,
+  Benefits,
+  Statistics,
+  Newsletter,
+} from '../components/pages/landing';
 
 export default function LandingPage() {
   return (

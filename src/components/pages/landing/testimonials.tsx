@@ -26,7 +26,7 @@ const testimonials = [
   },
 ];
 
-export default function Testimonials() {
+export const Testimonials = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const nextTestimonial = () => {
@@ -40,31 +40,41 @@ export default function Testimonials() {
   };
 
   return (
-    <section className=" py-12 md:py-24">
-      <h2 className="text-3xl font-bold text-center mb-12">
+    <section className="py-12 md:py-24 bg-gray-50 dark:bg-gray-900">
+      <h2 className="text-3xl font-bold text-center mb-12 text-gray-900 dark:text-white">
         What Our Users Say
       </h2>
-      <div className="relative">
-        <Card className="max-w-2xl mx-auto">
-          <CardContent className="pt-6">
-            <blockquote className="text-xl italic mb-4">
+      <div className="relative max-w-2xl mx-auto">
+        <Card className="bg-white dark:bg-gray-800 shadow-lg rounded-xl">
+          <CardContent className="p-8 text-center">
+            <blockquote className="text-xl italic text-gray-800 dark:text-gray-200 mb-4">
               "{testimonials[currentIndex].content}"
             </blockquote>
-            <p className="font-semibold">{testimonials[currentIndex].name}</p>
-            <p className="text-muted-foreground">
+            <p className="font-semibold text-gray-900 dark:text-white">
+              {testimonials[currentIndex].name}
+            </p>
+            <p className="text-gray-600 dark:text-gray-400">
               {testimonials[currentIndex].role}
             </p>
           </CardContent>
         </Card>
-        <div className="absolute top-1/2 -translate-y-1/2 left-0 right-0 flex justify-between">
-          <Button variant="ghost" onClick={prevTestimonial} className="p-2">
-            <ChevronLeft className="h-6 w-6" />
+        <div className="absolute top-1/2 -translate-y-1/2 left-0 right-0 flex justify-between px-4">
+          <Button
+            variant="ghost"
+            onClick={prevTestimonial}
+            className="p-2 bg-gray-200 dark:bg-gray-700 rounded-full hover:bg-gray-300 dark:hover:bg-gray-600"
+          >
+            <ChevronLeft className="h-6 w-6 text-gray-900 dark:text-white" />
           </Button>
-          <Button variant="ghost" onClick={nextTestimonial} className="p-2">
-            <ChevronRight className="h-6 w-6" />
+          <Button
+            variant="ghost"
+            onClick={nextTestimonial}
+            className="p-2 bg-gray-200 dark:bg-gray-700 rounded-full hover:bg-gray-300 dark:hover:bg-gray-600"
+          >
+            <ChevronRight className="h-6 w-6 text-gray-900 dark:text-white" />
           </Button>
         </div>
       </div>
     </section>
   );
-}
+};

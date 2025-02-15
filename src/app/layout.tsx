@@ -1,11 +1,9 @@
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
 import './globals.css';
-import { Navbar } from '@/components/layout';
+import { Navbar, Footer, ThemeProvider } from '@/components/layout';
 import { NextIntlClientProvider } from 'next-intl';
 import { getLocale, getMessages } from 'next-intl/server';
-import Footer from '@/components/layout/footer';
-import { ThemeProvider } from '@/components/layout/theme-provider';
 
 const vazirFontRegular = localFont({
   src: './fonts/Vazirmatn-Regular.woff2',
