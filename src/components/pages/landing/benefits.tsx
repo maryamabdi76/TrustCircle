@@ -1,4 +1,4 @@
-import { Glow, GlowArea } from '@/components/glow/glow';
+import { Glow, GlowArea } from '@/components/common/glow/glow';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Search, ShieldCheck } from 'lucide-react';
 
