@@ -89,10 +89,11 @@ export const Navbar = () => {
             variant="ghost"
             className="hidden md:inline-block text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-primary-light"
           >
-            Login / Register
+            <Link href={PATHS.SIGNUP.ROOT}>Login / Register</Link>
           </Button>
+
           <Button variant="default" className="hidden md:inline-block">
-            Businesses
+            <Link href={PATHS.BUSINESSES.ROOT}>Businesses</Link>
           </Button>
 
           <ThemeToggleButton />

@@ -8,6 +8,9 @@ export const PATHS = {
   LOGIN: {
     ROOT: '/login',
   },
+  BUSINESSES: {
+    ROOT: '/businesses',
+  },
   BLOG: {
     ROOT: '/blog',
   },

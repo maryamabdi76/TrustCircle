@@ -32,7 +32,7 @@ export default async function RootLayout({
   return (
     <html lang={locale}>
       <body
-        className={`${vazirFontRegular.variable} ${vazirFontBold.variable} antialiased bg-gray-50 text-gray-800`}
+        className={`${vazirFontRegular.variable} ${vazirFontBold.variable} antialiased bg-gray-50 text-gray-800 dark:bg-gray-900 dark:text-gray-50`}
       >
         <NextIntlClientProvider messages={messages}>
           <ThemeProvider attribute="class" defaultTheme="system">
