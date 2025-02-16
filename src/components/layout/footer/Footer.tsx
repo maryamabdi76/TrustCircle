@@ -1,53 +1,58 @@
+'use client';
+
 import Link from 'next/link';
 import { Facebook, Twitter, Instagram, Linkedin } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 
 export const Footer = () => {
+  const t = useTranslations('Footer');
+
   return (
-    <footer className="bg-muted py-12 dark:bg-gray-900">
-      <div className="container mx-auto px-4">
+    <footer className="bg-background border-t">
+      <div className="container mx-auto px-4 py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* About Section */}
           <div>
-            <h3 className="font-semibold mb-4 dark:text-white">TrustCircle</h3>
-            <p className="text-sm text-muted-foreground dark:text-gray-400">
-              Building trust in online shopping, one review at a time.
-            </p>
+            <h3 className="font-semibold mb-4 text-foreground">{t('title')}</h3>
+            <p className="text-sm text-muted-foreground">{t('description')}</p>
           </div>
 
           {/* Quick Links Section */}
           <div>
-            <h4 className="font-semibold mb-4 dark:text-white">Quick Links</h4>
+            <h4 className="font-semibold mb-4 text-foreground">
+              {t('quickLinks')}
+            </h4>
             <ul className="space-y-2 text-sm">
               <li>
                 <Link
                   href="/about"
-                  className="text-muted-foreground hover:text-primary dark:text-gray-400 dark:hover:text-white"
+                  className="text-muted-foreground hover:text-primary transition-colors"
                 >
-                  About Us
+                  {t('aboutUs')}
                 </Link>
               </li>
               <li>
                 <Link
                   href="/how-it-works"
-                  className="text-muted-foreground hover:text-primary dark:text-gray-400 dark:hover:text-white"
+                  className="text-muted-foreground hover:text-primary transition-colors"
                 >
-                  How It Works
+                  {t('howItWorks')}
                 </Link>
               </li>
               <li>
                 <Link
                   href="/reviews"
-                  className="text-muted-foreground hover:text-primary dark:text-gray-400 dark:hover:text-white"
+                  className="text-muted-foreground hover:text-primary transition-colors"
                 >
-                  Reviews
+                  {t('reviews')}
                 </Link>
               </li>
               <li>
                 <Link
                   href="/contact"
-                  className="text-muted-foreground hover:text-primary dark:text-gray-400 dark:hover:text-white"
+                  className="text-muted-foreground hover:text-primary transition-colors"
                 >
-                  Contact Us
+                  {t('contactUs')}
                 </Link>
               </li>
             </ul>
@@ -55,30 +60,30 @@ export const Footer = () => {
 
           {/* Legal Section */}
           <div>
-            <h4 className="font-semibold mb-4 dark:text-white">Legal</h4>
+            <h4 className="font-semibold mb-4 text-foreground">{t('legal')}</h4>
             <ul className="space-y-2 text-sm">
               <li>
                 <Link
                   href="/terms"
-                  className="text-muted-foreground hover:text-primary dark:text-gray-400 dark:hover:text-white"
+                  className="text-muted-foreground hover:text-primary transition-colors"
                 >
-                  Terms of Service
+                  {t('termsOfService')}
                 </Link>
               </li>
               <li>
                 <Link
                   href="/privacy"
-                  className="text-muted-foreground hover:text-primary dark:text-gray-400 dark:hover:text-white"
+                  className="text-muted-foreground hover:text-primary transition-colors"
                 >
-                  Privacy Policy
+                  {t('privacyPolicy')}
                 </Link>
               </li>
               <li>
                 <Link
                   href="/cookies"
-                  className="text-muted-foreground hover:text-primary dark:text-gray-400 dark:hover:text-white"
+                  className="text-muted-foreground hover:text-primary transition-colors"
                 >
-                  Cookie Policy
+                  {t('cookiePolicy')}
                 </Link>
               </li>
             </ul>
@@ -86,29 +91,31 @@ export const Footer = () => {
 
           {/* Social Media Section */}
           <div>
-            <h4 className="font-semibold mb-4 dark:text-white">Follow Us</h4>
+            <h4 className="font-semibold mb-4 text-foreground">
+              {t('followUs')}
+            </h4>
             <div className="flex space-x-4">
               <Link
                 href="#"
-                className="text-muted-foreground hover:text-primary dark:text-gray-400 dark:hover:text-white"
+                className="text-muted-foreground hover:text-primary transition-colors"
               >
                 <Facebook className="h-6 w-6" />
               </Link>
               <Link
                 href="#"
-                className="text-muted-foreground hover:text-primary dark:text-gray-400 dark:hover:text-white"
+                className="text-muted-foreground hover:text-primary transition-colors"
               >
                 <Twitter className="h-6 w-6" />
               </Link>
               <Link
                 href="#"
-                className="text-muted-foreground hover:text-primary dark:text-gray-400 dark:hover:text-white"
+                className="text-muted-foreground hover:text-primary transition-colors"
               >
                 <Instagram className="h-6 w-6" />
               </Link>
               <Link
                 href="#"
-                className="text-muted-foreground hover:text-primary dark:text-gray-400 dark:hover:text-white"
+                className="text-muted-foreground hover:text-primary transition-colors"
               >
                 <Linkedin className="h-6 w-6" />
               </Link>
@@ -117,10 +124,8 @@ export const Footer = () => {
         </div>
 
         {/* Copyright Section */}
-        <div className="mt-8 pt-8 border-t text-center text-sm text-muted-foreground dark:text-gray-400 dark:border-gray-800">
-          <p>
-            &copy; {new Date().getFullYear()} TrustCircle. All rights reserved.
-          </p>
+        <div className="mt-8 pt-8 border-t text-center text-sm text-muted-foreground">
+          <p>{t('copyright', { year: new Date().getFullYear() })}</p>
         </div>
       </div>
     </footer>

@@ -11,6 +11,21 @@
     "loginRegister": "ورود / ثبت‌نام",
     "businesses": "کسب‌وکارها"
   },
+  "Footer": {
+    "title": "TrustCircle",
+    "description": "ایجاد اعتماد در خرید آنلاین، یک نظر در هر زمان.",
+    "quickLinks": "لینک‌های سریع",
+    "aboutUs": "درباره ما",
+    "howItWorks": "نحوه کار",
+    "reviews": "نظرات",
+    "contactUs": "تماس با ما",
+    "legal": "قانونی",
+    "termsOfService": "شرایط استفاده از خدمات",
+    "privacyPolicy": "سیاست حفظ حریم خصوصی",
+    "cookiePolicy": "سیاست کوکی",
+    "followUs": "ما را دنبال کنید",
+    "copyright": "© {year} TrustCircle تمامی حقوق محفوظ است."
+  },
   "LandingPage": {
     "hero": {
       "title": "ایجاد اعتماد با نظرات معتبر فروشگاه‌ها",

@@ -11,6 +11,21 @@
     "loginRegister": "Login / Register",
     "businesses": "Businesses"
   },
+  "Footer": {
+    "title": "TrustCircle",
+    "description": "Building trust in online shopping, one review at a time.",
+    "quickLinks": "Quick Links",
+    "aboutUs": "About Us",
+    "howItWorks": "How It Works",
+    "reviews": "Reviews",
+    "contactUs": "Contact Us",
+    "legal": "Legal",
+    "termsOfService": "Terms of Service",
+    "privacyPolicy": "Privacy Policy",
+    "cookiePolicy": "Cookie Policy",
+    "followUs": "Follow Us",
+    "copyright": "© {year} TrustCircle. All rights reserved."
+  },
   "LandingPage": {
     "hero": {
       "title": "Build Trust with Authentic Shop Reviews",
