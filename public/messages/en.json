@@ -114,6 +114,27 @@
       "button": "Subscribe"
     }
   },
+  "Business": {
+    "businesses": "Businesses",
+    "filterBusinesses": "Filter Businesses",
+    "businessName": "Business Name",
+    "searchByName": "Search by name",
+    "category": "Category",
+    "selectCategory": "Select category",
+    "categories": {
+      "technology": "Technology",
+      "food": "Food",
+      "retail": "Retail",
+      "health": "Health & Wellness",
+      "education": "Education"
+    },
+    "websiteOrInstagram": "Website or Instagram",
+    "websiteOrInstagramPlaceholder": "website.com or @username",
+    "minimumRating": "Minimum Rating",
+    "selectMinimumRating": "Select minimum rating",
+    "viewDetails": "View Details",
+    "addReview": "Add Review"
+  },
   "SignUpPage": {
     "title": "Sign Up"
   }

@@ -114,6 +114,27 @@
       "button": "مشترک شوید"
     }
   },
+  "Business": {
+    "businesses": "کسب‌وکارها",
+    "filterBusinesses": "فیلتر کسب‌وکارها",
+    "businessName": "نام کسب‌وکار",
+    "searchByName": "جستجو بر اساس نام",
+    "category": "دسته‌بندی",
+    "selectCategory": "انتخاب دسته‌بندی",
+    "categories": {
+      "technology": "تکنولوژی",
+      "food": "غذا",
+      "retail": "خرده‌فروشی",
+      "health": "سلامت و تندرستی",
+      "education": "آموزش"
+    },
+    "websiteOrInstagram": "وبسایت یا اینستاگرام",
+    "websiteOrInstagramPlaceholder": "website.com یا @username",
+    "minimumRating": "حداقل امتیاز",
+    "selectMinimumRating": "انتخاب حداقل امتیاز",
+    "viewDetails": "مشاهده جزئیات",
+    "addReview": "افزودن نظر"
+  },
   "SignUpPage": {
     "title": "ثبت‌نام",
     "full-name": "نام و نام خانوادگی",
