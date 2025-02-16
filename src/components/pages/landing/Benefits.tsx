@@ -14,16 +14,16 @@ export const Benefits = () => {
         </h2>
         <GlowArea>
           <div className="grid md:grid-cols-2 gap-8">
-            <Glow color="red" className="rounded-xl">
+            <Glow color="purple" className="rounded-xl">
               <Card className="bg-card shadow-md h-full">
                 <CardHeader>
-                  <CardTitle className="flex items-center">
-                    <Search className="mr-2" />{' '}
+                  <CardTitle className="flex items-center gap-2">
+                    <Search className="text-purple-700" />
                     {t('benefits.forShoppers.title')}
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <ul className="list-disc pl-5 space-y-2 text-muted-foreground">
+                  <ul className="list-disc px-5 space-y-2 text-muted-foreground">
                     <li>{t('benefits.forShoppers.items.0')}</li>
                     <li>{t('benefits.forShoppers.items.1')}</li>
                     <li>{t('benefits.forShoppers.items.2')}</li>
@@ -31,16 +31,16 @@ export const Benefits = () => {
                 </CardContent>
               </Card>
             </Glow>
-            <Glow color="blue" className="rounded-xl">
+            <Glow color="green" className="rounded-xl">
               <Card className="bg-card shadow-md h-full">
                 <CardHeader>
-                  <CardTitle className="flex items-center">
-                    <ShieldCheck className="mr-2" />{' '}
+                  <CardTitle className="flex items-center gap-2">
+                    <ShieldCheck className="text-green-700" />
                     {t('benefits.forShopOwners.title')}
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <ul className="list-disc pl-5 space-y-2 text-muted-foreground">
+                  <ul className="list-disc px-5 space-y-2 text-muted-foreground">
                     <li>{t('benefits.forShopOwners.items.0')}</li>
                     <li>{t('benefits.forShopOwners.items.1')}</li>
                     <li>{t('benefits.forShopOwners.items.2')}</li>

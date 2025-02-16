@@ -13,10 +13,26 @@ export const Features = () => {
   const t = useTranslations('LandingPage');
 
   const features = [
-    'authenticReviews',
-    'shopRatings',
-    'communityFeedback',
-    'enhanceShopping',
+    {
+      id: 'authenticReviews',
+      color: 'yellow',
+      iconColor: 'text-yellow-400',
+    },
+    {
+      id: 'shopRatings',
+      color: 'blue',
+      iconColor: 'text-blue-400',
+    },
+    {
+      id: 'communityFeedback',
+      color: 'green',
+      iconColor: 'text-green-400',
+    },
+    {
+      id: 'enhanceShopping',
+      color: 'purple',
+      iconColor: 'text-purple-400',
+    },
   ];
 
   return (
@@ -28,18 +44,20 @@ export const Features = () => {
         <GlowArea>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {features.map((feature) => {
-              const Icon = featureIcons[feature as keyof typeof featureIcons];
+              const Icon =
+                featureIcons[feature.id as keyof typeof featureIcons];
               return (
                 <Glow
-                  key={feature}
+                  key={feature.id}
+                  color={feature.color}
                   className="flex flex-col items-center text-center p-6 bg-card rounded-xl shadow-lg transition-all duration-300 hover:shadow-xl"
                 >
-                  <Icon className="h-12 w-12 mb-4 text-primary" />
+                  <Icon className={`h-12 w-12 mb-4 ${feature.iconColor}`} />
                   <h3 className="text-xl font-semibold mb-2">
-                    {t(`features.${feature}.title`)}
+                    {t(`features.${feature.id}.title`)}
                   </h3>
                   <p className="text-muted-foreground">
-                    {t(`features.${feature}.description`)}
+                    {t(`features.${feature.id}.description`)}
                   </p>
                 </Glow>
               );

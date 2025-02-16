@@ -12,7 +12,7 @@ interface GlowAreaProps extends ComponentPropsWithoutRef<'div'> {
 }
 
 export const GlowArea = (props: GlowAreaProps) => {
-  const { className = '', size = 300, ...rest } = props;
+  const { className = '', size = 200, ...rest } = props;
   const element = useRef<HTMLDivElement>(null);
   const frameId = useRef<number | null>(null);
   const latestCoords = useRef<{ x: number; y: number } | null>(null);
