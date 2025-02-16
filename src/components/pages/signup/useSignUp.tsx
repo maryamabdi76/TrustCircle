@@ -1,5 +1,4 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
@@ -19,8 +18,6 @@ const mobileSchema = z.object({
 });
 
 export const useSignUp = () => {
-  const t = useTranslations('SignUpPage');
-
   const [activeTab, setActiveTab] = useState<'email' | 'mobile'>('email');
   const [isOtpSent, setIsOtpSent] = useState(false);
 

@@ -48,13 +48,13 @@ export const Testimonials = () => {
         <Card className="bg-white dark:bg-gray-800 shadow-lg rounded-xl">
           <CardContent className="p-8 text-center">
             <blockquote className="text-xl italic text-gray-800 dark:text-gray-200 mb-4">
-              "{testimonials[currentIndex].content}"
+              {testimonials[currentIndex] && testimonials[currentIndex].content}
             </blockquote>
             <p className="font-semibold text-gray-900 dark:text-white">
-              {testimonials[currentIndex].name}
+              {testimonials[currentIndex] && testimonials[currentIndex].name}
             </p>
             <p className="text-gray-600 dark:text-gray-400">
-              {testimonials[currentIndex].role}
+              {testimonials[currentIndex] && testimonials[currentIndex].role}
             </p>
           </CardContent>
         </Card>

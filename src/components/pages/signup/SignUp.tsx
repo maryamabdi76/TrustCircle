@@ -1,12 +1,9 @@
 'use client';
 
-import { useTranslations } from 'next-intl';
-import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -16,7 +13,6 @@ import { Input } from '@/components/ui/input';
 import {
   InputOTP,
   InputOTPGroup,
-  InputOTPSeparator,
   InputOTPSlot,
 } from '@/components/ui/input-otp';
 import { useSignUp } from './useSignUp';
@@ -24,7 +20,6 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { ChromeIcon } from 'lucide-react';
 
 export const SignUp = () => {
-  const t = useTranslations('SignUpPage');
   const {
     activeTab,
     emailForm,
@@ -131,7 +126,7 @@ export const SignUp = () => {
                   <FormField
                     control={mobileForm.control}
                     name="otp"
-                    render={({ field }) => (
+                    render={() => (
                       <FormItem>
                         <FormLabel>OTP</FormLabel>
                         <FormControl>
