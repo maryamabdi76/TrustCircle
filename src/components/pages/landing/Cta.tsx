@@ -1,18 +1,23 @@
 import { Button } from '@/components/ui/button';
+import { useTranslations } from 'next-intl';
 
 export const CTA = () => {
+  const t = useTranslations('LandingPage');
+
   return (
-    <section className="bg-muted dark:bg-gray-800 text-gray-900 dark:text-white py-12 md:py-24">
-      <div className="max-w-3xl mx-auto text-center px-6">
-        <h2 className="text-3xl md:text-4xl font-bold mb-4">
-          Ready to Join TrustCircle?
-        </h2>
-        <p className="text-lg md:text-xl mb-8 text-gray-900 dark:text-white">
-          Start reviewing and discovering trustworthy shops today!
-        </p>
-        <Button size="lg" className="px-8 py-3 text-lg">
-          Join TrustCircle
-        </Button>
+    <section className="bg-primary text-primary-foreground py-20 sm:py-32">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-3xl mx-auto text-center">
+          <h2 className="text-3xl sm:text-4xl font-bold mb-4">
+            {t('cta.title')}
+          </h2>
+          <p className="text-lg sm:text-xl mb-8 text-primary-foreground/80">
+            {t('cta.subtitle')}
+          </p>
+          <Button size="lg" variant="secondary" className="px-8 py-3 text-lg">
+            {t('cta.button')}
+          </Button>
+        </div>
       </div>
     </section>
   );

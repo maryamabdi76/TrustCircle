@@ -10,16 +10,14 @@ import {
 
 export default function LandingPage() {
   return (
-    <div className="flex flex-col min-h-screen">
-      <main>
-        <Hero />
-        <Features />
-        <Testimonials />
-        <CTA />
-        <Benefits />
-        <Statistics />
-        <Newsletter />
-      </main>
+    <div className="flex flex-col min-h-screen bg-background text-foreground">
+      <Hero />
+      <Features />
+      <Testimonials />
+      <CTA />
+      <Benefits />
+      <Statistics />
+      <Newsletter />
     </div>
   );
 }

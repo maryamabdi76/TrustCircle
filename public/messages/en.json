@@ -1,5 +1,105 @@
 {
-    "SignUpPage":{
-        "title":"Sign Up"
+  "Navbar": {
+    "logoAlt": "TrustCircle Logo",
+    "title": "TrustCircle",
+    "writeReview": "Write a Review",
+    "categories": "Categories",
+    "categoryTech": "Tech",
+    "categoryFashion": "Fashion",
+    "categoryHome": "Home",
+    "blog": "Blog",
+    "loginRegister": "Login / Register",
+    "businesses": "Businesses"
+  },
+  "LandingPage": {
+    "hero": {
+      "title": "Build Trust with Authentic Shop Reviews",
+      "subtitle": "TrustCircle empowers shoppers with genuine reviews and helps businesses build credibility.",
+      "cta": "Get Started"
+    },
+    "features": {
+      "title": "Key Features",
+      "authenticReviews": {
+        "title": "Authentic Reviews",
+        "description": "Real feedback from verified customers"
+      },
+      "shopRatings": {
+        "title": "Shop Ratings",
+        "description": "Comprehensive ratings for informed decisions"
+      },
+      "communityFeedback": {
+        "title": "Community Feedback",
+        "description": "Engage with a community of shoppers"
+      },
+      "enhanceShopping": {
+        "title": "Enhance Shopping Experience",
+        "description": "Make better choices with trusted insights"
+      }
+    },
+    "testimonials": {
+      "title": "What Our Users Say",
+      "alice": {
+        "name": "Alice Johnson",
+        "role": "Frequent Shopper",
+        "content": "TrustCircle has completely changed how I shop. I feel more confident in my purchases knowing I can rely on genuine reviews."
+      },
+      "bob": {
+        "name": "Bob Smith",
+        "role": "Shop Owner",
+        "content": "As a business owner, TrustCircle has helped me build trust with my customers. The authentic reviews have boosted my sales significantly."
+      },
+      "carol": {
+        "name": "Carol Davis",
+        "role": "First-time User",
+        "content": "I was skeptical at first, but TrustCircle's community feedback helped me find a great local shop I wouldn't have discovered otherwise."
+      }
+    },
+    "cta": {
+      "title": "Ready to Join TrustCircle?",
+      "subtitle": "Start reviewing and discovering trustworthy shops today!",
+      "button": "Join TrustCircle"
+    },
+    "benefits": {
+      "title": "Benefits for Everyone",
+      "forShoppers": {
+        "title": "For Shoppers",
+        "items": [
+          "Find trustworthy stores easily",
+          "Make informed decisions based on real experiences",
+          "Discover new shops with confidence"
+        ]
+      },
+      "forShopOwners": {
+        "title": "For Shop Owners",
+        "items": [
+          "Build customer trust through authentic reviews",
+          "Improve your services based on genuine feedback",
+          "Increase visibility among potential customers"
+        ]
+      }
+    },
+    "statistics": {
+      "reviews": {
+        "number": "100K+",
+        "label": "Verified Reviews"
+      },
+      "shops": {
+        "number": "10K+",
+        "label": "Trusted Shops"
+      },
+      "users": {
+        "number": "50K+",
+        "label": "Active Users"
+      }
+    },
+    "newsletter": {
+      "title": "Stay Updated",
+      "subtitle": "Subscribe to our newsletter for the latest features and announcements.",
+      "placeholder": "Enter your email",
+      "button": "Subscribe"
     }
+  },
+  "SignUpPage": {
+    "title": "Sign Up"
+  }
 }

@@ -8,8 +8,11 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { PATHS } from '@/constants/PATHS';
 import Link from 'next/link';
+import { useTranslations } from 'next-intl';
 
 export const MobileMenu = () => {
+  const t = useTranslations('Navbar');
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -32,16 +35,16 @@ export const MobileMenu = () => {
       </DropdownMenuTrigger>
       <DropdownMenuContent>
         <DropdownMenuItem>
-          <Link href={PATHS.REVIEW.WRITE}>Write a Review</Link>
+          <Link href={PATHS.REVIEW.WRITE}>{t('writeReview')}</Link>
         </DropdownMenuItem>
         <DropdownMenuItem>
-          <Link href={PATHS.BLOG.ROOT}>Blog</Link>
+          <Link href={PATHS.BLOG.ROOT}>{t('blog')}</Link>
         </DropdownMenuItem>
         <DropdownMenuItem>
-          <Link href={PATHS.SIGNUP.ROOT}>Login / Register</Link>
+          <Link href={PATHS.SIGNUP.ROOT}>{t('loginRegister')}</Link>
         </DropdownMenuItem>
         <DropdownMenuItem>
-          <Link href="/business">Businesses</Link>
+          <Link href="/business">{t('businesses')}</Link>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
