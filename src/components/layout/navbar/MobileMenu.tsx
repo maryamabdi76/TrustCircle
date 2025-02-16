@@ -44,7 +44,7 @@ export const MobileMenu = () => {
           <Link href={PATHS.SIGNUP.ROOT}>{t('loginRegister')}</Link>
         </DropdownMenuItem>
         <DropdownMenuItem>
-          <Link href="/business">{t('businesses')}</Link>
+          <Link href={PATHS.BUSINESSES.ROOT}>{t('businesses')}</Link>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
