@@ -15,6 +15,7 @@ export const ThemeToggleButton = () => {
 
   return (
     <Button
+      className="cursor-pointer px-2"
       variant="outline"
       onClick={() => (theme === 'dark' ? setTheme('light') : setTheme('dark'))}
     >

@@ -41,10 +41,10 @@ export const MobileMenu = () => {
           <Link href={PATHS.BLOG.ROOT}>{t('blog')}</Link>
         </DropdownMenuItem>
         <DropdownMenuItem>
-          <Link href={PATHS.SIGNUP.ROOT}>{t('loginRegister')}</Link>
+          <Link href={PATHS.BUSINESSES.ROOT}>{t('businesses')}</Link>
         </DropdownMenuItem>
         <DropdownMenuItem>
-          <Link href={PATHS.BUSINESSES.ROOT}>{t('businesses')}</Link>
+          <Link href={PATHS.SIGNUP.ROOT}>{t('loginRegister')}</Link>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

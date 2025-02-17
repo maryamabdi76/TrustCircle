@@ -1,7 +1,7 @@
 import { Button } from '@/components/ui/button';
 import { useTranslations } from 'next-intl';
 
-export const CTA = () => {
+export const Cta = () => {
   const t = useTranslations('LandingPage');
 
   return (

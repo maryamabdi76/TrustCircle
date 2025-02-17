@@ -18,7 +18,7 @@ export const LanguageToggleButton = () => {
     <Button
       variant="outline"
       onClick={toggleLanguage}
-      className="relative flex items-center gap-2"
+      className="cursor-pointer relative flex items-center gap-2 px-2"
     >
       <motion.svg
         width="512.000000pt"
@@ -79,7 +79,7 @@ c-120 65 -249 152 -367 250 -103 84 -192 170 -184 178 14 13 403 160 439 165
           />
         </g>
       </motion.svg>
-      <span>{locale === 'en' ? 'EN' : 'FA'}</span>
+      <span className="text-xs">{locale === 'en' ? 'EN' : 'FA'}</span>
     </Button>
   );
 };

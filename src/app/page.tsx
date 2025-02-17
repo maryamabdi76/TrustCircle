@@ -2,7 +2,7 @@ import {
   Hero,
   Features,
   Testimonials,
-  CTA,
+  Cta,
   Benefits,
   Statistics,
   Newsletter,
@@ -14,7 +14,7 @@ export default function LandingPage() {
       <Hero />
       <Features />
       <Testimonials />
-      <CTA />
+      <Cta />
       <Benefits />
       <Statistics />
       <Newsletter />
