@@ -1,20 +1,21 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { reviews } from '@/data/reviews';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
 
 export async function POST(
-  request: Request,
-  { params }: { params: { id: string } }
+  request: NextRequest,
+  context: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await context.params;
     const session = await getServerSession(authOptions);
 
     if (!session) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const review = reviews.find((r) => r.id === params.id);
+    const review = reviews.find((r) => r.id === id);
 
     if (!review) {
       return NextResponse.json({ error: 'Review not found' }, { status: 404 });

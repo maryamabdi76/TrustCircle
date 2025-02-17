@@ -1,12 +1,14 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { businesses } from '@/data/businesses';
 
 export async function GET(
-  request: Request,
-  { params }: { params: { id: string } }
+  request: NextRequest,
+  context: { params: Promise<{ id: string }> }
 ) {
   try {
-    const business = businesses.find((b) => b.id === params.id);
+    const { id } = await context.params;
+
+    const business = businesses.find((b) => b.id === id);
 
     if (!business) {
       return NextResponse.json(
@@ -17,7 +19,7 @@ export async function GET(
 
     return NextResponse.json(business);
   } catch (error) {
-    console.log('🚀 ~ error:', error);
+    console.error('🚀 ~ error:', error);
     return NextResponse.json(
       { error: 'Failed to fetch business' },
       { status: 500 }

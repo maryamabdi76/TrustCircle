@@ -16,7 +16,7 @@ export interface IBusiness {
   tags?: string[];
   tagsFA?: string[];
   reviewCount?: number;
-  ratingDistribution?: {
+  ratingDistribution: {
     [key: number]: number;
   };
   openingHours?: string;

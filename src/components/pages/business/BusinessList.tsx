@@ -21,9 +21,11 @@ export default function BusinessList({ className }: { className?: string }) {
     <div className={`grid grid-cols-1 md:grid-cols-2 gap-6 ${className}`}>
       {loading ? (
         <p>Loading...</p>
+      ) : businesses.length === 0 ? (
+        <p>No Businesses exist</p>
       ) : (
-        businesses.map((business) => (
-          <BusinessCard key={business.id} business={business} />
+        businesses.map((business, index) => (
+          <BusinessCard key={index} business={business} />
         ))
       )}
     </div>

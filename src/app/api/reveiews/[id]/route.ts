@@ -1,4 +1,4 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 import { reviews } from '@/data/reviews';
 import { getServerSession } from 'next-auth';
@@ -11,11 +11,13 @@ const reviewUpdateSchema = z.object({
 });
 
 export async function GET(
-  request: Request,
-  { params }: { params: { id: string } }
+  request: NextRequest,
+  context: { params: Promise<{ id: string }> }
 ) {
   try {
-    const review = reviews.find((r) => r.id === params.id);
+    const { id } = await context.params;
+    // Await the params if necessary, here assuming `params` is available directly
+    const review = reviews.find((r) => r.id === id);
 
     if (!review) {
       return NextResponse.json({ error: 'Review not found' }, { status: 404 });
@@ -32,17 +34,18 @@ export async function GET(
 }
 
 export async function PATCH(
-  request: Request,
-  { params }: { params: { id: string } }
+  request: NextRequest,
+  context: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await context.params;
     const session = await getServerSession(authOptions);
 
     if (!session) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const review = reviews.find((r) => r.id === params.id);
+    const review = reviews.find((r) => r.id === id);
 
     if (!review) {
       return NextResponse.json({ error: 'Review not found' }, { status: 404 });
@@ -77,17 +80,18 @@ export async function PATCH(
 }
 
 export async function DELETE(
-  request: Request,
-  { params }: { params: { id: string } }
+  request: NextRequest,
+  context: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await context.params;
     const session = await getServerSession(authOptions);
 
     if (!session) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const reviewIndex = reviews.findIndex((r) => r.id === params.id);
+    const reviewIndex = reviews.findIndex((r) => r.id === id);
 
     if (reviewIndex === -1) {
       return NextResponse.json({ error: 'Review not found' }, { status: 404 });
