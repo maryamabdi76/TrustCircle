@@ -1,3 +1,4 @@
+import { SpeedInsights } from '@vercel/speed-insights/next';
 import type React from 'react';
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
@@ -63,6 +64,7 @@ export default async function RootLayout({
             </div>
           </ThemeProvider>
         </NextIntlClientProvider>
+        <SpeedInsights />
       </body>
     </html>
   );
