@@ -48,7 +48,7 @@ export default function BusinessCard({ business }: { business: IBusiness }) {
           <h3 className="text-lg font-semibold truncate">{business.name}</h3>
           <div className="flex items-center space-x-2">
             <Badge variant="secondary" className="text-xs">
-              {business.category}
+              {business.categoryFA}
             </Badge>
           </div>
         </div>

@@ -114,6 +114,14 @@
       "button": "Subscribe"
     }
   },
+  "Auth": {
+    "signIn": "Sign In",
+    "signOut": "Sign Out",
+    "email": "Email",
+    "password": "Password",
+    "invalidCredentials": "Invalid email or password",
+    "unauthorized": "You must be signed in to perform this action"
+  },
   "Business": {
     "businesses": "Businesses",
     "filterBusinesses": "Filter Businesses",
@@ -133,7 +141,34 @@
     "minimumRating": "Minimum Rating",
     "selectMinimumRating": "Select minimum rating",
     "viewDetails": "View Details",
-    "addReview": "Add Review"
+    "addReview": "Add Review",
+    "error": "Error",
+    "errorFetchingBusinesses": "Failed to fetch businesses",
+    "errorFetchingBusiness": "Failed to fetch business details"
+  },
+  "BusinessDetail": {
+    "basedOn": "Based on {count} reviews",
+    "writeReview": "Write a Review",
+    "visitWebsite": "Visit Website",
+    "followOnInstagram": "Follow on Instagram",
+    "reviews": "Reviews",
+    "about": "About",
+    "ratingDistribution": "Rating Distribution",
+    "aboutBusiness": "About the Business",
+    "businessInformation": "Business Information",
+    "location": "Location",
+    "category": "Category",
+    "openingHours": "Opening Hours",
+    "sortBy": "Sort by",
+    "sortOptions": {
+      "mostRecent": "Most Recent",
+      "highestRated": "Highest Rated",
+      "lowestRated": "Lowest Rated"
+    },
+    "verifiedPurchase": "Verified Purchase",
+    "helpful": "Helpful",
+    "report": "Report",
+    "businessNotFound": "Business not found"
   },
   "SignUpPage": {
     "title": "Sign Up"

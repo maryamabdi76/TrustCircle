@@ -114,6 +114,14 @@
       "button": "مشترک شوید"
     }
   },
+  "Auth": {
+    "signIn": "ورود",
+    "signOut": "خروج",
+    "email": "ایمیل",
+    "password": "رمز عبور",
+    "invalidCredentials": "ایمیل یا رمز عبور نامعتبر است",
+    "unauthorized": "برای انجام این عمل باید وارد شوید"
+  },
   "Business": {
     "businesses": "کسب‌وکارها",
     "filterBusinesses": "فیلتر کسب‌وکارها",
@@ -133,7 +141,34 @@
     "minimumRating": "حداقل امتیاز",
     "selectMinimumRating": "انتخاب حداقل امتیاز",
     "viewDetails": "مشاهده جزئیات",
-    "addReview": "افزودن نظر"
+    "addReview": "افزودن نظر",
+    "error": "خطا",
+    "errorFetchingBusinesses": "خطا در دریافت لیست کسب‌وکارها",
+    "errorFetchingBusiness": "خطا در دریافت جزئیات کسب‌وکار"
+  },
+  "BusinessDetail": {
+    "basedOn": "بر اساس {count} نظر",
+    "writeReview": "ثبت نظر",
+    "visitWebsite": "مشاهده وبسایت",
+    "followOnInstagram": "دنبال کردن در اینستاگرام",
+    "reviews": "نظرات",
+    "about": "درباره",
+    "ratingDistribution": "توزیع امتیازها",
+    "aboutBusiness": "درباره کسب‌وکار",
+    "businessInformation": "اطلاعات کسب‌وکار",
+    "location": "موقعیت",
+    "category": "دسته‌بندی",
+    "openingHours": "ساعات کاری",
+    "sortBy": "مرتب‌سازی بر اساس",
+    "sortOptions": {
+      "mostRecent": "جدیدترین",
+      "highestRated": "بیشترین امتیاز",
+      "lowestRated": "کمترین امتیاز"
+    },
+    "verifiedPurchase": "خرید تایید شده",
+    "helpful": "مفید بود",
+    "report": "گزارش",
+    "businessNotFound": "کسب‌وکار یافت نشد"
   },
   "SignUpPage": {
     "title": "ثبت‌نام",
