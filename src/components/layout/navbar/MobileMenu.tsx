@@ -35,12 +35,6 @@ export const MobileMenu = () => {
       </DropdownMenuTrigger>
       <DropdownMenuContent>
         <DropdownMenuItem>
-          <Link href={PATHS.REVIEW.WRITE}>{t('writeReview')}</Link>
-        </DropdownMenuItem>
-        <DropdownMenuItem>
-          <Link href={PATHS.BLOG.ROOT}>{t('blog')}</Link>
-        </DropdownMenuItem>
-        <DropdownMenuItem>
           <Link href={PATHS.BUSINESSES.ROOT}>{t('businesses')}</Link>
         </DropdownMenuItem>
         <DropdownMenuItem>
