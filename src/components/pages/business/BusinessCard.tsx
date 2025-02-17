@@ -42,10 +42,10 @@ export default function BusinessCard({ business }: { business: IBusiness }) {
   const t = useTranslations('Business');
 
   return (
-    <Card className="flex flex-col h-full overflow-hidden hover:shadow-md transition-shadow duration-300">
+    <Card className="flex flex-col overflow-hidden hover:shadow-md transition-shadow duration-300">
       <CardContent className="flex-grow p-4">
         <div className="flex items-center justify-between mb-2">
-          <h3 className="text-lg font-semibold truncate">{business.name}</h3>
+          <h3 className="text-lg font-semibold truncate">{business.nameFA}</h3>
           <div className="flex items-center space-x-2">
             <Badge variant="secondary" className="text-xs">
               {business.categoryFA}

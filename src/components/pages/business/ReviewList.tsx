@@ -82,11 +82,11 @@ export function ReviewList({ businessId }: ReviewListProps) {
                   )}
                 </div>
                 <div className="flex items-center gap-2">
-                  <Button variant="ghost" size="sm">
+                  <Button variant="outline" size="sm">
                     <ThumbsUp className="w-4 h-4 mr-1" />
                     {t('helpful')}
                   </Button>
-                  <Button variant="ghost" size="sm">
+                  <Button variant="outline" size="sm">
                     <Flag className="w-4 h-4 mr-1" />
                     {t('report')}
                   </Button>
