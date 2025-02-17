@@ -1,7 +1,5 @@
 'use client';
 
-import type React from 'react';
-
 import { useState } from 'react';
 import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
@@ -21,8 +19,7 @@ import {
 import { ChromeIcon } from 'lucide-react';
 import { PATHS } from '@/constants/PATHS';
 
-export default function SignUp() {
-  const [name, setName] = useState('');
+export default function SignIn() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const router = useRouter();
@@ -30,9 +27,6 @@ export default function SignUp() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // In a real application, you would send this data to your API to create a new user
-    console.log('Sign up data:', { name, email, password });
-    // For now, we'll just sign in the user after "creating" the account
     const result = await signIn('credentials', {
       redirect: false,
       email,
@@ -50,20 +44,11 @@ export default function SignUp() {
     <div className="flex items-center justify-center min-h-screen bg-background">
       <Card className="w-[350px]">
         <CardHeader>
-          <CardTitle>{t('signUp')}</CardTitle>
-          <CardDescription>{t('signUpDescription')}</CardDescription>
+          <CardTitle>{t('signIn')}</CardTitle>
+          <CardDescription>{t('signInDescription')}</CardDescription>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-4">
-            <div className="space-y-2">
-              <Label htmlFor="name">{t('name')}</Label>
-              <Input
-                id="name"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                required
-              />
-            </div>
             <div className="space-y-2">
               <Label htmlFor="email">{t('email')}</Label>
               <Input
@@ -85,17 +70,23 @@ export default function SignUp() {
               />
             </div>
             <Button type="submit" className="w-full">
-              {t('signUp')}
+              {t('signIn')}
             </Button>
           </form>
         </CardContent>
         <CardFooter className="flex flex-col space-y-4">
-          <div className="flex justify-center w-full text-sm">
+          <div className="flex justify-between w-full text-sm">
             <Link
-              href={PATHS.SIGNIN.ROOT}
+              href={PATHS.FORGOT_PASSWORD.ROOT}
               className="text-primary hover:underline"
             >
-              {t('alreadyHaveAccount')}
+              {t('forgotPassword')}
+            </Link>
+            <Link
+              href={PATHS.SIGNUP.ROOT}
+              className="text-primary hover:underline"
+            >
+              {t('noAccount')}
             </Link>
           </div>
           <div className="relative w-full">
@@ -114,7 +105,7 @@ export default function SignUp() {
             onClick={() => signIn('google')}
           >
             <ChromeIcon className="mr-2" />
-            {t('signUpWithGoogle')}
+            {t('signInWithGoogle')}
           </Button>
         </CardFooter>
       </Card>

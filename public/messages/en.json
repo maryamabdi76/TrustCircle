@@ -116,11 +116,21 @@
   },
   "Auth": {
     "signIn": "Sign In",
+    "signUp": "Sign Up",
     "signOut": "Sign Out",
     "email": "Email",
     "password": "Password",
+    "name": "Name",
     "invalidCredentials": "Invalid email or password",
-    "unauthorized": "You must be signed in to perform this action"
+    "unauthorized": "You must be signed in to perform this action",
+    "signInDescription": "Enter your credentials to access your account",
+    "signUpDescription": "Create a new account to get started",
+    "orContinueWith": "Or continue with",
+    "signInWithGoogle": "Sign in with Google",
+    "signUpWithGoogle": "Sign up with Google",
+    "forgotPassword": "Forgot password?",
+    "noAccount": "Don't have an account?",
+    "alreadyHaveAccount": "Already have an account? Sign in"
   },
   "Business": {
     "businesses": "Businesses",

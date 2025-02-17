@@ -116,11 +116,21 @@
   },
   "Auth": {
     "signIn": "ورود",
+    "signUp": "ثبت نام",
     "signOut": "خروج",
     "email": "ایمیل",
     "password": "رمز عبور",
+    "name": "نام",
     "invalidCredentials": "ایمیل یا رمز عبور نامعتبر است",
-    "unauthorized": "برای انجام این عمل باید وارد شوید"
+    "unauthorized": "برای انجام این عمل باید وارد شوید",
+    "signInDescription": "برای دسترسی به حساب کاربری خود، اطلاعات خود را وارد کنید",
+    "signUpDescription": "برای شروع، یک حساب کاربری جدید ایجاد کنید",
+    "orContinueWith": "یا ادامه دهید با",
+    "signInWithGoogle": "ورود با گوگل",
+    "signUpWithGoogle": "ثبت نام با گوگل",
+    "forgotPassword": "رمز عبور را فراموش کرده‌اید؟",
+    "noAccount": "حساب کاربری ندارید؟",
+    "alreadyHaveAccount": "قبلاً حساب کاربری دارید؟ وارد شوید"
   },
   "Business": {
     "businesses": "کسب‌وکارها",

@@ -3,7 +3,13 @@ export const PATHS = {
     ROOT: '/',
   },
   SIGNUP: {
-    ROOT: '/signup',
+    ROOT: '/auth/signup',
+  },
+  SIGNIN: {
+    ROOT: '/auth/signin',
+  },
+  FORGOT_PASSWORD: {
+    ROOT: '/auth/forgot-password',
   },
   LOGIN: {
     ROOT: '/login',

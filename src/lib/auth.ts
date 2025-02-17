@@ -1,6 +1,7 @@
 import type { NextAuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
-import { users } from '@/data/users'; // We'll create this mock data file next
+import GoogleProvider from 'next-auth/providers/google';
+import { users } from '@/data/users';
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -28,10 +29,12 @@ export const authOptions: NextAuthOptions = {
         return null;
       },
     }),
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID!,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+    }),
   ],
-  session: {
-    strategy: 'jwt',
-  },
+  secret: process.env.NEXTAUTH_SECRET,
   pages: {
     signIn: '/auth/signin',
   },
