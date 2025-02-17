@@ -9,7 +9,9 @@ const reviewSchema = z.object({
   businessId: z.string(),
   rating: z.number().min(1).max(5),
   title: z.string().min(1).max(100),
+  titleFA: z.string().min(1).max(100),
   content: z.string().min(10).max(1000),
+  contentFA: z.string().min(10).max(1000),
 });
 
 export async function GET(request: Request) {
@@ -54,6 +56,7 @@ export async function GET(request: Request) {
       totalPages: Math.ceil(filteredReviews.length / limit),
     });
   } catch (error) {
+    console.log('🚀 ~ GET ~ error:', error);
     return NextResponse.json(
       { error: 'Failed to fetch reviews' },
       { status: 500 }
@@ -83,6 +86,7 @@ export async function POST(request: Request) {
       id: crypto.randomUUID(),
       ...result.data,
       authorName: session.user?.name || 'Anonymous',
+      authorNameFA: session.user?.name || 'Anonymous',
       date: new Date().toISOString(),
       verifiedPurchase: false, // This could be checked against orders database
       helpful: 0,
@@ -93,6 +97,7 @@ export async function POST(request: Request) {
 
     return NextResponse.json(newReview, { status: 201 });
   } catch (error) {
+    console.log('🚀 ~ POST ~ error:', error);
     return NextResponse.json(
       { error: 'Failed to create review' },
       { status: 500 }

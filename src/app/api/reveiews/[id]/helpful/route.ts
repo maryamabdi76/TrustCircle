@@ -25,6 +25,7 @@ export async function POST(
 
     return NextResponse.json({ helpful: review.helpful });
   } catch (error) {
+    console.log('🚀 ~ error:', error);
     return NextResponse.json(
       { error: 'Failed to mark review as helpful' },
       { status: 500 }

@@ -46,6 +46,7 @@ export function useReviews({ businessId }: UseReviewsOptions = {}) {
 
         return await response.json();
       } catch (error) {
+        console.log('🚀 ~ useReviews ~ error:', error);
         toast({
           title: t('error'),
           description: t('errorFetchingReviews'),
@@ -80,6 +81,7 @@ export function useReviews({ businessId }: UseReviewsOptions = {}) {
 
         return await response.json();
       } catch (error) {
+        console.log('🚀 ~ error:', error);
         toast({
           title: t('error'),
           description: t('errorCreatingReview'),
@@ -106,6 +108,7 @@ export function useReviews({ businessId }: UseReviewsOptions = {}) {
 
         return await response.json();
       } catch (error) {
+        console.log('🚀 ~ error:', error);
         toast({
           title: t('error'),
           description: t('errorMarkingHelpful'),

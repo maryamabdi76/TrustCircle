@@ -47,6 +47,7 @@ export function useBusinesses() {
 
         return await response.json();
       } catch (error) {
+        console.log('🚀 ~ useBusinesses ~ error:', error);
         toast({
           title: t('error'),
           description: t('errorFetchingBusinesses'),
@@ -72,6 +73,7 @@ export function useBusinesses() {
 
         return await response.json();
       } catch (error) {
+        console.log('🚀 ~ error:', error);
         toast({
           title: t('error'),
           description: t('errorFetchingBusiness'),

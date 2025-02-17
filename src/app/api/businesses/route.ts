@@ -54,6 +54,7 @@ export async function GET(request: Request) {
       totalPages: Math.ceil(filteredBusinesses.length / limit),
     });
   } catch (error) {
+    console.log('🚀 ~ GET ~ error:', error);
     return NextResponse.json(
       { error: 'Failed to fetch businesses' },
       { status: 500 }

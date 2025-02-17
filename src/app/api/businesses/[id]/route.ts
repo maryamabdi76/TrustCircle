@@ -17,6 +17,7 @@ export async function GET(
 
     return NextResponse.json(business);
   } catch (error) {
+    console.log('🚀 ~ error:', error);
     return NextResponse.json(
       { error: 'Failed to fetch business' },
       { status: 500 }
