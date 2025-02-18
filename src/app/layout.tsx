@@ -1,15 +1,15 @@
+import './globals.css';
+import { NextIntlClientProvider } from 'next-intl';
+import { getLocale, getMessages } from 'next-intl/server';
+import localFont from 'next/font/local';
+import { Footer, Navbar, ThemeProvider } from '@/components/layout';
+import { Toaster } from '@/components/ui/toaster';
+import { AuthProvider } from '@/context/AuthProvider';
+import { cn } from '@/lib/utils';
+import { Analytics } from '@vercel/analytics/next';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import type React from 'react';
 import type { Metadata } from 'next';
-import localFont from 'next/font/local';
-import './globals.css';
-import { Navbar, Footer, ThemeProvider } from '@/components/layout';
-import { NextIntlClientProvider } from 'next-intl';
-import { getLocale, getMessages } from 'next-intl/server';
-import { cn } from '@/lib/utils';
-import { Toaster } from '@/components/ui/toaster';
-
-import { AuthProvider } from '@/context/AuthProvider';
 
 const iranYekanFont = localFont({
   src: [
@@ -69,8 +69,9 @@ export default async function RootLayout({
             </ThemeProvider>
           </AuthProvider>
         </NextIntlClientProvider>
-        <SpeedInsights />
         <Toaster />
+        <SpeedInsights />
+        <Analytics />
       </body>
     </html>
   );
