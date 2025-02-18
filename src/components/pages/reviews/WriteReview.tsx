@@ -117,9 +117,13 @@ export default function WriteReview() {
     try {
       const result = await createReview({
         businessId: params.businessId,
+        authorId: 'currentUserId', // Add the authorId (e.g., from the current user's session)
+        authorNameFA: 'نام نویسنده', // Add the author's name in Farsi
         rating,
         title,
+        titleFA: title, // Assuming titleFA is the same as title for now
         content,
+        contentFA: content, // Assuming contentFA is the same as content for now
       });
 
       if (result) {

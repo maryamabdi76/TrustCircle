@@ -3,6 +3,7 @@ import { z } from 'zod';
 import { reviews } from '@/data/reviews';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
+import { IReview } from '@/types/review';
 
 // Schema for review validation
 const reviewSchema = z.object({
@@ -61,12 +62,11 @@ export async function GET(request: Request) {
     );
   }
 }
-
 export async function POST(request: Request) {
   try {
     const session = await getServerSession(authOptions);
 
-    if (!session) {
+    if (!session || !session.user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
@@ -80,20 +80,20 @@ export async function POST(request: Request) {
       );
     }
 
-    // In a real application, you would:
-    // 1. Check if the user has already reviewed this business
-    // 2. Verify the business exists
-    // 3. Save to a real database
-    // 4. Update the business's rating statistics
-
-    const newReview = {
+    const newReview: IReview = {
       id: crypto.randomUUID(),
-      ...result.data,
+      businessId: result.data.businessId,
+      rating: result.data.rating,
+      titleFA: result.data.titleFA,
+      contentFA: result.data.contentFA,
       authorId: session.user.id,
       authorName: session.user.name || 'Anonymous',
+      authorNameFA: session.user.name || 'ناشناس',
+      title: result.data.titleFA,
+      content: result.data.contentFA,
       date: new Date().toISOString(),
       helpful: 0,
-      verifiedPurchase: false, // This would be checked against orders in a real app
+      verifiedPurchase: false,
     };
 
     reviews.push(newReview);
