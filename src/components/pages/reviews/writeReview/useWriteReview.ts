@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
@@ -8,8 +8,11 @@ import { useToast } from '@/hooks/use-toast';
 import { useBusinesses } from '@/hooks/useBusinesses';
 import { useReviews } from '@/hooks/useReviews';
 import { z } from 'zod';
+import { FieldValues, useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
 import type { IBusiness } from '@/types/business';
 
+// Define review schema for validation
 const reviewSchema = z.object({
   rating: z.number().min(1).max(5),
   title: z.string().min(1).max(100),
@@ -21,17 +24,24 @@ export function useWriteReview(businessId: string) {
   const router = useRouter();
   const { toast } = useToast();
   const t = useTranslations('Reviews');
-  const [rating, setRating] = useState(0);
-  const [title, setTitle] = useState('');
-  const [content, setContent] = useState('');
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const [business, setBusiness] = useState<IBusiness | null>(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [errors, setErrors] = useState<z.ZodIssue[]>([]);
-
   const { fetchBusinessById } = useBusinesses();
   const { createReview } = useReviews();
 
+  // Set up react-hook-form with Zod validation
+  const {
+    control,
+    formState: { errors, isSubmitting },
+    register,
+    handleSubmit,
+    watch,
+  } = useForm({
+    resolver: zodResolver(reviewSchema),
+  });
+  const content = watch('content', '');
+
+  // Load business details
   useEffect(() => {
     const loadBusiness = async () => {
       try {
@@ -53,22 +63,11 @@ export function useWriteReview(businessId: string) {
     loadBusiness();
   }, [businessId, fetchBusinessById, toast, t]);
 
-  const validateForm = () => {
-    const result = reviewSchema.safeParse({ rating, title, content });
-    if (!result.success) {
-      setErrors(result.error.issues);
-      return false;
-    }
-    setErrors([]);
-    return true;
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!validateForm()) return;
-
-    setIsSubmitting(true);
+  // Form submit handler
+  const onSubmit: (data: FieldValues) => Promise<void> = async (data) => {
+    const { rating, title, content } = data;
     try {
+      // Call API to submit the review
       const result = await createReview({
         businessId,
         authorId: session?.user?.id || '',
@@ -94,24 +93,19 @@ export function useWriteReview(businessId: string) {
         description: t('errorSubmittingReview'),
         variant: 'destructive',
       });
-    } finally {
-      setIsSubmitting(false);
     }
   };
 
   return {
+    business,
+    content,
+    control,
+    errors,
+    isLoading,
+    isSubmitting,
     session,
     sessionStatus,
-    rating,
-    setRating,
-    title,
-    setTitle,
-    content,
-    setContent,
-    isSubmitting,
-    business,
-    isLoading,
-    errors,
-    handleSubmit,
+    handleSubmit: handleSubmit(onSubmit), // using react-hook-form's handleSubmit
+    register,
   };
 }

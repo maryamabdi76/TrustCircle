@@ -3,13 +3,19 @@
 import { Star } from 'lucide-react';
 import { useState } from 'react';
 import { useTranslations } from 'next-intl';
+import { Control, useController } from 'react-hook-form';
 
 interface StarRatingProps {
-  rating: number;
-  onRatingChange: (rating: number) => void;
+  name: string;
+  control: Control;
 }
 
-export function StarRating({ rating, onRatingChange }: StarRatingProps) {
+export function StarRating({ name, control }: StarRatingProps) {
+  const { field } = useController({
+    name,
+    control,
+    defaultValue: 0,
+  });
   const [hoveredRating, setHoveredRating] = useState(0);
   const t = useTranslations('Reviews');
 
@@ -34,11 +40,11 @@ export function StarRating({ rating, onRatingChange }: StarRatingProps) {
             className="p-2 transition-all hover:scale-110 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-full"
             onMouseEnter={() => setHoveredRating(star)}
             onMouseLeave={() => setHoveredRating(0)}
-            onClick={() => onRatingChange(star)}
+            onClick={() => field.onChange(star)}
           >
             <Star
               className={`w-12 h-12 transition-all ${
-                star <= (hoveredRating || rating)
+                star <= (hoveredRating || field.value)
                   ? 'text-primary fill-primary'
                   : 'text-gray-400 dark:text-gray-600 stroke-[1.5px]'
               }`}
@@ -46,12 +52,12 @@ export function StarRating({ rating, onRatingChange }: StarRatingProps) {
           </button>
         ))}
       </div>
-      {rating > 0 && (
+      {field.value > 0 && (
         <div className="text-center text-lg font-medium mt-2 text-primary">
           {t(
             `ratingDescription.${
               ratingDescriptionKeys[
-                rating as keyof typeof ratingDescriptionKeys
+                field.value as keyof typeof ratingDescriptionKeys
               ]
             }`
           )}

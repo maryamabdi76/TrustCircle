@@ -24,19 +24,16 @@ export default function WriteReview() {
   const router = useRouter();
   const t = useTranslations('Reviews');
   const {
+    business,
+    content,
+    control,
+    errors,
+    isLoading,
+    isSubmitting,
     session,
     sessionStatus,
-    rating,
-    setRating,
-    title,
-    setTitle,
-    content,
-    setContent,
-    isSubmitting,
-    business,
-    isLoading,
-    errors,
     handleSubmit,
+    register,
   } = useWriteReview(params.businessId);
 
   if (sessionStatus === 'loading' || isLoading) {
@@ -122,8 +119,8 @@ export default function WriteReview() {
           </CardHeader>
           <CardContent className="p-6">
             <form onSubmit={handleSubmit} className="space-y-8">
-              <StarRating rating={rating} onRatingChange={setRating} />
-              {errors.find((e) => e.path[0] === 'rating') && (
+              <StarRating name="rating" control={control} />
+              {errors?.rating && (
                 <p className="text-sm text-destructive">
                   {t('pleaseSelectRating')}
                 </p>
@@ -135,13 +132,12 @@ export default function WriteReview() {
                 </label>
                 <Input
                   id="title"
-                  value={title}
-                  onChange={(e) => setTitle(e.target.value)}
+                  {...register('title')}
                   placeholder={t('reviewTitlePlaceholder')}
                   maxLength={100}
                   className="text-lg transition-all focus:ring-2 focus:ring-primary"
                 />
-                {errors.find((e) => e.path[0] === 'title') && (
+                {errors?.title && (
                   <p className="text-sm text-destructive">{t('titleError')}</p>
                 )}
               </div>
@@ -152,8 +148,7 @@ export default function WriteReview() {
                 </label>
                 <Textarea
                   id="content"
-                  value={content}
-                  onChange={(e) => setContent(e.target.value)}
+                  {...register('content')}
                   placeholder={t('reviewContentPlaceholder')}
                   className="min-h-[200px] text-lg transition-all focus:ring-2 focus:ring-primary"
                   maxLength={1000}
@@ -161,14 +156,14 @@ export default function WriteReview() {
                 <div className="text-sm text-muted-foreground text-right">
                   {content.length}/1000
                 </div>
-                {errors.find((e) => e.path[0] === 'content') && (
+                {errors?.content && (
                   <p className="text-sm text-destructive">
                     {t('contentError')}
                   </p>
                 )}
               </div>
 
-              {session ? (
+              {!session ? (
                 <Button
                   type="submit"
                   className="w-full py-6 text-lg bg-gradient-to-r from-primary to-primary-dark hover:from-primary-dark hover:to-primary transition-all duration-300"
