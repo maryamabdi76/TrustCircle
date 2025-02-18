@@ -84,7 +84,7 @@ export function useReviews({ businessId }: UseReviewsOptions = {}) {
         console.log('🚀 ~ error:', error);
         toast({
           title: t('error'),
-          description: t('errorCreatingReview'),
+          description: t('errorSubmittingReview'),
           variant: 'destructive',
         });
         return null;

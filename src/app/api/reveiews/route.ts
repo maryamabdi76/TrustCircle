@@ -8,9 +8,7 @@ import { authOptions } from '@/lib/auth';
 const reviewSchema = z.object({
   businessId: z.string(),
   rating: z.number().min(1).max(5),
-  title: z.string().min(1).max(100),
   titleFA: z.string().min(1).max(100),
-  content: z.string().min(10).max(1000),
   contentFA: z.string().min(10).max(1000),
 });
 
@@ -82,22 +80,27 @@ export async function POST(request: Request) {
       );
     }
 
+    // In a real application, you would:
+    // 1. Check if the user has already reviewed this business
+    // 2. Verify the business exists
+    // 3. Save to a real database
+    // 4. Update the business's rating statistics
+
     const newReview = {
       id: crypto.randomUUID(),
       ...result.data,
-      authorName: session.user?.name || 'Anonymous',
-      authorNameFA: session.user?.name || 'Anonymous',
+      authorId: session.user.id,
+      authorName: session.user.name || 'Anonymous',
       date: new Date().toISOString(),
-      verifiedPurchase: false, // This could be checked against orders database
       helpful: 0,
+      verifiedPurchase: false, // This would be checked against orders in a real app
     };
 
-    // In a real app, this would be saved to a database
     reviews.push(newReview);
 
     return NextResponse.json(newReview, { status: 201 });
   } catch (error) {
-    console.log('🚀 ~ POST ~ error:', error);
+    console.error('Error creating review:', error);
     return NextResponse.json(
       { error: 'Failed to create review' },
       { status: 500 }

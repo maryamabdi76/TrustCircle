@@ -7,6 +7,9 @@ import { Navbar, Footer, ThemeProvider } from '@/components/layout';
 import { NextIntlClientProvider } from 'next-intl';
 import { getLocale, getMessages } from 'next-intl/server';
 import { cn } from '@/lib/utils';
+import { Toaster } from '@/components/ui/toaster';
+
+import { AuthProvider } from '@/context/AuthProvider';
 
 const iranYekanFont = localFont({
   src: [
@@ -52,19 +55,22 @@ export default async function RootLayout({
         })}
       >
         <NextIntlClientProvider messages={messages}>
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem={false}
-          >
-            <div className="flex flex-col min-h-screen">
-              <Navbar />
-              <main className="flex-grow mt-16">{children}</main>
-              <Footer />
-            </div>
-          </ThemeProvider>
+          <AuthProvider>
+            <ThemeProvider
+              attribute="class"
+              defaultTheme="system"
+              enableSystem={false}
+            >
+              <div className="flex flex-col min-h-screen">
+                <Navbar />
+                <main className="flex-grow mt-16">{children}</main>
+                <Footer />
+              </div>
+            </ThemeProvider>
+          </AuthProvider>
         </NextIntlClientProvider>
         <SpeedInsights />
+        <Toaster />
       </body>
     </html>
   );

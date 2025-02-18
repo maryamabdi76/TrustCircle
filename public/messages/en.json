@@ -180,7 +180,35 @@
     "report": "Report",
     "businessNotFound": "Business not found"
   },
-  "SignUpPage": {
-    "title": "Sign Up"
+  "Reviews": {
+    "writeReview": "Write a Review",
+    "shareYourExperience": "Share your experience to help others make better choices",
+    "rateExperience": "How would you rate your experience?",
+    "reviewTitle": "Give your review a title",
+    "reviewTitlePlaceholder": "Sum up your experience in a few words",
+    "reviewContent": "Write your review",
+    "reviewContentPlaceholder": "What did you like or dislike? What should others know before visiting?",
+    "submitReview": "Submit Review",
+    "submitting": "Submitting...",
+    "success": "Success",
+    "error": "Error",
+    "reviewSubmitted": "Thank you! Your review has been submitted successfully",
+    "errorSubmittingReview": "There was an error submitting your review. Please try again.",
+    "errorLoadingBusiness": "Could not load business information. Please try again.",
+    "pleaseSelectRating": "Please select a rating before submitting",
+    "pleaseSignIn": "Please Sign In",
+    "signInToReview": "You need to be signed in to write a review",
+    "signIn": "Sign In",
+    "loading": "Loading...",
+    "businessNotFound": "Business Not Found",
+    "businessNotFoundDescription": "The business you're looking for could not be found",
+    "backToBusinesses": "Back to Businesses",
+    "ratingDescription": {
+      "veryPoor": "Very Poor - I had a terrible experience",
+      "poor": "Poor - I was disappointed",
+      "average": "Average - It was okay",
+      "great": "Great - I had a good experience",
+      "excellent": "Excellent - I'm very satisfied"
+    }
   }
 }

@@ -151,7 +151,7 @@
     "minimumRating": "حداقل امتیاز",
     "selectMinimumRating": "انتخاب حداقل امتیاز",
     "viewDetails": "مشاهده جزئیات",
-    "addReview": "افزودن نظر",
+    "writeReview": "ثبت نظر",
     "error": "خطا",
     "errorFetchingBusinesses": "خطا در دریافت لیست کسب‌وکارها",
     "errorFetchingBusiness": "خطا در دریافت جزئیات کسب‌وکار"
@@ -180,19 +180,35 @@
     "report": "گزارش",
     "businessNotFound": "کسب‌وکار یافت نشد"
   },
-  "SignUpPage": {
-    "title": "ثبت‌نام",
-    "full-name": "نام و نام خانوادگی",
-    "email": "ایمیل",
-    "password": "رمز عبور",
-    "confirm-password": "تأیید رمز عبور",
-    "sign-up": "ثبت‌نام",
-    "already-have-account": "حساب کاربری دارید؟",
-    "login": "ورود",
-    "submit": "ارسال",
-    "invalid-email": "ایمیل نامعتبر است",
-    "password-not-match": "رمز عبور و تأیید آن یکسان نیستند",
-    "password-length": "رمز عبور باید حداقل ۶ کاراکتر باشد",
-    "required": "این فیلد اجباری است"
+  "Reviews": {
+    "writeReview": "نوشتن نظر",
+    "shareYourExperience": "تجربه خود را به اشتراک بگذارید تا به دیگران در انتخاب بهتر کمک کنید",
+    "rateExperience": "تجربه خود را چگونه ارزیابی می‌کنید؟",
+    "reviewTitle": "عنوانی برای نظر خود بنویسید",
+    "reviewTitlePlaceholder": "تجربه خود را در چند کلمه خلاصه کنید",
+    "reviewContent": "نظر خود را بنویسید",
+    "reviewContentPlaceholder": "چه چیزی را دوست داشتید یا دوست نداشتید؟ دیگران قبل از مراجعه چه چیزی را باید بدانند؟",
+    "submitReview": "ثبت نظر",
+    "submitting": "در حال ثبت...",
+    "success": "موفقیت",
+    "error": "خطا",
+    "reviewSubmitted": "متشکریم! نظر شما با موفقیت ثبت شد",
+    "errorSubmittingReview": "خطایی در ثبت نظر رخ داد. لطفاً دوباره تلاش کنید.",
+    "errorLoadingBusiness": "بارگذاری اطلاعات کسب‌وکار با مشکل مواجه شد. لطفاً دوباره تلاش کنید.",
+    "pleaseSelectRating": "لطفاً قبل از ثبت، یک امتیاز انتخاب کنید",
+    "pleaseSignIn": "لطفاً وارد شوید",
+    "signInToReview": "برای نوشتن نظر باید وارد شوید",
+    "signIn": "ورود",
+    "loading": "در حال بارگذاری...",
+    "businessNotFound": "کسب‌وکار یافت نشد",
+    "businessNotFoundDescription": "کسب‌وکار مورد نظر شما یافت نشد",
+    "backToBusinesses": "بازگشت به کسب‌وکارها",
+    "ratingDescription": {
+      "veryPoor": "خیلی ضعیف - تجربه بسیار بدی داشتم",
+      "poor": "ضعیف - ناامید شدم",
+      "average": "متوسط - قابل قبول بود",
+      "great": "خوب - تجربه خوبی داشتم",
+      "excellent": "عالی - کاملاً راضی هستم"
+    }
   }
 }
