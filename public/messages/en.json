@@ -203,6 +203,8 @@
     "businessNotFound": "Business Not Found",
     "businessNotFoundDescription": "The business you're looking for could not be found",
     "backToBusinesses": "Back to Businesses",
+    "titleError": "Title must be between 1 and 100 characters",
+    "contentError": "Review content must be between 10 and 1000 characters",
     "ratingDescription": {
       "veryPoor": "Very Poor - I had a terrible experience",
       "poor": "Poor - I was disappointed",

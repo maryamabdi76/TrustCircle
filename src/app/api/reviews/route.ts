@@ -86,7 +86,7 @@ export async function POST(request: Request) {
       rating: result.data.rating,
       titleFA: result.data.titleFA,
       contentFA: result.data.contentFA,
-      authorId: session.user.id,
+      authorId: session.user.id || '1',
       authorName: session.user.name || 'Anonymous',
       authorNameFA: session.user.name || 'ناشناس',
       title: result.data.titleFA,

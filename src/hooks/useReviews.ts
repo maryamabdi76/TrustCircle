@@ -76,7 +76,7 @@ export function useReviews({ businessId }: UseReviewsOptions = {}) {
 
         toast({
           title: t('success'),
-          description: t('reviewCreated'),
+          description: t('reviewSubmitted'),
         });
 
         return await response.json();
