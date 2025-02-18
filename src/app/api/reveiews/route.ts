@@ -3,14 +3,13 @@ import { z } from 'zod';
 import { reviews } from '@/data/reviews';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
+import { IReview } from '@/types/review';
 
 // Schema for review validation
 const reviewSchema = z.object({
   businessId: z.string(),
   rating: z.number().min(1).max(5),
-  title: z.string().min(1).max(100),
   titleFA: z.string().min(1).max(100),
-  content: z.string().min(10).max(1000),
   contentFA: z.string().min(10).max(1000),
 });
 
@@ -63,12 +62,11 @@ export async function GET(request: Request) {
     );
   }
 }
-
 export async function POST(request: Request) {
   try {
     const session = await getServerSession(authOptions);
 
-    if (!session) {
+    if (!session || !session.user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
@@ -82,22 +80,27 @@ export async function POST(request: Request) {
       );
     }
 
-    const newReview = {
+    const newReview: IReview = {
       id: crypto.randomUUID(),
-      ...result.data,
-      authorName: session.user?.name || 'Anonymous',
-      authorNameFA: session.user?.name || 'Anonymous',
+      businessId: result.data.businessId,
+      rating: result.data.rating,
+      titleFA: result.data.titleFA,
+      contentFA: result.data.contentFA,
+      authorId: session.user.id,
+      authorName: session.user.name || 'Anonymous',
+      authorNameFA: session.user.name || 'ناشناس',
+      title: result.data.titleFA,
+      content: result.data.contentFA,
       date: new Date().toISOString(),
-      verifiedPurchase: false, // This could be checked against orders database
       helpful: 0,
+      verifiedPurchase: false,
     };
 
-    // In a real app, this would be saved to a database
     reviews.push(newReview);
 
     return NextResponse.json(newReview, { status: 201 });
   } catch (error) {
-    console.log('🚀 ~ POST ~ error:', error);
+    console.error('Error creating review:', error);
     return NextResponse.json(
       { error: 'Failed to create review' },
       { status: 500 }

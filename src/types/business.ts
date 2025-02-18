@@ -2,6 +2,7 @@ export interface IBusiness {
   id: string;
   name: string;
   nameFA: string;
+  logo?: string;
   websiteUrl?: string;
   instagram?: string;
   score: number;

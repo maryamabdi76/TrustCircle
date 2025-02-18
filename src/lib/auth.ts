@@ -1,7 +1,24 @@
-import type { NextAuthOptions } from 'next-auth';
+import type { DefaultSession, NextAuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import GoogleProvider from 'next-auth/providers/google';
 import { users } from '@/data/users';
+
+// Extend session type to include user ID
+declare module 'next-auth' {
+  interface Session {
+    user: {
+      id: string;
+    } & DefaultSession['user'];
+  }
+
+  interface User {
+    id: string;
+  }
+
+  interface JWT {
+    id: string;
+  }
+}
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -20,7 +37,7 @@ export const authOptions: NextAuthOptions = {
 
         if (user && user.password === credentials.password) {
           return {
-            id: user.id,
+            id: user.id, // Include the user ID
             name: user.name,
             email: user.email,
           };
@@ -38,13 +55,13 @@ export const authOptions: NextAuthOptions = {
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
-        token.id = user.id;
+        token.id = user.id; // Store user ID in the token
       }
       return token;
     },
     async session({ session, token }) {
       if (session.user) {
-        session.user.email = token.email as string;
+        session.user.id = token.id as string; // Include user ID in the session
       }
       return session;
     },
