@@ -17,6 +17,9 @@ export const PATHS = {
   BUSINESSES: {
     ROOT: '/businesses',
   },
+  PROFILE: {
+    ROOT: '/profile',
+  },
   REVIEWS: {
     ROOT: '/reviews',
     WRITE: (businessId: string) => `/reviews/write/${businessId}`,

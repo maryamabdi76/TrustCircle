@@ -9,7 +9,8 @@
     "categoryHome": "خانه",
     "blog": "وبلاگ",
     "loginRegister": "ورود / ثبت‌نام",
-    "businesses": "کسب‌وکارها"
+    "businesses": "کسب‌وکارها",
+    "profile": "پروفایل"
   },
   "Footer": {
     "title": "TrustCircle",
@@ -212,5 +213,14 @@
       "great": "خوب - تجربه خوبی داشتم",
       "excellent": "عالی - کاملاً راضی هستم"
     }
+  },
+  "Profile": {
+    "overview": "نمای کلی",
+    "reviews": "نظرات",
+    "reviewsWritten": "نظرات نوشته شده",
+    "reviewsRead": "نظرات خوانده شده",
+    "helpfulVotes": "رأی‌های مفید",
+    "noReviews": "شما هنوز هیچ نظری ننوشته‌اید.",
+    "signOut": "خروج"
   }
 }
