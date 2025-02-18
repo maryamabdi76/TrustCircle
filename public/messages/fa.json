@@ -203,6 +203,8 @@
     "businessNotFound": "کسب‌وکار یافت نشد",
     "businessNotFoundDescription": "کسب‌وکار مورد نظر شما یافت نشد",
     "backToBusinesses": "بازگشت به کسب‌وکارها",
+    "titleError": "عنوان باید بین ۱ تا ۱۰۰ کاراکتر باشد",
+    "contentError": "متن نظر باید بین ۱۰ تا ۱۰۰۰ کاراکتر باشد",
     "ratingDescription": {
       "veryPoor": "خیلی ضعیف - تجربه بسیار بدی داشتم",
       "poor": "ضعیف - ناامید شدم",
