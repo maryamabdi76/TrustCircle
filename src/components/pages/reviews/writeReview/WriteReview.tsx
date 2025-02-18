@@ -18,6 +18,7 @@ import { BusinessPreview } from '@/components/pages/business/BusinessPreview';
 import { StarRating } from '../StarRating';
 import { useWriteReview } from './useWriteReview';
 import { Skeleton } from '@/components/ui/skeleton';
+import { PATHS } from '@/constants/PATHS';
 
 export default function WriteReview() {
   const params = useParams<{ businessId: string }>();
@@ -163,7 +164,7 @@ export default function WriteReview() {
                 )}
               </div>
 
-              {!session ? (
+              {session ? (
                 <Button
                   type="submit"
                   className="w-full py-6 text-lg bg-gradient-to-r from-primary to-primary-dark hover:from-primary-dark hover:to-primary transition-all duration-300"
@@ -187,7 +188,7 @@ export default function WriteReview() {
                     {t('signInToReview')}
                   </CardDescription>
                   <Button
-                    onClick={() => router.push('/auth/signin')}
+                    onClick={() => router.push(PATHS.SIGNIN.ROOT)}
                     className="w-full"
                   >
                     {t('signIn')}
