@@ -3,6 +3,7 @@ import type { IReview } from '@/types/review';
 export const reviews: IReview[] = [
   {
     id: '1',
+    authorId: '1',
     businessId: '1',
     authorName: 'John Doe',
     authorNameFA: 'جان دو',
@@ -19,6 +20,7 @@ export const reviews: IReview[] = [
   },
   {
     id: '2',
+    authorId: '1',
     businessId: '1',
     authorName: 'Jane Smith',
     authorNameFA: 'جین اسمیت',
@@ -35,6 +37,7 @@ export const reviews: IReview[] = [
   },
   {
     id: '3',
+    authorId: '1',
     businessId: '2',
     authorName: 'Alice Johnson',
     authorNameFA: 'آلیس جانسون',
@@ -51,6 +54,7 @@ export const reviews: IReview[] = [
   },
   {
     id: '4',
+    authorId: '1',
     businessId: '2',
     authorName: 'Mohammed Al-Fayed',
     authorNameFA: 'محمد الفاید',
