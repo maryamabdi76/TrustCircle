@@ -13,6 +13,7 @@ interface FetchReviewsOptions {
   sort?: 'recent' | 'highest' | 'lowest';
   page?: number;
   limit?: number;
+  userId?: string;
 }
 
 export function useReviews({ businessId }: UseReviewsOptions = {}) {
@@ -25,6 +26,7 @@ export function useReviews({ businessId }: UseReviewsOptions = {}) {
       sort = 'recent',
       page = 1,
       limit = 10,
+      userId,
     }: FetchReviewsOptions = {}) => {
       try {
         setLoading(true);
@@ -36,6 +38,10 @@ export function useReviews({ businessId }: UseReviewsOptions = {}) {
 
         if (businessId) {
           params.append('businessId', businessId);
+        }
+
+        if (userId) {
+          params.append('userId', userId);
         }
 
         const response = await fetch(`/api/reviews?${params}`);
@@ -76,7 +82,7 @@ export function useReviews({ businessId }: UseReviewsOptions = {}) {
 
         toast({
           title: t('success'),
-          description: t('reviewSubmitted'),
+          description: t('reviewCreated'),
         });
 
         return await response.json();
@@ -84,7 +90,7 @@ export function useReviews({ businessId }: UseReviewsOptions = {}) {
         console.log('🚀 ~ error:', error);
         toast({
           title: t('error'),
-          description: t('errorSubmittingReview'),
+          description: t('errorCreatingReview'),
           variant: 'destructive',
         });
         return null;

@@ -9,7 +9,8 @@
     "categoryHome": "Home",
     "blog": "Blog",
     "loginRegister": "Login / Register",
-    "businesses": "Businesses"
+    "businesses": "Businesses",
+    "profile": "Profile"
   },
   "Footer": {
     "title": "TrustCircle",
@@ -212,5 +213,14 @@
       "great": "Great - I had a good experience",
       "excellent": "Excellent - I'm very satisfied"
     }
+  },
+  "Profile": {
+    "overview": "Overview",
+    "reviews": "Reviews",
+    "reviewsWritten": "Reviews Written",
+    "reviewsRead": "Reviews Read",
+    "helpfulVotes": "Helpful Votes",
+    "noReviews": "You haven't written any reviews yet.",
+    "signOut": "Sign Out"
   }
 }
