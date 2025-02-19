@@ -10,7 +10,9 @@
     "blog": "وبلاگ",
     "loginRegister": "ورود / ثبت‌نام",
     "businesses": "کسب‌وکارها",
-    "profile": "پروفایل"
+    "profile": "پروفایل",
+    "theme": "تم",
+    "language": "زبان"
   },
   "Footer": {
     "title": "TrustCircle",
