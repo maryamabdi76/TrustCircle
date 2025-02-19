@@ -2,6 +2,7 @@ import type { DefaultSession, NextAuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import GoogleProvider from 'next-auth/providers/google';
 import { users } from '@/data/users';
+import { PATHS } from '@/constants/PATHS';
 
 // Extend session type to include user ID
 declare module 'next-auth' {
@@ -47,11 +48,15 @@ export const authOptions: NextAuthOptions = {
       },
     }),
     GoogleProvider({
-      clientId: process.env.GOOGLE_CLIENT_ID!,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+      clientId: process.env.GOOGLE_CLIENT_ID as string,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
     }),
   ],
   secret: process.env.NEXTAUTH_SECRET,
+  debug: true,
+  pages: {
+    signIn: PATHS.SIGNIN.ROOT,
+  },
   callbacks: {
     async jwt({ token, user }) {
       if (user) {

@@ -47,7 +47,7 @@ export default function SignUp() {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-background">
+    <div className="flex items-center justify-center py-20 bg-background">
       <Card className="w-[350px]">
         <CardHeader>
           <CardTitle>{t('signUp')}</CardTitle>
