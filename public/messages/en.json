@@ -10,7 +10,9 @@
     "blog": "Blog",
     "loginRegister": "Login / Register",
     "businesses": "Businesses",
-    "profile": "Profile"
+    "profile": "Profile",
+    "theme": "Theme",
+    "language": "Language"
   },
   "Footer": {
     "title": "TrustCircle",

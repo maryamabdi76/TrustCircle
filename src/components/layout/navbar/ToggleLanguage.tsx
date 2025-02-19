@@ -1,41 +1,25 @@
 'use client';
 
-import { useLocale } from 'next-intl';
-import { setCookie } from 'cookies-next';
 import { motion } from 'framer-motion';
-import { Button } from '@/components/ui/button';
 
-export const LanguageToggleButton = () => {
-  const locale = useLocale();
-
-  const toggleLanguage = () => {
-    const newLocale = locale === 'en' ? 'fa' : 'en';
-    setCookie('NEXT_LOCALE', newLocale, { path: '/' });
-    window.location.reload();
-  };
-
+export const ToggleLanguageIcon = () => {
   return (
-    <Button
-      variant="outline"
-      onClick={toggleLanguage}
-      className="cursor-pointer relative flex items-center gap-2 px-2"
+    <motion.svg
+      width="14"
+      height="14"
+      viewBox="0 0 512 512"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      animate={{ rotate: 360 }}
+      transition={{ duration: 0.6, ease: 'easeInOut' }}
     >
-      <motion.svg
-        width="512.000000pt"
-        height="512.000000pt"
-        viewBox="0 0 512.000000 512.000000"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-        animate={{ rotate: 360 }}
-        transition={{ duration: 0.6, ease: 'easeInOut' }}
+      <g
+        transform="translate(0,512) scale(0.1,-0.1)"
+        fill="currentColor"
+        stroke="none"
       >
-        <g
-          transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)"
-          fill="currentColor"
-          stroke="none"
-        >
-          <path
-            d="M2323 5110 c-598 -58 -1146 -316 -1571 -740 -397 -397 -640 -882
+        <path
+          d="M2323 5110 c-598 -58 -1146 -316 -1571 -740 -397 -397 -640 -882
 -729 -1460 -24 -161 -24 -539 0 -700 89 -577 330 -1059 727 -1458 397 -397
 882 -640 1460 -729 161 -24 539 -24 700 0 577 89 1059 330 1458 727 397 397
 640 882 729 1460 24 161 24 539 0 700 -89 577 -330 1059 -727 1458 -394 395
@@ -76,10 +60,8 @@ c-120 65 -249 152 -367 250 -103 84 -192 170 -184 178 14 13 403 160 439 165
 3 1 23 -65 44 -147z m2448 109 c141 -47 328 -123 328 -132 0 -10 -124 -125
 -210 -195 -97 -78 -233 -169 -342 -228 l-87 -47 58 173 c31 95 75 239 97 320
 21 82 39 148 39 148 1 0 53 -18 117 -39z"
-          />
-        </g>
-      </motion.svg>
-      <span className="text-xs">{locale === 'en' ? 'EN' : 'FA'}</span>
-    </Button>
+        />
+      </g>
+    </motion.svg>
   );
 };
