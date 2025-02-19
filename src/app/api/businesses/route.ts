@@ -1,5 +1,20 @@
 import { NextResponse } from 'next/server';
 import { businesses } from '@/data/businesses';
+import { getServerSession } from 'next-auth';
+import { authOptions } from '@/lib/auth';
+import { z } from 'zod';
+import crypto from 'crypto';
+
+const businessSchema = z
+  .object({
+    name: z.string().min(1),
+    nameFA: z.string().min(1),
+    instagram: z.string().optional(),
+    website: z.string().url().optional(),
+  })
+  .refine((data) => data.instagram || data.website, {
+    message: 'Either Instagram ID or Website is required',
+  });
 
 export async function GET(request: Request) {
   try {
@@ -57,6 +72,46 @@ export async function GET(request: Request) {
     console.log('🚀 ~ GET ~ error:', error);
     return NextResponse.json(
       { error: 'Failed to fetch businesses' },
+      { status: 500 }
+    );
+  }
+}
+
+export async function POST(request: Request) {
+  try {
+    const session = await getServerSession(authOptions);
+
+    if (!session) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
+    const json = await request.json();
+    const result = businessSchema.safeParse(json);
+
+    if (!result.success) {
+      return NextResponse.json(
+        { error: 'Invalid business data', details: result.error.format() },
+        { status: 400 }
+      );
+    }
+
+    const newBusiness = {
+      id: crypto.randomUUID(),
+      ...result.data,
+      score: 0,
+      category: 'Uncategorized',
+      categoryFA: 'Uncategorized',
+      reviewCount: 0,
+      ratingDistribution: {},
+    };
+
+    businesses.push(newBusiness);
+
+    return NextResponse.json(newBusiness, { status: 201 });
+  } catch (error) {
+    console.error('Error creating business:', error);
+    return NextResponse.json(
+      { error: 'Failed to create business' },
       { status: 500 }
     );
   }
