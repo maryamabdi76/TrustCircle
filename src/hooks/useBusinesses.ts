@@ -50,7 +50,7 @@ export function useBusinesses() {
         }
 
         if (rating) {
-          params.append('rating', rating);
+          params.append('rating', rating.toString());
         }
 
         const response = await fetch(`/api/businesses?${params}`);
