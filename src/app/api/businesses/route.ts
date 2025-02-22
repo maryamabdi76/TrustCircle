@@ -3,11 +3,11 @@ import { businesses } from '@/data/businesses';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
 import { z } from 'zod';
-import crypto from 'crypto';
 
 const businessSchema = z
   .object({
     name: z.string().min(1),
+    category: z.string(),
     instagram: z.string().optional(),
     website: z.string().url().optional(),
   })
@@ -73,7 +73,6 @@ export async function GET(request: Request) {
     );
   }
 }
-
 export async function POST(request: Request) {
   try {
     const session = await getServerSession(authOptions);
@@ -93,10 +92,12 @@ export async function POST(request: Request) {
     }
 
     const newBusiness = {
-      id: crypto.randomUUID(),
+      id:
+        businesses.length > 0
+          ? (parseInt(businesses[businesses.length - 1].id) + 1).toString()
+          : '1',
       ...result.data,
       score: 0,
-      category: 'Uncategorized',
       reviewCount: 0,
       ratingDistribution: {},
     };
