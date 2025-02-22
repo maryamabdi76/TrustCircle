@@ -1,14 +1,17 @@
-import { Globe, Instagram, Star } from 'lucide-react';
+import { Star } from 'lucide-react';
 import { useTranslations } from 'next-intl';
+import Image from 'next/image';
+import Link from 'next/link';
+
+import { InstagramLink } from '@/components/common/instagramLink/InstagramLink';
+import { WebsiteLink } from '@/components/common/websiteLink/WebsiteLink';
 import { RatingDistribution } from '@/components/pages/business/RatingDistribution';
 import { ReviewList } from '@/components/pages/business/ReviewList';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { IBusiness } from '@/types/business';
-import Link from 'next/link';
 import { PATHS } from '@/constants/PATHS';
-import Image from 'next/image';
+import { IBusiness } from '@/types/business';
 
 export default function BusinessDetail({ business }: { business: IBusiness }) {
   const t = useTranslations('BusinessDetail');
@@ -68,14 +71,10 @@ export default function BusinessDetail({ business }: { business: IBusiness }) {
                       size="sm"
                       className="flex items-center gap-2"
                     >
-                      <Globe className="w-4 h-4" />
-                      <a
-                        href={business.websiteUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        {t('visitWebsite')}
-                      </a>
+                      <WebsiteLink
+                        websiteUrl={business.websiteUrl}
+                        label={t('visitWebsite')}
+                      />
                     </Button>
                   )}
                   {business.instagram && (
@@ -84,17 +83,10 @@ export default function BusinessDetail({ business }: { business: IBusiness }) {
                       size="sm"
                       className="flex items-center gap-2"
                     >
-                      <Instagram className="w-4 h-4" />
-                      <a
-                        href={`https://instagram.com/${business.instagram.replace(
-                          '@',
-                          ''
-                        )}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        {t('followOnInstagram')}
-                      </a>
+                      <InstagramLink
+                        username={business.instagram}
+                        label={t('followOnInstagram')}
+                      />
                     </Button>
                   )}
                 </div>

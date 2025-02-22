@@ -2,6 +2,7 @@
 
 import { useTranslations } from 'next-intl';
 import { useParams } from 'next/navigation';
+
 import BusinessDetail from '@/components/pages/business/BusinessDetail';
 import { businesses } from '@/data/businesses';
 

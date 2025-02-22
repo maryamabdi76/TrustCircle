@@ -1,8 +1,8 @@
 'use client';
 
 import { Star } from 'lucide-react';
-import { useState } from 'react';
 import { useTranslations } from 'next-intl';
+import { useState } from 'react';
 import { Control, useController } from 'react-hook-form';
 
 interface StarRatingProps {

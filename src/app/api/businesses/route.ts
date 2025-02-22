@@ -1,8 +1,9 @@
-import { NextResponse } from 'next/server';
-import { businesses } from '@/data/businesses';
 import { getServerSession } from 'next-auth';
-import { authOptions } from '@/lib/auth';
+import { NextResponse } from 'next/server';
 import { z } from 'zod';
+
+import { businesses } from '@/data/businesses';
+import { authOptions } from '@/lib/auth';
 
 const businessSchema = z
   .object({

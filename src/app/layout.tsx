@@ -1,13 +1,16 @@
 import './globals.css';
+
 import { NextIntlClientProvider } from 'next-intl';
 import { getLocale, getMessages } from 'next-intl/server';
 import localFont from 'next/font/local';
+
 import { Footer, Navbar, ThemeProvider } from '@/components/layout';
 import { Toaster } from '@/components/ui/toaster';
 import { AuthProvider } from '@/context/AuthProvider';
 import { cn } from '@/lib/utils';
 import { Analytics } from '@vercel/analytics/next';
 import { SpeedInsights } from '@vercel/speed-insights/next';
+
 import type React from 'react';
 import type { Metadata } from 'next';
 

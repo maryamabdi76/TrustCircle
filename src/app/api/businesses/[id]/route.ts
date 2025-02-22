@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+
 import { businesses } from '@/data/businesses';
 
 export async function GET(

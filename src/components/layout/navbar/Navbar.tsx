@@ -1,27 +1,25 @@
 'use client';
 
+import { setCookie } from 'cookies-next';
 import { LayoutDashboard, LogOut, User } from 'lucide-react';
 import { signOut, useSession } from 'next-auth/react';
 import { useLocale, useTranslations } from 'next-intl';
 import { useTheme } from 'next-themes';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+
 import { Logo } from '@/components/icons/Logo';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuShortcut,
-  DropdownMenuTrigger,
+    DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuShortcut, DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu';
 import { Skeleton } from '@/components/ui/skeleton';
 import { PATHS } from '@/constants/PATHS';
+
 import { MobileMenu } from './MobileMenu';
 import { ToggleLanguageIcon } from './ToggleLanguage';
 import { ToggleThemeIcon } from './ToggleTheme';
-import { setCookie } from 'cookies-next';
 
 export const Navbar = () => {
   const t = useTranslations('Navbar');

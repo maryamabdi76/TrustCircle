@@ -1,19 +1,16 @@
 'use client';
 
+import { Globe, Search, Star } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 import { useState } from 'react';
+
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
+    Select, SelectContent, SelectItem, SelectTrigger, SelectValue
 } from '@/components/ui/select';
 import { Slider } from '@/components/ui/slider';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Search, Globe, Star } from 'lucide-react';
-import { useTranslations } from 'next-intl';
 
 export default function BusinessFilters({ className }: { className?: string }) {
   const [rating, setRating] = useState([0]);

@@ -1,9 +1,10 @@
 'use client';
 
-import * as React from 'react';
-import { ThemeProvider as NextThemesProvider } from 'next-themes';
-import { DirectionProvider } from '@radix-ui/react-direction';
 import { useLocale } from 'next-intl';
+import { ThemeProvider as NextThemesProvider } from 'next-themes';
+import * as React from 'react';
+
+import { DirectionProvider } from '@radix-ui/react-direction';
 
 export function ThemeProvider({
   children,

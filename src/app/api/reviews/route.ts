@@ -1,7 +1,8 @@
+import { getServerSession } from 'next-auth';
 import { NextResponse } from 'next/server';
 import { z } from 'zod';
+
 import { reviews } from '@/data/reviews';
-import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
 import { IReview } from '@/types/review';
 

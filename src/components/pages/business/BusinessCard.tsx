@@ -1,15 +1,18 @@
 'use client';
 
-import Link from 'next/link';
-import Image from 'next/image';
-import { Card, CardContent, CardFooter } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
-import { Star, Globe, Instagram, ExternalLink } from 'lucide-react';
-import type { IBusiness } from '@/types/business';
+import { ExternalLink, Star } from 'lucide-react';
 import { useLocale, useTranslations } from 'next-intl';
+import Image from 'next/image';
+import Link from 'next/link';
+
+import { InstagramLink } from '@/components/common/instagramLink/InstagramLink';
+import { WebsiteLink } from '@/components/common/websiteLink/WebsiteLink';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardFooter } from '@/components/ui/card';
 import { PATHS } from '@/constants/PATHS';
 
+import type { IBusiness } from '@/types/business';
 const StarRating = ({ score }: { score: number }) => {
   const locale = useLocale();
   return (
@@ -75,33 +78,10 @@ export default function BusinessCard({ business }: { business: IBusiness }) {
             {/* Social Links */}
             <div className="flex flex-col gap-2 text-sm text-muted-foreground mt-2">
               {business.instagram && (
-                <a
-                  href={`https://instagram.com/${business.instagram.replace(
-                    '@',
-                    ''
-                  )}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-1 hover:text-primary transition-colors"
-                >
-                  <Instagram className="w-4 h-4" />
-                  <span className="truncate" dir="ltr">
-                    {business.instagram}
-                  </span>
-                </a>
+                <InstagramLink username={business.instagram} />
               )}
               {business.websiteUrl && (
-                <a
-                  href={business.websiteUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-1 hover:text-primary transition-colors"
-                >
-                  <Globe className="w-4 h-4" />
-                  <span className="truncate">
-                    {business.websiteUrl.replace('https://', '')}
-                  </span>
-                </a>
+                <WebsiteLink websiteUrl={business.websiteUrl} />
               )}
             </div>
           </div>
@@ -117,7 +97,7 @@ export default function BusinessCard({ business }: { business: IBusiness }) {
               <ExternalLink className="w-3 h-3 ml-2" />
             </Link>
           </Button>
-          <Button asChild className="w-full" size="lg">
+          <Button asChild className="w-full">
             <Link href={PATHS.REVIEWS.WRITE(business.id)}>
               {t('writeReview')}
             </Link>

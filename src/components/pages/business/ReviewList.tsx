@@ -1,18 +1,14 @@
 'use client';
 
-import { Badge } from '@/components/ui/badge';
+import { Flag, Star, ThumbsUp } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
+    Select, SelectContent, SelectItem, SelectTrigger, SelectValue
 } from '@/components/ui/select';
-import { Star, ThumbsUp, Flag } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { useTranslations } from 'next-intl';
 import { reviews } from '@/data/reviews';
 
 interface ReviewListProps {

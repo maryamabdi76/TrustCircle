@@ -1,7 +1,8 @@
 'use client';
 
-import { Progress } from '@/components/ui/progress';
 import { Star } from 'lucide-react';
+
+import { Progress } from '@/components/ui/progress';
 
 interface RatingDistributionProps {
   ratings: {

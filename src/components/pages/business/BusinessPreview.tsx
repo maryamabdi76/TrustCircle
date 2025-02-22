@@ -1,9 +1,12 @@
-import { Card, CardContent } from '@/components/ui/card';
-import { Star, Globe, Instagram } from 'lucide-react';
-import type { IBusiness } from '@/types/business';
+import { Star } from 'lucide-react';
 import Image from 'next/image';
-import { Badge } from '@/components/ui/badge';
 
+import { InstagramLink } from '@/components/common/instagramLink/InstagramLink';
+import { WebsiteLink } from '@/components/common/websiteLink/WebsiteLink';
+import { Badge } from '@/components/ui/badge';
+import { Card, CardContent } from '@/components/ui/card';
+
+import type { IBusiness } from '@/types/business';
 interface BusinessPreviewProps {
   business: IBusiness;
   className?: string;
@@ -38,33 +41,10 @@ export function BusinessPreview({ business, className }: BusinessPreviewProps) {
             </div>
             <div className="flex flex-wrap gap-4 text-sm">
               {business.websiteUrl && (
-                <a
-                  href={business.websiteUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex gap-2 items-center text-muted-foreground hover:text-primary transition-colors"
-                >
-                  <Globe className="w-4 h-4" />
-                  <span className="truncate">
-                    {new URL(business.websiteUrl).hostname}
-                  </span>
-                </a>
+                <WebsiteLink websiteUrl={business.websiteUrl} />
               )}
               {business.instagram && (
-                <a
-                  href={`https://instagram.com/${business.instagram.replace(
-                    '@',
-                    ''
-                  )}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex gap-2 items-center text-muted-foreground hover:text-primary transition-colors"
-                >
-                  <Instagram className="w-4 h-4" />
-                  <span className="truncate" dir="ltr">
-                    {business.instagram}
-                  </span>
-                </a>
+                <InstagramLink username={business.instagram} />
               )}
             </div>
           </div>

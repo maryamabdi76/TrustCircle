@@ -1,7 +1,8 @@
 'use client';
-import { useCallback, useState } from 'react';
-import { useToast } from '@/hooks/use-toast';
 import { useTranslations } from 'next-intl';
+import { useCallback, useState } from 'react';
+
+import { useToast } from '@/hooks/use-toast';
 
 interface FetchBusinessesOptions {
   category?: string;

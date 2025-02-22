@@ -1,9 +1,10 @@
 'use client';
 
 import type { IReview } from '@/types/review';
-import { useCallback, useState } from 'react';
-import { useToast } from '@/hooks/use-toast';
 import { useTranslations } from 'next-intl';
+import { useCallback, useState } from 'react';
+
+import { useToast } from '@/hooks/use-toast';
 
 interface UseReviewsOptions {
   businessId?: string;

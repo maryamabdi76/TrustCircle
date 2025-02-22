@@ -1,41 +1,27 @@
 'use client';
 
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { Loader2 } from 'lucide-react';
 import { useSession } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
-import { z } from 'zod';
+import { useRouter } from 'next/navigation';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from 'zod';
+
 import { Button } from '@/components/ui/button';
+import {
+    Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle
+} from '@/components/ui/card';
+import {
+    Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage
+} from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
+    Select, SelectContent, SelectItem, SelectTrigger, SelectValue
 } from '@/components/ui/select';
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card';
-import { useToast } from '@/hooks/use-toast';
-import { Loader2 } from 'lucide-react';
 import { categories } from '@/data/categories';
+import { useToast } from '@/hooks/use-toast';
+import { zodResolver } from '@hookform/resolvers/zod';
 
 const businessSchema = z
   .object({

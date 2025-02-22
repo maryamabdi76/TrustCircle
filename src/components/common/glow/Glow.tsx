@@ -1,11 +1,7 @@
 'use client';
+import React, { ComponentPropsWithoutRef, CSSProperties, useEffect, useRef } from 'react';
+
 import { cn } from '@/lib/utils';
-import React, {
-  ComponentPropsWithoutRef,
-  CSSProperties,
-  useEffect,
-  useRef,
-} from 'react';
 
 interface GlowAreaProps extends ComponentPropsWithoutRef<'div'> {
   size?: number;

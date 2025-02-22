@@ -1,22 +1,18 @@
 'use client';
 
-import { useState } from 'react';
+import { ChromeIcon } from 'lucide-react';
 import { signIn } from 'next-auth/react';
-import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { useState } from 'react';
+
 import { Button } from '@/components/ui/button';
+import {
+    Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle
+} from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card';
-import { ChromeIcon } from 'lucide-react';
 import { PATHS } from '@/constants/PATHS';
 
 export default function SignIn() {

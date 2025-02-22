@@ -1,24 +1,21 @@
 'use client';
 
-import { useParams, useRouter } from 'next/navigation';
-import { useTranslations } from 'next-intl';
 import { Loader2 } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Textarea } from '@/components/ui/textarea';
-import { Input } from '@/components/ui/input';
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card';
+import { useTranslations } from 'next-intl';
+import { useParams, useRouter } from 'next/navigation';
+
 import { BusinessPreview } from '@/components/pages/business/BusinessPreview';
+import { Button } from '@/components/ui/button';
+import {
+    Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle
+} from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Skeleton } from '@/components/ui/skeleton';
+import { Textarea } from '@/components/ui/textarea';
+import { PATHS } from '@/constants/PATHS';
+
 import { StarRating } from '../StarRating';
 import { useWriteReview } from './useWriteReview';
-import { Skeleton } from '@/components/ui/skeleton';
-import { PATHS } from '@/constants/PATHS';
 
 export default function WriteReview() {
   const params = useParams<{ businessId: string }>();
