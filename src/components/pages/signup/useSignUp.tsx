@@ -1,7 +1,8 @@
-import { zodResolver } from '@hookform/resolvers/zod';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
+
+import { zodResolver } from '@hookform/resolvers/zod';
 
 const emailSchema = z.object({
   email: z.string().email({ message: 'Invalid email address' }),

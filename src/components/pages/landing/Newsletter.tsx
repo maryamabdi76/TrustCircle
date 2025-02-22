@@ -1,6 +1,7 @@
+import { useTranslations } from 'next-intl';
+
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { useTranslations } from 'next-intl';
 
 export const Newsletter = () => {
   const t = useTranslations('LandingPage');

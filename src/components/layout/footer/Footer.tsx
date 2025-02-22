@@ -1,8 +1,8 @@
 'use client';
 
-import Link from 'next/link';
-import { Facebook, Twitter, Instagram, Linkedin } from 'lucide-react';
+import { Facebook, Instagram, Linkedin, Twitter } from 'lucide-react';
 import { useTranslations } from 'next-intl';
+import Link from 'next/link';
 
 export const Footer = () => {
   const t = useTranslations('Footer');

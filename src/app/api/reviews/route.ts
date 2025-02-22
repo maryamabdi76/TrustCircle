@@ -1,7 +1,8 @@
+import { getServerSession } from 'next-auth';
 import { NextResponse } from 'next/server';
 import { z } from 'zod';
+
 import { reviews } from '@/data/reviews';
-import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
 import { IReview } from '@/types/review';
 
@@ -9,8 +10,8 @@ import { IReview } from '@/types/review';
 const reviewSchema = z.object({
   businessId: z.string(),
   rating: z.number().min(1).max(5),
-  titleFA: z.string().min(1).max(100),
-  contentFA: z.string().min(10).max(1000),
+  title: z.string().min(1).max(100),
+  content: z.string().min(10).max(1000),
 });
 
 export async function GET(request: Request) {
@@ -84,13 +85,10 @@ export async function POST(request: Request) {
       id: crypto.randomUUID(),
       businessId: result.data.businessId,
       rating: result.data.rating,
-      titleFA: result.data.titleFA,
-      contentFA: result.data.contentFA,
+      title: result.data.title,
+      content: result.data.content,
       authorId: session.user.id || '1',
       authorName: session.user.name || 'Anonymous',
-      authorNameFA: session.user.name || 'ناشناس',
-      title: result.data.titleFA,
-      content: result.data.contentFA,
       date: new Date().toISOString(),
       helpful: 0,
       verifiedPurchase: false,

@@ -1,7 +1,7 @@
 'use client';
 
 import { SessionProvider } from 'next-auth/react';
-import { createContext, useContext, ReactNode } from 'react';
+import { createContext, ReactNode, useContext } from 'react';
 
 const AuthContext = createContext(null);
 

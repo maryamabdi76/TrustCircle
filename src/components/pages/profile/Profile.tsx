@@ -1,24 +1,18 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { useSession } from 'next-auth/react';
-import { useRouter } from 'next/navigation';
+import { Eye, Loader2, Star, ThumbsUp, User } from 'lucide-react';
+import { signOut, useSession } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card';
+import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
+
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
-import { Loader2, User, Star, ThumbsUp, Eye } from 'lucide-react';
-import { signOut } from 'next-auth/react';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { PATHS } from '@/constants/PATHS';
 import { useReviews } from '@/hooks/useReviews';
 import { IReview } from '@/types/review';
-import { PATHS } from '@/constants/PATHS';
 
 export default function Profile() {
   const { data: session, status } = useSession();

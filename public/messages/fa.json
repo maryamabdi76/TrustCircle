@@ -142,13 +142,7 @@
     "searchByName": "جستجو بر اساس نام",
     "category": "دسته‌بندی",
     "selectCategory": "انتخاب دسته‌بندی",
-    "categories": {
-      "technology": "تکنولوژی",
-      "food": "غذا",
-      "retail": "خرده‌فروشی",
-      "health": "سلامت و تندرستی",
-      "education": "آموزش"
-    },
+    "categoryDescription": "دسته‌بندی که بهترین توصیف برای کسب و کار شماست را انتخاب کنید",
     "websiteOrInstagram": "وبسایت یا اینستاگرام",
     "websiteOrInstagramPlaceholder": "website.com یا @username",
     "minimumRating": "حداقل امتیاز",
@@ -157,7 +151,26 @@
     "writeReview": "ثبت نظر",
     "error": "خطا",
     "errorFetchingBusinesses": "خطا در دریافت لیست کسب‌وکارها",
-    "errorFetchingBusiness": "خطا در دریافت جزئیات کسب‌وکار"
+    "errorFetchingBusiness": "خطا در دریافت جزئیات کسب‌وکار",
+    "addNewBusiness": "افزودن کسب‌وکار جدید",
+    "addNewBusinessDescription": "افزودن یک کسب‌وکار جدید به دایرکتوری ما",
+    "businessNameDescription": "نام رسمی کسب‌وکار را وارد کنید",
+    "instagramId": "شناسه اینستاگرام",
+    "instagramIdDescription": "نام کاربری اینستاگرام را وارد کنید (بدون @)",
+    "website": "وب‌سایت",
+    "websiteDescription": "آدرس کامل وب‌سایت را وارد کنید (مثال: https://www.example.com)",
+    "adding": "در حال افزودن...",
+    "addBusiness": "افزودن کسب‌وکار",
+    "success": "موفقیت",
+    "businessAdded": "کسب‌وکار با موفقیت اضافه شد",
+    "errorAddingBusiness": "خطایی در افزودن کسب‌وکار رخ داد. لطفاً دوباره تلاش کنید.",
+    "pleaseSignIn": "لطفاً برای افزودن کسب‌وکار وارد شوید",
+    "searchBusinesses": "جستجوی کسب‌وکارها...",
+    "noBusinessesFound": "هیچ کسب‌وکاری یافت نشد. آیا می‌خواهید یکی اضافه کنید؟",
+    "clearFilters": "پاک کردن فیلترها",
+    "allCategories": "همه دسته‌ها",
+    "applyFilters": "اعمال فیلترها",
+    "businessesFound": "{count} کسب‌وکار یافت شد"
   },
   "BusinessDetail": {
     "basedOn": "بر اساس {count} نظر",
@@ -181,7 +194,9 @@
     "verifiedPurchase": "خرید تایید شده",
     "helpful": "مفید بود",
     "report": "گزارش",
-    "businessNotFound": "کسب‌وکار یافت نشد"
+    "businessNotFound": "کسب‌وکار یافت نشد",
+    "noReviews": "هنوز هیچ نظری برای این کسب و کار ثبت نشده است.",
+    "beFirstToReview": "اولین نفری باشید که نظر می‌دهید"
   },
   "Reviews": {
     "writeReview": "نوشتن نظر",

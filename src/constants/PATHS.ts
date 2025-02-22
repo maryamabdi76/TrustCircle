@@ -16,6 +16,8 @@ export const PATHS = {
   },
   BUSINESSES: {
     ROOT: '/businesses',
+    ADD: '/businesses/add',
+    DETAIL: (businessId: string) => `/businesses/detail/${businessId}`,
   },
   PROFILE: {
     ROOT: '/profile',

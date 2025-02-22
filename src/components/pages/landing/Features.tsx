@@ -1,6 +1,7 @@
-import { Glow, GlowArea } from '@/components/common/glow/Glow';
-import { Star, Users, ShoppingBag, Zap } from 'lucide-react';
+import { ShoppingBag, Star, Users, Zap } from 'lucide-react';
 import { useTranslations } from 'next-intl';
+
+import { Glow, GlowArea } from '@/components/common/glow/Glow';
 
 const featureIcons = {
   authenticReviews: Star,

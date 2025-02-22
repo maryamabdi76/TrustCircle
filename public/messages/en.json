@@ -142,13 +142,7 @@
     "searchByName": "Search by name",
     "category": "Category",
     "selectCategory": "Select category",
-    "categories": {
-      "technology": "Technology",
-      "food": "Food",
-      "retail": "Retail",
-      "health": "Health & Wellness",
-      "education": "Education"
-    },
+    "categoryDescription": "Choose the category that best describes your business",
     "websiteOrInstagram": "Website or Instagram",
     "websiteOrInstagramPlaceholder": "website.com or @username",
     "minimumRating": "Minimum Rating",
@@ -157,7 +151,26 @@
     "addReview": "Add Review",
     "error": "Error",
     "errorFetchingBusinesses": "Failed to fetch businesses",
-    "errorFetchingBusiness": "Failed to fetch business details"
+    "errorFetchingBusiness": "Failed to fetch business details",
+    "addNewBusiness": "Add New Business",
+    "addNewBusinessDescription": "Add a new business to our directory",
+    "businessNameDescription": "Enter the official name of the business",
+    "instagramId": "Instagram ID",
+    "instagramIdDescription": "Enter the Instagram handle (without @)",
+    "website": "Website",
+    "websiteDescription": "Enter the full website URL (e.g., https://www.example.com)",
+    "adding": "Adding...",
+    "addBusiness": "Add Business",
+    "success": "Success",
+    "businessAdded": "Business added successfully",
+    "errorAddingBusiness": "There was an error adding the business. Please try again.",
+    "pleaseSignIn": "Please sign in to add a business",
+    "searchBusinesses": "Search businesses...",
+    "noBusinessesFound": "No businesses found. Would you like to add one?",
+    "clearFilters": "Clear Filters",
+    "allCategories": "All Categories",
+    "applyFilters": "Apply Filters",
+    "businessesFound": "{count} businesses found"
   },
   "BusinessDetail": {
     "basedOn": "Based on {count} reviews",
@@ -181,7 +194,9 @@
     "verifiedPurchase": "Verified Purchase",
     "helpful": "Helpful",
     "report": "Report",
-    "businessNotFound": "Business not found"
+    "businessNotFound": "Business not found",
+    "noReviews": "There are no reviews for this business yet.",
+    "beFirstToReview": "Be the first to write a review"
   },
   "Reviews": {
     "writeReview": "Write a Review",

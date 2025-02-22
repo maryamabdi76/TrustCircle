@@ -1,7 +1,8 @@
-import { Glow, GlowArea } from '@/components/common/glow/Glow';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Search, ShieldCheck } from 'lucide-react';
 import { useTranslations } from 'next-intl';
+
+import { Glow, GlowArea } from '@/components/common/glow/Glow';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
 export const Benefits = () => {
   const t = useTranslations('LandingPage');

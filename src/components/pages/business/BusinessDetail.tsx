@@ -1,14 +1,17 @@
-import { Globe, Instagram, Star } from 'lucide-react';
+import { Star } from 'lucide-react';
 import { useTranslations } from 'next-intl';
+import Image from 'next/image';
+import Link from 'next/link';
+
+import { InstagramLink } from '@/components/common/instagramLink/InstagramLink';
+import { WebsiteLink } from '@/components/common/websiteLink/WebsiteLink';
 import { RatingDistribution } from '@/components/pages/business/RatingDistribution';
 import { ReviewList } from '@/components/pages/business/ReviewList';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { IBusiness } from '@/types/business';
-import Link from 'next/link';
 import { PATHS } from '@/constants/PATHS';
-import Image from 'next/image';
+import { IBusiness } from '@/types/business';
 
 export default function BusinessDetail({ business }: { business: IBusiness }) {
   const t = useTranslations('BusinessDetail');
@@ -32,7 +35,7 @@ export default function BusinessDetail({ business }: { business: IBusiness }) {
                   />
                 </div>
                 <div className="space-y-4">
-                  <h1 className="text-3xl font-bold">{business.nameFA}</h1>
+                  <h1 className="text-3xl font-bold">{business.name}</h1>
                   <div className="flex items-center gap-2">
                     <div className="flex items-center">
                       <Star className="w-6 h-6 text-primary fill-primary" />
@@ -45,8 +48,8 @@ export default function BusinessDetail({ business }: { business: IBusiness }) {
                     </span>
                   </div>
                   <div className="flex flex-wrap gap-2">
-                    <Badge variant="outline">{business.categoryFA}</Badge>
-                    {business.tagsFA?.map((tag) => (
+                    <Badge variant="outline">{business.category}</Badge>
+                    {business.tags?.map((tag) => (
                       <Badge key={tag} variant="secondary">
                         {tag}
                       </Badge>
@@ -54,47 +57,36 @@ export default function BusinessDetail({ business }: { business: IBusiness }) {
                   </div>
                 </div>
               </div>
-              <div className="flex flex-col  gap-3">
+              <div className="flex flex-col w-full md:w-fit gap-3">
                 <Button asChild className="w-full" size="lg">
                   <Link href={PATHS.REVIEWS.WRITE(business.id)}>
                     {t('writeReview')}
                   </Link>
                 </Button>
 
-                <div className="flex gap-2">
+                <div className="flex justify-center gap-2">
                   {business.websiteUrl && (
                     <Button
                       variant="outline"
                       size="sm"
-                      className="flex items-center gap-2"
+                      className="flex items-center gap-2 w-full"
                     >
-                      <Globe className="w-4 h-4" />
-                      <a
-                        href={business.websiteUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        {t('visitWebsite')}
-                      </a>
+                      <WebsiteLink
+                        websiteUrl={business.websiteUrl}
+                        label={t('visitWebsite')}
+                      />
                     </Button>
                   )}
                   {business.instagram && (
                     <Button
                       variant="outline"
                       size="sm"
-                      className="flex items-center gap-2"
+                      className="flex items-center gap-2 w-full"
                     >
-                      <Instagram className="w-4 h-4" />
-                      <a
-                        href={`https://instagram.com/${business.instagram.replace(
-                          '@',
-                          ''
-                        )}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        {t('followOnInstagram')}
-                      </a>
+                      <InstagramLink
+                        username={business.instagram}
+                        label={t('followOnInstagram')}
+                      />
                     </Button>
                   )}
                 </div>

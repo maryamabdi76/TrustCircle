@@ -1,11 +1,14 @@
 'use client';
-import { useCallback, useState } from 'react';
-import { useToast } from '@/hooks/use-toast';
 import { useTranslations } from 'next-intl';
+import { useCallback, useState } from 'react';
+
+import { useToast } from '@/hooks/use-toast';
 
 interface FetchBusinessesOptions {
+  name?: string;
   category?: string;
-  search?: string;
+  websiteOrInstagram?: string;
+  rating?: number;
   sort?: 'rating' | 'name';
   page?: number;
   limit?: number;
@@ -18,8 +21,10 @@ export function useBusinesses() {
 
   const fetchBusinesses = useCallback(
     async ({
+      name,
       category,
-      search,
+      websiteOrInstagram,
+      rating,
       sort = 'rating',
       page = 1,
       limit = 10,
@@ -32,11 +37,20 @@ export function useBusinesses() {
           limit: limit.toString(),
         });
 
+        if (name) {
+          params.append('search', name);
+        }
+
+        if (websiteOrInstagram) {
+          params.append('websiteOrInstagram', websiteOrInstagram);
+        }
+
         if (category) {
           params.append('category', category);
         }
-        if (search) {
-          params.append('search', search);
+
+        if (rating) {
+          params.append('rating', rating.toString());
         }
 
         const response = await fetch(`/api/businesses?${params}`);

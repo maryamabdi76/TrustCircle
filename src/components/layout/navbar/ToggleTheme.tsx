@@ -1,7 +1,8 @@
 'use client';
 
-import { useTheme } from 'next-themes';
 import { motion as m } from 'framer-motion';
+import { useTheme } from 'next-themes';
+
 import { raysVariants, rayVariant, shineVariant } from './animations';
 
 const sunPath =

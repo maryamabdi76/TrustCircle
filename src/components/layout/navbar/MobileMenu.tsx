@@ -5,15 +5,13 @@ import { LogIn } from 'lucide-react';
 import { useLocale, useTranslations } from 'next-intl';
 import { useTheme } from 'next-themes';
 import Link from 'next/link';
+
 import { Button } from '@/components/ui/button';
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuShortcut,
-  DropdownMenuTrigger,
+    DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuShortcut, DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu';
 import { PATHS } from '@/constants/PATHS';
+
 import { ToggleThemeIcon } from './ToggleTheme';
 
 export const MobileMenu = () => {

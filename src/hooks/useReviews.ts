@@ -1,9 +1,10 @@
 'use client';
 
 import type { IReview } from '@/types/review';
-import { useCallback, useState } from 'react';
-import { useToast } from '@/hooks/use-toast';
 import { useTranslations } from 'next-intl';
+import { useCallback, useState } from 'react';
+
+import { useToast } from '@/hooks/use-toast';
 
 interface UseReviewsOptions {
   businessId?: string;
@@ -67,7 +68,7 @@ export function useReviews({ businessId }: UseReviewsOptions = {}) {
   );
 
   const createReview = useCallback(
-    async (data: Omit<IReview, 'id' | 'authorName' | 'date' | 'helpful'>) => {
+    async (data: Omit<IReview, 'id' | 'date' | 'helpful'>) => {
       try {
         setLoading(true);
         const response = await fetch('/api/reviews', {

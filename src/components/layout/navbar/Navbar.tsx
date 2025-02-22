@@ -1,11 +1,13 @@
 'use client';
 
+import { setCookie } from 'cookies-next';
 import { LayoutDashboard, LogOut, User } from 'lucide-react';
 import { signOut, useSession } from 'next-auth/react';
 import { useLocale, useTranslations } from 'next-intl';
 import { useTheme } from 'next-themes';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+
 import { Logo } from '@/components/icons/Logo';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
@@ -18,10 +20,10 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { Skeleton } from '@/components/ui/skeleton';
 import { PATHS } from '@/constants/PATHS';
+
 import { MobileMenu } from './MobileMenu';
 import { ToggleLanguageIcon } from './ToggleLanguage';
 import { ToggleThemeIcon } from './ToggleTheme';
-import { setCookie } from 'cookies-next';
 
 export const Navbar = () => {
   const t = useTranslations('Navbar');
@@ -56,7 +58,7 @@ export const Navbar = () => {
             <Link href={PATHS.BUSINESSES.ROOT}>{t('businesses')}</Link>
           </Button>
           {sessionStatus === 'loading' ? (
-            <Skeleton className="size-10 rounded-full" />
+            <Skeleton className="size-8 rounded-full" />
           ) : session ? (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>

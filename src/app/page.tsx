@@ -1,11 +1,5 @@
 import {
-  Hero,
-  Features,
-  Testimonials,
-  Cta,
-  Benefits,
-  Statistics,
-  Newsletter,
+    Benefits, Cta, Features, Hero, Newsletter, Statistics, Testimonials
 } from '../components/pages/landing';
 
 export default function LandingPage() {

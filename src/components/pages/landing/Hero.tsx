@@ -1,9 +1,10 @@
 'use client';
 
-import Image from 'next/image';
-import { Button } from '@/components/ui/button';
-import { useTranslations } from 'next-intl';
 import { motion } from 'framer-motion';
+import { useTranslations } from 'next-intl';
+import Image from 'next/image';
+
+import { Button } from '@/components/ui/button';
 
 function FloatingCirclePaths() {
   const circles = Array.from({ length: 50 }, (_, i) => ({

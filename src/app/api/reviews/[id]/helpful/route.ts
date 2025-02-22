@@ -1,6 +1,7 @@
-import { NextRequest, NextResponse } from 'next/server';
-import { reviews } from '@/data/reviews';
 import { getServerSession } from 'next-auth';
+import { NextRequest, NextResponse } from 'next/server';
+
+import { reviews } from '@/data/reviews';
 import { authOptions } from '@/lib/auth';
 
 export async function POST(

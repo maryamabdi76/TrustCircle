@@ -1,8 +1,9 @@
 import type { DefaultSession, NextAuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import GoogleProvider from 'next-auth/providers/google';
-import { users } from '@/data/users';
+
 import { PATHS } from '@/constants/PATHS';
+import { users } from '@/data/users';
 
 // Extend session type to include user ID
 declare module 'next-auth' {
