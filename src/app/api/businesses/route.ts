@@ -8,7 +8,6 @@ import crypto from 'crypto';
 const businessSchema = z
   .object({
     name: z.string().min(1),
-    nameFA: z.string().min(1),
     instagram: z.string().optional(),
     website: z.string().url().optional(),
   })
@@ -40,9 +39,7 @@ export async function GET(request: Request) {
       filteredBusinesses = filteredBusinesses.filter(
         (business) =>
           business.name.toLowerCase().includes(searchLower) ||
-          business.nameFA.toLowerCase().includes(searchLower) ||
-          business.description?.toLowerCase().includes(searchLower) ||
-          business.descriptionFA?.toLowerCase().includes(searchLower)
+          business.description?.toLowerCase().includes(searchLower)
       );
     }
 
@@ -100,7 +97,6 @@ export async function POST(request: Request) {
       ...result.data,
       score: 0,
       category: 'Uncategorized',
-      categoryFA: 'Uncategorized',
       reviewCount: 0,
       ratingDistribution: {},
     };

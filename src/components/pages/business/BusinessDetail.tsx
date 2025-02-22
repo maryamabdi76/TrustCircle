@@ -32,7 +32,7 @@ export default function BusinessDetail({ business }: { business: IBusiness }) {
                   />
                 </div>
                 <div className="space-y-4">
-                  <h1 className="text-3xl font-bold">{business.nameFA}</h1>
+                  <h1 className="text-3xl font-bold">{business.name}</h1>
                   <div className="flex items-center gap-2">
                     <div className="flex items-center">
                       <Star className="w-6 h-6 text-primary fill-primary" />
@@ -45,8 +45,8 @@ export default function BusinessDetail({ business }: { business: IBusiness }) {
                     </span>
                   </div>
                   <div className="flex flex-wrap gap-2">
-                    <Badge variant="outline">{business.categoryFA}</Badge>
-                    {business.tagsFA?.map((tag) => (
+                    <Badge variant="outline">{business.category}</Badge>
+                    {business.tags?.map((tag) => (
                       <Badge key={tag} variant="secondary">
                         {tag}
                       </Badge>

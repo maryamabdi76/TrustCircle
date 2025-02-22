@@ -63,10 +63,10 @@ export default function BusinessCard({ business }: { business: IBusiness }) {
           <div className="flex flex-col flex-grow min-w-0">
             <div className="flex flex-col xl:flex-row justify-between mb-2">
               <h3 className="text-lg font-semibold truncate">
-                {business.nameFA}
+                {business.name}
               </h3>
               <Badge variant="secondary" className="text-xs w-fit">
-                {business.categoryFA}
+                {business.category}
               </Badge>
             </div>
 

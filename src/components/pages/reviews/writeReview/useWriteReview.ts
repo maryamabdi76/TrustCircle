@@ -71,12 +71,10 @@ export function useWriteReview(businessId: string) {
       const result = await createReview({
         businessId,
         authorId: session?.user?.id || '',
-        authorNameFA: session?.user?.name || '',
+        authorName: session?.user?.name || '',
         rating,
         title,
-        titleFA: title,
         content,
-        contentFA: content,
       });
 
       if (result) {

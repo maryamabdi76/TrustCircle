@@ -65,7 +65,7 @@ export function ReviewList({ businessId }: ReviewListProps) {
                       />
                     ))}
                   </div>
-                  <h4 className="font-semibold">{review.titleFA}</h4>
+                  <h4 className="font-semibold">{review.title}</h4>
                 </div>
                 <span className="text-sm text-muted-foreground">
                   {new Date(review.date).toLocaleDateString()}
@@ -73,10 +73,10 @@ export function ReviewList({ businessId }: ReviewListProps) {
               </div>
             </CardHeader>
             <CardContent>
-              <p className="mb-4">{review.contentFA}</p>
+              <p className="mb-4">{review.content}</p>
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                  <span>{review.authorNameFA}</span>
+                  <span>{review.authorName}</span>
                   {review.verifiedPurchase && (
                     <Badge variant="secondary">{t('verifiedPurchase')}</Badge>
                   )}

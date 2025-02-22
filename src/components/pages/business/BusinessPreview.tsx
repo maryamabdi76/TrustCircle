@@ -27,14 +27,14 @@ export function BusinessPreview({ business, className }: BusinessPreviewProps) {
           </div>
           <div className="flex-grow min-w-0">
             <h2 className="text-2xl font-semibold truncate mb-2">
-              {business.nameFA}
+              {business.name}
             </h2>
             <div className="flex items-center gap-4 mb-3">
               <div className="flex items-center gap-2 py-1">
                 <Star className="w-4 h-4 text-primary fill-primary mr-1" />
                 <span className="font-medium">{business.score.toFixed(1)}</span>
               </div>
-              <Badge variant="secondary">{business.categoryFA}</Badge>
+              <Badge variant="secondary">{business.category}</Badge>
             </div>
             <div className="flex flex-wrap gap-4 text-sm">
               {business.websiteUrl && (

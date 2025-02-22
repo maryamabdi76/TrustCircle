@@ -40,7 +40,6 @@ import { categories } from '@/data/categories';
 const businessSchema = z
   .object({
     name: z.string().min(1, 'Business name is required'),
-    nameFA: z.string().min(1, 'Business name is required'),
     category: z.string().min(1, 'Category is required'),
     instagram: z.string().optional(),
     website: z.string().url().optional(),
@@ -140,7 +139,7 @@ export default function AddBusinessPage() {
               />
               <FormField
                 control={form.control}
-                name="nameFA"
+                name="name"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>{t('businessName')}</FormLabel>

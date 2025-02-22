@@ -67,7 +67,7 @@ export function useReviews({ businessId }: UseReviewsOptions = {}) {
   );
 
   const createReview = useCallback(
-    async (data: Omit<IReview, 'id' | 'authorName' | 'date' | 'helpful'>) => {
+    async (data: Omit<IReview, 'id' | 'date' | 'helpful'>) => {
       try {
         setLoading(true);
         const response = await fetch('/api/reviews', {
