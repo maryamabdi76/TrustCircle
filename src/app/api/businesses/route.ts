@@ -22,7 +22,8 @@ export async function GET(request: Request) {
     const search = searchParams.get('search');
     const category = searchParams.get('category');
     const websiteOrInstagram = searchParams.get('websiteOrInstagram');
-    const sort = searchParams.get('sort') || 'rating';
+    const rating = searchParams.get('rating');
+    const sort = searchParams.get('sort');
     const page = Number.parseInt(searchParams.get('page') || '1');
     const limit = Number.parseInt(searchParams.get('limit') || '10');
 
@@ -35,7 +36,6 @@ export async function GET(request: Request) {
       );
     }
 
-    // Filter by search term if provided
     if (search) {
       const searchLower = search.toLowerCase();
       filteredBusinesses = filteredBusinesses.filter(
@@ -45,7 +45,6 @@ export async function GET(request: Request) {
       );
     }
 
-    // Filter by search term if provided
     if (websiteOrInstagram) {
       const searchLower = websiteOrInstagram.toLowerCase();
       filteredBusinesses = filteredBusinesses.filter(
@@ -55,12 +54,19 @@ export async function GET(request: Request) {
       );
     }
 
+    if (rating) {
+      filteredBusinesses = filteredBusinesses.filter(
+        (business) => business.score >= parseFloat(rating)
+      );
+    }
+
     // Sort businesses
     filteredBusinesses.sort((a, b) => {
       switch (sort) {
         case 'name':
           return a.name.localeCompare(b.name);
         case 'rating':
+          return (b.score ?? 0) - (a.score ?? 0);
         default:
           return b.score - a.score;
       }

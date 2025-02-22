@@ -169,7 +169,8 @@
     "noBusinessesFound": "هیچ کسب‌وکاری یافت نشد. آیا می‌خواهید یکی اضافه کنید؟",
     "clearFilters": "پاک کردن فیلترها",
     "allCategories": "همه دسته‌ها",
-    "applyFilters": "اعمال فیلترها"
+    "applyFilters": "اعمال فیلترها",
+    "businessesFound": "{count} کسب‌وکار یافت شد"
   },
   "BusinessDetail": {
     "basedOn": "بر اساس {count} نظر",

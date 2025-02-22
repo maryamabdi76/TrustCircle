@@ -3,7 +3,7 @@
 import { Plus } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 
 import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
@@ -13,6 +13,7 @@ import { useBusinesses } from '@/hooks/useBusinesses';
 import BusinessCard from './BusinessCard';
 
 import type { IBusiness } from '@/types/business';
+import clsx from 'clsx';
 
 export default function BusinessList({ className }: { className?: string }) {
   const t = useTranslations('Business');
@@ -22,19 +23,38 @@ export default function BusinessList({ className }: { className?: string }) {
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  const loadBusinesses = useCallback(async () => {
-    const params = {
+  const filters = useMemo(
+    () => ({
       name: searchParams.get('name') || '',
       category: searchParams.get('category') || '',
       websiteOrInstagram: searchParams.get('websiteOrInstagram') || '',
-      rating: searchParams.get('rating') || '0',
-    };
+      rating: Number.parseFloat(searchParams.get('rating') || '0'),
+      page: Number.parseInt(searchParams.get('page') || '1'),
+      limit: Number.parseInt(searchParams.get('limit') || '10'),
+    }),
+    [searchParams]
+  );
 
-    const { businesses } = await fetchBusinesses(params).finally(() => {
+  const hasFilters = useMemo(
+    () =>
+      filters.name ||
+      filters.category ||
+      filters.websiteOrInstagram ||
+      filters.rating > 0,
+    [filters]
+  );
+
+  const loadBusinesses = useCallback(async () => {
+    setIsLoading(true);
+    try {
+      const { businesses } = await fetchBusinesses(filters);
+      setBusinesses(businesses);
+    } catch (error) {
+      console.error('Error fetching businesses:', error);
+    } finally {
       setIsLoading(false);
-    });
-    setBusinesses(businesses);
-  }, [searchParams, fetchBusinesses]);
+    }
+  }, [filters, fetchBusinesses]);
 
   useEffect(() => {
     loadBusinesses();
@@ -44,15 +64,9 @@ export default function BusinessList({ className }: { className?: string }) {
     router.push(PATHS.BUSINESSES.ADD);
   };
 
-  return (
-    <div className={className}>
-      <div className="mb-4 flex justify-end">
-        <Button onClick={handleAddBusiness}>
-          <Plus className="mr-2 h-4 w-4" />
-          {t('addNewBusiness')}
-        </Button>
-      </div>
-      {loading || isLoading ? (
+  const renderBusinesses = () => {
+    if (loading || isLoading) {
+      return (
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {Array.from({ length: 4 }).map((_, index) => (
             <div
@@ -70,13 +84,11 @@ export default function BusinessList({ className }: { className?: string }) {
             </div>
           ))}
         </div>
-      ) : businesses.length > 0 ? (
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          {businesses.map((business) => (
-            <BusinessCard key={business.id} business={business} />
-          ))}
-        </div>
-      ) : (
+      );
+    }
+
+    if (businesses.length === 0) {
+      return (
         <div className="text-center py-8">
           <p className="text-lg mb-4">{t('noBusinessesFound')}</p>
           <Button onClick={handleAddBusiness}>
@@ -84,7 +96,37 @@ export default function BusinessList({ className }: { className?: string }) {
             {t('addNewBusiness')}
           </Button>
         </div>
-      )}
+      );
+    }
+
+    return (
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        {businesses.map((business) => (
+          <BusinessCard key={business.id} business={business} />
+        ))}
+      </div>
+    );
+  };
+
+  return (
+    <div className={className}>
+      <div
+        className={clsx(
+          'mb-4 flex items-center',
+          hasFilters ? 'justify-between' : 'justify-end'
+        )}
+      >
+        {hasFilters && (
+          <h1 className="text-sm font-bold">
+            {t('businessesFound', { count: businesses.length })}
+          </h1>
+        )}
+        <Button onClick={handleAddBusiness}>
+          <Plus className="mr-2 h-4 w-4" />
+          {t('addNewBusiness')}
+        </Button>
+      </div>
+      {renderBusinesses()}
     </div>
   );
 }

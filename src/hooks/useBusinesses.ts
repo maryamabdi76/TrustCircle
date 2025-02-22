@@ -8,6 +8,7 @@ interface FetchBusinessesOptions {
   name?: string;
   category?: string;
   websiteOrInstagram?: string;
+  rating?: number;
   sort?: 'rating' | 'name';
   page?: number;
   limit?: number;
@@ -23,6 +24,7 @@ export function useBusinesses() {
       name,
       category,
       websiteOrInstagram,
+      rating,
       sort = 'rating',
       page = 1,
       limit = 10,
@@ -45,6 +47,10 @@ export function useBusinesses() {
 
         if (category) {
           params.append('category', category);
+        }
+
+        if (rating) {
+          params.append('rating', rating);
         }
 
         const response = await fetch(`/api/businesses?${params}`);

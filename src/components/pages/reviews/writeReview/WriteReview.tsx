@@ -7,7 +7,12 @@ import { useParams, useRouter } from 'next/navigation';
 import { BusinessPreview } from '@/components/pages/business/BusinessPreview';
 import { Button } from '@/components/ui/button';
 import {
-    Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
 } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Skeleton } from '@/components/ui/skeleton';
@@ -95,7 +100,7 @@ export default function WriteReview() {
           <CardFooter className="flex justify-center">
             <Button
               variant="outline"
-              onClick={() => router.push('/businesses')}
+              onClick={() => router.push(PATHS.BUSINESSES.ROOT)}
             >
               {t('backToBusinesses')}
             </Button>

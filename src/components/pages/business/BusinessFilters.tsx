@@ -10,10 +10,15 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import {
-    Select, SelectContent, SelectItem, SelectTrigger, SelectValue
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
 } from '@/components/ui/select';
 import { Slider } from '@/components/ui/slider';
 import { categories } from '@/data/categories';
+import { PATHS } from '@/constants/PATHS';
 
 export default function BusinessFilters({ className }: { className?: string }) {
   const t = useTranslations('Business');
@@ -40,7 +45,9 @@ export default function BusinessFilters({ className }: { className?: string }) {
     if (rating[0] > 0) params.set('rating', rating[0].toString());
 
     router.push(
-      `/businesses${params.toString() ? `?${params.toString()}` : ''}`
+      `${PATHS.BUSINESSES.ROOT}${
+        params.toString() ? `?${params.toString()}` : ''
+      }`
     );
   }, [name, category, websiteOrInstagram, rating, router]);
 
@@ -49,7 +56,7 @@ export default function BusinessFilters({ className }: { className?: string }) {
     setCategory('all');
     setWebsiteOrInstagram('');
     setRating([0]);
-    router.push('/businesses');
+    router.push(PATHS.BUSINESSES.ROOT);
   }, [router]);
 
   useEffect(() => {
@@ -127,7 +134,7 @@ export default function BusinessFilters({ className }: { className?: string }) {
           <Slider
             min={0}
             max={5}
-            step={0.5}
+            step={0.1}
             value={rating}
             onValueChange={setRating}
             className="[&_[role=slider]]:h-4 [&_[role=slider]]:w-4"
@@ -135,7 +142,7 @@ export default function BusinessFilters({ className }: { className?: string }) {
           />
         </div>
 
-        <div className="flex gap-2">
+        <div className="flex flex-wrap gap-2">
           <Button onClick={applyFilters} className="flex-1">
             {t('applyFilters')}
           </Button>

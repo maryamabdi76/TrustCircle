@@ -169,7 +169,8 @@
     "noBusinessesFound": "No businesses found. Would you like to add one?",
     "clearFilters": "Clear Filters",
     "allCategories": "All Categories",
-    "applyFilters": "Apply Filters"
+    "applyFilters": "Apply Filters",
+    "businessesFound": "{count} businesses found"
   },
   "BusinessDetail": {
     "basedOn": "Based on {count} reviews",
