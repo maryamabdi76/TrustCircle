@@ -1,51 +1,27 @@
 'use client';
 
-import { ExternalLink, Star } from 'lucide-react';
-import { useLocale, useTranslations } from 'next-intl';
+import { ExternalLink } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useMemo } from 'react';
 
 import { InstagramLink } from '@/components/common/instagramLink/InstagramLink';
+import { StarRating } from '@/components/common/starRating/StarRating';
 import { WebsiteLink } from '@/components/common/websiteLink/WebsiteLink';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardFooter } from '@/components/ui/card';
 import { PATHS } from '@/constants/PATHS';
+import { categories } from '@/data/categories';
 
 import type { IBusiness } from '@/types/business';
-const StarRating = ({ score }: { score: number }) => {
-  const locale = useLocale();
-  return (
-    <div className="flex items-center gap-2">
-      <div className="flex">
-        {[1, 2, 3, 4, 5].map((star) => {
-          const fillPercentage = Math.min(
-            100,
-            Math.max(0, (score - star + 1) * 100)
-          );
-          return (
-            <span key={star} className="relative">
-              <Star className="w-4 h-4 text-gray-400" />
-              <span
-                className="absolute top-0 overflow-hidden"
-                style={{
-                  width: `${fillPercentage}%`,
-                  [locale === 'fa' ? 'right' : 'left']: 0,
-                }}
-              >
-                <Star className="w-4 h-4 text-yellow-400 fill-yellow-400" />
-              </span>
-            </span>
-          );
-        })}
-      </div>
-      <span className="text-sm font-medium">{score.toFixed(1)}</span>
-    </div>
-  );
-};
-
 export default function BusinessCard({ business }: { business: IBusiness }) {
   const t = useTranslations('Business');
+  const category = useMemo(
+    () => categories.find((category) => category.name === business.category),
+    [business.category]
+  );
 
   return (
     <Card className="overflow-hidden hover:shadow-md transition-shadow duration-300">
@@ -69,7 +45,7 @@ export default function BusinessCard({ business }: { business: IBusiness }) {
                 {business.name}
               </h3>
               <Badge variant="secondary" className="text-xs w-fit">
-                {business.category}
+                {category?.nameFA}
               </Badge>
             </div>
 
@@ -92,7 +68,7 @@ export default function BusinessCard({ business }: { business: IBusiness }) {
       <CardFooter className="p-4 pt-0">
         <div className="flex gap-2 w-full">
           <Button variant="outline" asChild className="w-full">
-            <Link href={`/businesses/${business.id}`}>
+            <Link href={PATHS.BUSINESSES.DETAIL(business.id)}>
               {t('viewDetails')}
               <ExternalLink className="w-3 h-3 ml-2" />
             </Link>

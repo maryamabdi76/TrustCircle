@@ -143,17 +143,6 @@
     "category": "Category",
     "selectCategory": "Select category",
     "categoryDescription": "Choose the category that best describes your business",
-    "categories": {
-      "technology": "Technology",
-      "food": "Food",
-      "retail": "Retail",
-      "health": "Health & Wellness",
-      "education": "Education",
-      "entertainment": "Entertainment",
-      "finance": "Finance",
-      "travel": "Travel",
-      "other": "Other"
-    },
     "websiteOrInstagram": "Website or Instagram",
     "websiteOrInstagramPlaceholder": "website.com or @username",
     "minimumRating": "Minimum Rating",
@@ -177,7 +166,10 @@
     "errorAddingBusiness": "There was an error adding the business. Please try again.",
     "pleaseSignIn": "Please sign in to add a business",
     "searchBusinesses": "Search businesses...",
-    "noBusinessesFound": "No businesses found. Would you like to add one?"
+    "noBusinessesFound": "No businesses found. Would you like to add one?",
+    "clearFilters": "Clear Filters",
+    "allCategories": "All Categories",
+    "applyFilters": "Apply Filters"
   },
   "BusinessDetail": {
     "basedOn": "Based on {count} reviews",
@@ -201,7 +193,9 @@
     "verifiedPurchase": "Verified Purchase",
     "helpful": "Helpful",
     "report": "Report",
-    "businessNotFound": "Business not found"
+    "businessNotFound": "Business not found",
+    "noReviews": "There are no reviews for this business yet.",
+    "beFirstToReview": "Be the first to write a review"
   },
   "Reviews": {
     "writeReview": "Write a Review",

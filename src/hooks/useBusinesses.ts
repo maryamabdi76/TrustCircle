@@ -5,8 +5,9 @@ import { useCallback, useState } from 'react';
 import { useToast } from '@/hooks/use-toast';
 
 interface FetchBusinessesOptions {
+  name?: string;
   category?: string;
-  search?: string;
+  websiteOrInstagram?: string;
   sort?: 'rating' | 'name';
   page?: number;
   limit?: number;
@@ -19,8 +20,9 @@ export function useBusinesses() {
 
   const fetchBusinesses = useCallback(
     async ({
+      name,
       category,
-      search,
+      websiteOrInstagram,
       sort = 'rating',
       page = 1,
       limit = 10,
@@ -33,11 +35,16 @@ export function useBusinesses() {
           limit: limit.toString(),
         });
 
+        if (name) {
+          params.append('search', name);
+        }
+
+        if (websiteOrInstagram) {
+          params.append('websiteOrInstagram', websiteOrInstagram);
+        }
+
         if (category) {
           params.append('category', category);
-        }
-        if (search) {
-          params.append('search', search);
         }
 
         const response = await fetch(`/api/businesses?${params}`);

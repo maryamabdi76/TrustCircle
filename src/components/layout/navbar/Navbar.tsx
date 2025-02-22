@@ -12,7 +12,11 @@ import { Logo } from '@/components/icons/Logo';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import {
-    DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuShortcut, DropdownMenuTrigger
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuShortcut,
+  DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { Skeleton } from '@/components/ui/skeleton';
 import { PATHS } from '@/constants/PATHS';
@@ -54,7 +58,7 @@ export const Navbar = () => {
             <Link href={PATHS.BUSINESSES.ROOT}>{t('businesses')}</Link>
           </Button>
           {sessionStatus === 'loading' ? (
-            <Skeleton className="size-10 rounded-full" />
+            <Skeleton className="size-8 rounded-full" />
           ) : session ? (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>

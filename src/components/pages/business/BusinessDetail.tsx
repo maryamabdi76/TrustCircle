@@ -57,19 +57,19 @@ export default function BusinessDetail({ business }: { business: IBusiness }) {
                   </div>
                 </div>
               </div>
-              <div className="flex flex-col  gap-3">
+              <div className="flex flex-col w-full md:w-fit gap-3">
                 <Button asChild className="w-full" size="lg">
                   <Link href={PATHS.REVIEWS.WRITE(business.id)}>
                     {t('writeReview')}
                   </Link>
                 </Button>
 
-                <div className="flex gap-2">
+                <div className="flex justify-center gap-2">
                   {business.websiteUrl && (
                     <Button
                       variant="outline"
                       size="sm"
-                      className="flex items-center gap-2"
+                      className="flex items-center gap-2 w-full"
                     >
                       <WebsiteLink
                         websiteUrl={business.websiteUrl}
@@ -81,7 +81,7 @@ export default function BusinessDetail({ business }: { business: IBusiness }) {
                     <Button
                       variant="outline"
                       size="sm"
-                      className="flex items-center gap-2"
+                      className="flex items-center gap-2 w-full"
                     >
                       <InstagramLink
                         username={business.instagram}

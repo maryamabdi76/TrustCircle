@@ -19,8 +19,9 @@ const businessSchema = z
 export async function GET(request: Request) {
   try {
     const { searchParams } = new URL(request.url);
-    const category = searchParams.get('category');
     const search = searchParams.get('search');
+    const category = searchParams.get('category');
+    const websiteOrInstagram = searchParams.get('websiteOrInstagram');
     const sort = searchParams.get('sort') || 'rating';
     const page = Number.parseInt(searchParams.get('page') || '1');
     const limit = Number.parseInt(searchParams.get('limit') || '10');
@@ -41,6 +42,16 @@ export async function GET(request: Request) {
         (business) =>
           business.name.toLowerCase().includes(searchLower) ||
           business.description?.toLowerCase().includes(searchLower)
+      );
+    }
+
+    // Filter by search term if provided
+    if (websiteOrInstagram) {
+      const searchLower = websiteOrInstagram.toLowerCase();
+      filteredBusinesses = filteredBusinesses.filter(
+        (business) =>
+          business.instagram?.toLowerCase().includes(searchLower) ||
+          business.websiteUrl?.toLowerCase().includes(searchLower)
       );
     }
 

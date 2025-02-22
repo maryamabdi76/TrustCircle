@@ -10,18 +10,34 @@ import { z } from 'zod';
 
 import { Button } from '@/components/ui/button';
 import {
-    Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
 } from '@/components/ui/card';
 import {
-    Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import {
-    Select, SelectContent, SelectItem, SelectTrigger, SelectValue
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
 } from '@/components/ui/select';
 import { categories } from '@/data/categories';
 import { useToast } from '@/hooks/use-toast';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { PATHS } from '@/constants/PATHS';
 
 const businessSchema = z
   .object({
@@ -84,7 +100,7 @@ export default function AddBusinessPage() {
         title: t('success'),
         description: t('businessAdded'),
       });
-      router.push(`/businesses/${result.id}`);
+      router.push(PATHS.BUSINESSES.DETAIL(result.id));
     } catch (error) {
       console.error('Error adding business:', error);
       toast({
@@ -141,7 +157,7 @@ export default function AddBusinessPage() {
                       <SelectContent>
                         {categories.map((category) => (
                           <SelectItem key={category.name} value={category.name}>
-                            {t(`categories.${category.name}`)}
+                            {category.nameFA}
                           </SelectItem>
                         ))}
                       </SelectContent>

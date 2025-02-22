@@ -13,6 +13,7 @@ import { useReviews } from '@/hooks/useReviews';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 import type { IBusiness } from '@/types/business';
+import { PATHS } from '@/constants/PATHS';
 
 // Define review schema for validation
 const reviewSchema = z.object({
@@ -84,7 +85,7 @@ export function useWriteReview(businessId: string) {
           title: t('success'),
           description: t('reviewSubmitted'),
         });
-        router.push(`/businesses/${businessId}`);
+        router.push(PATHS.BUSINESSES.DETAIL(businessId));
       }
     } catch (error) {
       console.error('Error submitting review:', error);

@@ -143,17 +143,6 @@
     "category": "دسته‌بندی",
     "selectCategory": "انتخاب دسته‌بندی",
     "categoryDescription": "دسته‌بندی که بهترین توصیف برای کسب و کار شماست را انتخاب کنید",
-    "categories": {
-      "technology": "تکنولوژی",
-      "food": "غذا",
-      "retail": "خرده‌فروشی",
-      "health": "سلامت و تندرستی",
-      "education": "آموزش",
-      "entertainment": "سرگرمی",
-      "finance": "مالی",
-      "travel": "سفر",
-      "other": "سایر"
-    },
     "websiteOrInstagram": "وبسایت یا اینستاگرام",
     "websiteOrInstagramPlaceholder": "website.com یا @username",
     "minimumRating": "حداقل امتیاز",
@@ -177,7 +166,10 @@
     "errorAddingBusiness": "خطایی در افزودن کسب‌وکار رخ داد. لطفاً دوباره تلاش کنید.",
     "pleaseSignIn": "لطفاً برای افزودن کسب‌وکار وارد شوید",
     "searchBusinesses": "جستجوی کسب‌وکارها...",
-    "noBusinessesFound": "هیچ کسب‌وکاری یافت نشد. آیا می‌خواهید یکی اضافه کنید؟"
+    "noBusinessesFound": "هیچ کسب‌وکاری یافت نشد. آیا می‌خواهید یکی اضافه کنید؟",
+    "clearFilters": "پاک کردن فیلترها",
+    "allCategories": "همه دسته‌ها",
+    "applyFilters": "اعمال فیلترها"
   },
   "BusinessDetail": {
     "basedOn": "بر اساس {count} نظر",
@@ -201,7 +193,9 @@
     "verifiedPurchase": "خرید تایید شده",
     "helpful": "مفید بود",
     "report": "گزارش",
-    "businessNotFound": "کسب‌وکار یافت نشد"
+    "businessNotFound": "کسب‌وکار یافت نشد",
+    "noReviews": "هنوز هیچ نظری برای این کسب و کار ثبت نشده است.",
+    "beFirstToReview": "اولین نفری باشید که نظر می‌دهید"
   },
   "Reviews": {
     "writeReview": "نوشتن نظر",
