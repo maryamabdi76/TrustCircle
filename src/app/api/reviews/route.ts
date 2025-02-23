@@ -1,106 +1,215 @@
 import { getServerSession } from 'next-auth';
 import { NextResponse } from 'next/server';
-import { z } from 'zod';
 
-import { reviews } from '@/data/reviews';
+import { SortType } from '@/enums/sortTypes';
 import { authOptions } from '@/lib/auth';
-import { IReview } from '@/types/review';
 
-// Schema for review validation
-const reviewSchema = z.object({
-  businessId: z.string(),
-  rating: z.number().min(1).max(5),
-  title: z.string().min(1).max(100),
-  content: z.string().min(10).max(1000),
-});
+import { reviewPostSchema } from './schema';
+import {
+  createReview,
+  deleteReview,
+  getReviewById,
+  getReviews,
+  markReviewAsHelpful,
+  updateReview,
+} from './service';
 
-export async function GET(request: Request) {
+/**
+ * GET handler for fetching a list of reviews with pagination and sorting.
+ *
+ * @param {Request} request - The incoming request object.
+ * @returns {NextResponse} - The response containing the reviews, pagination, and sorting information.
+ */
+export async function getReviewsHandler(request: Request) {
   try {
-    const { searchParams } = new URL(request.url);
-    const businessId = searchParams.get('businessId');
-    const sort = searchParams.get('sort') || 'recent';
-    const page = Number.parseInt(searchParams.get('page') || '1');
-    const limit = Number.parseInt(searchParams.get('limit') || '10');
+    const url = new URL(request.url);
+    const businessId = url.searchParams.get('businessId');
+    const sort = url.searchParams.get('sort') || SortType.RECENT;
+    const page = Number(url.searchParams.get('page')) || 1;
+    const limit = Number(url.searchParams.get('limit')) || 10;
 
-    let filteredReviews = [...reviews];
+    // Ensure sort is a valid SortType value
+    const validSort = Object.values(SortType).includes(sort as SortType)
+      ? (sort as SortType)
+      : SortType.RECENT; // Fallback to SortType.RECENT if invalid
 
-    // Filter by business if businessId is provided
-    if (businessId) {
-      filteredReviews = filteredReviews.filter(
-        (review) => review.businessId === businessId
-      );
-    }
-
-    // Sort reviews
-    filteredReviews.sort((a, b) => {
-      switch (sort) {
-        case 'highest':
-          return b.rating - a.rating;
-        case 'lowest':
-          return a.rating - b.rating;
-        case 'recent':
-        default:
-          return new Date(b.date).getTime() - new Date(a.date).getTime();
-      }
-    });
-
-    // Pagination
-    const start = (page - 1) * limit;
-    const end = start + limit;
-    const paginatedReviews = filteredReviews.slice(start, end);
-
-    return NextResponse.json({
-      reviews: paginatedReviews,
-      total: filteredReviews.length,
+    const { reviews, total, totalPages } = getReviews({
+      businessId,
+      sort: validSort,
       page,
-      totalPages: Math.ceil(filteredReviews.length / limit),
+      limit,
     });
+
+    return NextResponse.json({ reviews, total, page, totalPages });
   } catch (error) {
-    console.log('🚀 ~ GET ~ error:', error);
+    console.error('Error fetching reviews:', error);
     return NextResponse.json(
       { error: 'Failed to fetch reviews' },
       { status: 500 }
     );
   }
 }
-export async function POST(request: Request) {
+
+/**
+ * POST handler for creating a new review.
+ *
+ * @param {Request} request - The incoming request object.
+ * @returns {NextResponse} - The response containing the newly created review.
+ */
+export async function createReviewHandler(request: Request) {
   try {
     const session = await getServerSession(authOptions);
 
-    if (!session || !session.user) {
+    if (!session?.user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
     const json = await request.json();
-    const result = reviewSchema.safeParse(json);
+    const parsed = reviewPostSchema.safeParse(json);
 
-    if (!result.success) {
+    if (!parsed.success) {
       return NextResponse.json(
-        { error: 'Invalid review data', details: result.error.format() },
+        { error: 'Invalid review data', details: parsed.error.format() },
         { status: 400 }
       );
     }
 
-    const newReview: IReview = {
-      id: crypto.randomUUID(),
-      businessId: result.data.businessId,
-      rating: result.data.rating,
-      title: result.data.title,
-      content: result.data.content,
-      authorId: session.user.id || '1',
-      authorName: session.user.name || 'Anonymous',
-      date: new Date().toISOString(),
-      helpful: 0,
-      verifiedPurchase: false,
-    };
-
-    reviews.push(newReview);
-
+    const newReview = createReview(parsed.data, session.user);
     return NextResponse.json(newReview, { status: 201 });
   } catch (error) {
     console.error('Error creating review:', error);
     return NextResponse.json(
       { error: 'Failed to create review' },
+      { status: 500 }
+    );
+  }
+}
+
+/**
+ * GET handler for fetching a review by its ID.
+ *
+ * @param {Request} request - The incoming request object.
+ * @param {object} context - The route parameters context.
+ * @returns {NextResponse} - The response with review data or an error message.
+ */
+export async function getReviewByIdHandler(
+  request: Request,
+  context: { params: Promise<{ id: string }> }
+) {
+  try {
+    const { id } = await context.params;
+    const review = getReviewById(id);
+
+    if (!review) {
+      return NextResponse.json({ error: 'Review not found' }, { status: 404 });
+    }
+
+    return NextResponse.json(review); // Return the review if found
+  } catch (error) {
+    console.log('🚀 ~ error:', error);
+    return NextResponse.json(
+      { error: 'Failed to fetch review' },
+      { status: 500 }
+    );
+  }
+}
+
+export async function updateReviewHandler(
+  request: Request,
+  context: { params: Promise<{ id: string }> }
+) {
+  try {
+    const { id } = await context.params;
+    const session = await getServerSession(authOptions);
+
+    if (!session) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
+    const review = getReviewById(id);
+    if (!review) {
+      return NextResponse.json({ error: 'Review not found' }, { status: 404 });
+    }
+
+    if (review.authorName !== session.user?.name) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 403 });
+    }
+
+    const json = await request.json();
+    const updatedReview = updateReview(id, json);
+
+    if (!updatedReview) {
+      return NextResponse.json(
+        { error: 'Invalid review data' },
+        { status: 400 }
+      );
+    }
+
+    return NextResponse.json(updatedReview); // Return the updated review
+  } catch (error) {
+    console.log('🚀 ~ error:', error);
+    return NextResponse.json(
+      { error: 'Failed to update review' },
+      { status: 500 }
+    );
+  }
+}
+
+export async function deleteReviewHandler(
+  request: Request,
+  context: { params: Promise<{ id: string }> }
+) {
+  try {
+    const { id } = await context.params;
+    const session = await getServerSession(authOptions);
+
+    if (!session) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
+    const review = getReviewById(id);
+    if (!review) {
+      return NextResponse.json({ error: 'Review not found' }, { status: 404 });
+    }
+
+    if (review.authorName !== session.user?.name) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 403 });
+    }
+
+    deleteReview(id);
+    return NextResponse.json({ success: true }); // Return success after deletion
+  } catch (error) {
+    console.log('🚀 ~ error:', error);
+    return NextResponse.json(
+      { error: 'Failed to delete review' },
+      { status: 500 }
+    );
+  }
+}
+
+export async function markReviewHelpfulHandler(
+  request: Request,
+  context: { params: Promise<{ id: string }> }
+) {
+  try {
+    const { id } = await context.params;
+    const session = await getServerSession(authOptions);
+
+    if (!session) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
+    const review = getReviewById(id);
+    if (!review) {
+      return NextResponse.json({ error: 'Review not found' }, { status: 404 });
+    }
+
+    const helpfulCount = markReviewAsHelpful(id);
+    return NextResponse.json({ helpful: helpfulCount }); // Return the updated helpful count
+  } catch (error) {
+    console.log('🚀 ~ error:', error);
+    return NextResponse.json(
+      { error: 'Failed to mark review as helpful' },
       { status: 500 }
     );
   }

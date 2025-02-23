@@ -13,6 +13,7 @@ import { SpeedInsights } from '@vercel/speed-insights/next';
 
 import type React from 'react';
 import type { Metadata } from 'next';
+import { QueryClientProvider } from '@tanstack/react-query';
 
 const iranYekanFont = localFont({
   src: [
@@ -57,21 +58,23 @@ export default async function RootLayout({
           [iranYekanFont.className]: locale === 'fa',
         })}
       >
-        <NextIntlClientProvider messages={messages}>
-          <AuthProvider>
-            <ThemeProvider
-              attribute="class"
-              defaultTheme="system"
-              enableSystem={false}
-            >
-              <div className="flex flex-col min-h-screen">
-                <Navbar />
-                <main className="flex-grow mt-16">{children}</main>
-                <Footer />
-              </div>
-            </ThemeProvider>
-          </AuthProvider>
-        </NextIntlClientProvider>
+        <QueryClientProvider client={queryClient}>
+          <NextIntlClientProvider messages={messages}>
+            <AuthProvider>
+              <ThemeProvider
+                attribute="class"
+                defaultTheme="system"
+                enableSystem={false}
+              >
+                <div className="flex flex-col min-h-screen">
+                  <Navbar />
+                  <main className="flex-grow mt-16">{children}</main>
+                  <Footer />
+                </div>
+              </ThemeProvider>
+            </AuthProvider>
+          </NextIntlClientProvider>
+        </QueryClientProvider>
         <Toaster />
         <SpeedInsights />
         <Analytics />

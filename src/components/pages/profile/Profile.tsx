@@ -8,11 +8,17 @@ import { useEffect, useState } from 'react';
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { PATHS } from '@/constants/PATHS';
 import { useReviews } from '@/hooks/useReviews';
-import { IReview } from '@/types/review';
+import { IReview } from '@/interfaces/review';
 
 export default function Profile() {
   const { data: session, status } = useSession();

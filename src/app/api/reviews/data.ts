@@ -1,5 +1,9 @@
 import type { IReview } from '@/interfaces/review';
 
+/**
+ * Mock data representing reviews.
+ * In a real application, this would be fetched from a database.
+ */
 export const reviews: IReview[] = [
   {
     id: '1',

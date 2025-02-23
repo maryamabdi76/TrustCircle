@@ -12,7 +12,7 @@ import { useBusinesses } from '@/hooks/useBusinesses';
 import { useReviews } from '@/hooks/useReviews';
 import { zodResolver } from '@hookform/resolvers/zod';
 
-import type { IBusiness } from '@/types/business';
+import type { IBusiness } from '@/interfaces/business';
 import { PATHS } from '@/constants/PATHS';
 
 // Define review schema for validation

@@ -1,4 +1,4 @@
-import { IBusiness } from '@/types/business';
+import { IBusiness } from '@/interfaces/business';
 
 export const businesses: IBusiness[] = [
   {

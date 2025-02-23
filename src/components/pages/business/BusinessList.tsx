@@ -12,7 +12,7 @@ import { useBusinesses } from '@/hooks/useBusinesses';
 
 import BusinessCard from './BusinessCard';
 
-import type { IBusiness } from '@/types/business';
+import type { IBusiness } from '@/interfaces/business';
 import clsx from 'clsx';
 
 export default function BusinessList({ className }: { className?: string }) {

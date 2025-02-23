@@ -15,7 +15,7 @@ import { Card, CardContent, CardFooter } from '@/components/ui/card';
 import { PATHS } from '@/constants/PATHS';
 import { categories } from '@/data/categories';
 
-import type { IBusiness } from '@/types/business';
+import type { IBusiness } from '@/interfaces/business';
 export default function BusinessCard({ business }: { business: IBusiness }) {
   const t = useTranslations('Business');
   const category = useMemo(

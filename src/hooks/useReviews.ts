@@ -1,136 +1,94 @@
 'use client';
 
-import type { IReview } from '@/types/review';
+import { useQuery, useMutation } from '@tanstack/react-query';
 import { useTranslations } from 'next-intl';
-import { useCallback, useState } from 'react';
-
 import { useToast } from '@/hooks/use-toast';
+import type { FetchReviewsOptions, IReview } from '@/interfaces/review';
+import { SortType } from '@/enums/sortTypes';
 
 interface UseReviewsOptions {
   businessId?: string;
 }
 
-interface FetchReviewsOptions {
-  sort?: 'recent' | 'highest' | 'lowest';
-  page?: number;
-  limit?: number;
-  userId?: string;
-}
-
 export function useReviews({ businessId }: UseReviewsOptions = {}) {
-  const [loading, setLoading] = useState(false);
   const { toast } = useToast();
   const t = useTranslations('Reviews');
 
-  const fetchReviews = useCallback(
-    async ({
-      sort = 'recent',
-      page = 1,
-      limit = 10,
-      userId,
-    }: FetchReviewsOptions = {}) => {
-      try {
-        setLoading(true);
-        const params = new URLSearchParams({
-          sort,
-          page: page.toString(),
-          limit: limit.toString(),
-        });
+  // Fetch reviews
+  const fetchReviews = async ({
+    sort = SortType.RECENT,
+    page = 1,
+    limit = 10,
+    userId,
+  }: FetchReviewsOptions = {}) => {
+    const params = new URLSearchParams({
+      sort,
+      page: page.toString(),
+      limit: limit.toString(),
+    });
 
-        if (businessId) {
-          params.append('businessId', businessId);
-        }
+    if (businessId) params.append('businessId', businessId);
+    if (userId) params.append('userId', userId);
 
-        if (userId) {
-          params.append('userId', userId);
-        }
+    const response = await fetch(`/api/reviews?${params}`);
+    if (!response.ok) throw new Error('Failed to fetch reviews');
+    return response.json();
+  };
 
-        const response = await fetch(`/api/reviews?${params}`);
+  const { data: reviews, isLoading } = useQuery({
+    queryKey: ['reviews', businessId],
+    queryFn: () => fetchReviews({}),
+    enabled: !!businessId, // Only fetch if businessId exists
+    retry: 2, // Optional: Retry failed requests twice
+  });
 
-        if (!response.ok) {
-          throw new Error('Failed to fetch reviews');
-        }
+  // Create a review
+  const createReviewMutation = useMutation({
+    mutationFn: async (data: Omit<IReview, 'id' | 'date' | 'helpful'>) => {
+      const response = await fetch('/api/reviews', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
 
-        return await response.json();
-      } catch (error) {
-        console.log('🚀 ~ useReviews ~ error:', error);
-        toast({
-          title: t('error'),
-          description: t('errorFetchingReviews'),
-          variant: 'destructive',
-        });
-        return null;
-      } finally {
-        setLoading(false);
-      }
+      if (!response.ok) throw new Error('Failed to create review');
+      return response.json();
     },
-    [businessId, toast, t]
-  );
-
-  const createReview = useCallback(
-    async (data: Omit<IReview, 'id' | 'date' | 'helpful'>) => {
-      try {
-        setLoading(true);
-        const response = await fetch('/api/reviews', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(data),
-        });
-
-        if (!response.ok) {
-          throw new Error('Failed to create review');
-        }
-
-        toast({
-          title: t('success'),
-          description: t('reviewCreated'),
-        });
-
-        return await response.json();
-      } catch (error) {
-        console.log('🚀 ~ error:', error);
-        toast({
-          title: t('error'),
-          description: t('errorCreatingReview'),
-          variant: 'destructive',
-        });
-        return null;
-      } finally {
-        setLoading(false);
-      }
+    onSuccess: () => {
+      toast({ title: t('success'), description: t('reviewCreated') });
     },
-    [toast, t]
-  );
-
-  const markHelpful = useCallback(
-    async (reviewId: string) => {
-      try {
-        const response = await fetch(`/api/reviews/${reviewId}/helpful`, {
-          method: 'POST',
-        });
-
-        if (!response.ok) {
-          throw new Error('Failed to mark review as helpful');
-        }
-
-        return await response.json();
-      } catch (error) {
-        console.log('🚀 ~ error:', error);
-        toast({
-          title: t('error'),
-          description: t('errorMarkingHelpful'),
-          variant: 'destructive',
-        });
-        return null;
-      }
+    onError: () => {
+      toast({
+        title: t('error'),
+        description: t('errorCreatingReview'),
+        variant: 'destructive',
+      });
     },
-    [toast, t]
-  );
+  });
+
+  // Mark review as helpful
+  const markHelpfulMutation = useMutation({
+    mutationFn: async (reviewId: string) => {
+      const response = await fetch(`/api/reviews/${reviewId}/helpful`, {
+        method: 'POST',
+      });
+
+      if (!response.ok) throw new Error('Failed to mark review as helpful');
+      return response.json();
+    },
+    onError: () => {
+      toast({
+        title: t('error'),
+        description: t('errorMarkingHelpful'),
+        variant: 'destructive',
+      });
+    },
+  });
 
   return {
-    loading,
-    fetchReviews,
-    createReview,
-    markHelpful,
+    reviews,
+    isLoading,
+    createReview: createReviewMutation.mutateAsync,
+    markHelpful: markHelpfulMutation.mutateAsync,
   };
 }
