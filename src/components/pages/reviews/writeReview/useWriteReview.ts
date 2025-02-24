@@ -3,43 +3,28 @@
 import { useSession } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
 import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
 import { FieldValues, useForm } from 'react-hook-form';
-import { z } from 'zod';
 
 import { PATHS } from '@/constants/PATHS';
 import { useToast } from '@/hooks/use-toast';
-import { useBusinesses } from '@/hooks/useBusinesses';
-import { zodResolver } from '@hookform/resolvers/zod';
-
-import type { IBusiness } from '@/interfaces/business';
+import { useGetBusinessById } from '@/hooks/useBusinesses';
 import { useCreateReview } from '@/hooks/useReviews';
+import { reviewSchema } from '@/schemas/review';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { useQueryClient } from '@tanstack/react-query';
-// Define review schema for validation
-const reviewSchema = z.object({
-  rating: z.number().min(1).max(5),
-  title: z.string().min(1).max(100),
-  content: z.string().min(10).max(1000),
-});
 
 export function useWriteReview(businessId: string) {
-  const query = useQueryClient();
-  const { data: session, status: sessionStatus } = useSession();
-  const router = useRouter();
-  const { toast } = useToast();
   const t = useTranslations('Reviews');
-  const [business, setBusiness] = useState<IBusiness | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const { fetchBusinessById } = useBusinesses();
+  const router = useRouter();
+  const queryClient = useQueryClient();
+  const { toast } = useToast();
+  const { data: session, status: sessionStatus } = useSession();
+  const { data: business, isPending } = useGetBusinessById(businessId);
+
   const { mutate: createReview } = useCreateReview({
     onSuccess: () => {
-      toast({
-        title: t('success'),
-        description: t('reviewSubmitted'),
-      });
-      query.invalidateQueries({
-        queryKey: ['reviews'],
-      });
+      toast({ title: t('success'), description: t('reviewSubmitted') });
+      queryClient.invalidateQueries({ queryKey: ['reviews'] });
       router.push(PATHS.BUSINESSES.DETAIL(businessId));
     },
     onError: () => {
@@ -51,7 +36,6 @@ export function useWriteReview(businessId: string) {
     },
   });
 
-  // Set up react-hook-form with Zod validation
   const {
     control,
     formState: { errors, isSubmitting },
@@ -61,31 +45,9 @@ export function useWriteReview(businessId: string) {
   } = useForm({
     resolver: zodResolver(reviewSchema),
   });
+
   const content = watch('content', '');
 
-  // Load business details
-  useEffect(() => {
-    const loadBusiness = async () => {
-      try {
-        const data = await fetchBusinessById(businessId);
-        if (data) {
-          setBusiness(data);
-        }
-      } catch (error) {
-        console.error('Error loading business:', error);
-        toast({
-          title: t('error'),
-          description: t('errorLoadingBusiness'),
-          variant: 'destructive',
-        });
-      } finally {
-        setIsLoading(false);
-      }
-    };
-    loadBusiness();
-  }, [businessId, fetchBusinessById, toast, t]);
-
-  // Form submit handler
   const onSubmit: (data: FieldValues) => Promise<void> = async (data) => {
     const { rating, title, content } = data;
     createReview({
@@ -95,19 +57,20 @@ export function useWriteReview(businessId: string) {
       rating,
       title,
       content,
+      ...data,
     });
   };
 
   return {
-    business,
+    business: business?.data,
     content,
     control,
     errors,
-    isLoading,
+    isLoading: isPending,
     isSubmitting,
     session,
     sessionStatus,
-    handleSubmit: handleSubmit(onSubmit), // using react-hook-form's handleSubmit
+    handleSubmit: handleSubmit(onSubmit),
     register,
   };
 }

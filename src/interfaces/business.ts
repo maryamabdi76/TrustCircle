@@ -16,3 +16,13 @@ export interface IBusiness {
     [key: number]: number;
   };
 }
+
+export interface IGetBusinessesParams {
+  name?: string;
+  category?: string;
+  websiteOrInstagram?: string;
+  rating?: number;
+  sort?: 'rating' | 'name';
+  page?: number;
+  limit?: number;
+}

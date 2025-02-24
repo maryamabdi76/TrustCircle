@@ -1,10 +1,12 @@
-import { useMutation, useQuery } from '@tanstack/react-query';
-import { reviewApi } from '@/services/review';
-import { TMutationOptions, TQueryOptions } from './hooks';
 import { AxiosError, AxiosResponse } from 'axios';
-import { IGetReviewsParams, IReview } from '@/interfaces/review';
-import { IError } from './axios';
+
 import { IPagination } from '@/interfaces/api';
+import { IGetReviewsParams, IReview } from '@/interfaces/review';
+import { reviewApi } from '@/services/review';
+import { useMutation, useQuery } from '@tanstack/react-query';
+
+import { IError } from './axios';
+import { TMutationOptions, TQueryOptions } from './hooks';
 
 export const useGetReviews = (
   data: IGetReviewsParams,

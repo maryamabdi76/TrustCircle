@@ -4,24 +4,19 @@ import clsx from 'clsx';
 import { Plus } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useMemo } from 'react';
 
 import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
 import { PATHS } from '@/constants/PATHS';
-import { useBusinesses } from '@/hooks/useBusinesses';
+import { useGetBusinesses } from '@/hooks/useBusinesses';
 
 import BusinessCard from './BusinessCard';
 
-import type { IBusiness } from '@/interfaces/business';
 export default function BusinessList({ className }: { className?: string }) {
   const t = useTranslations('Business');
-  const { loading, fetchBusinesses } = useBusinesses();
-  const [isLoading, setIsLoading] = useState(true);
-  const [businesses, setBusinesses] = useState<IBusiness[]>([]);
   const router = useRouter();
   const searchParams = useSearchParams();
-
   const filters = useMemo(
     () => ({
       name: searchParams.get('name') || '',
@@ -33,6 +28,7 @@ export default function BusinessList({ className }: { className?: string }) {
     }),
     [searchParams]
   );
+  const { data: businesses, isPending } = useGetBusinesses(filters);
 
   const hasFilters = useMemo(
     () =>
@@ -43,28 +39,12 @@ export default function BusinessList({ className }: { className?: string }) {
     [filters]
   );
 
-  const loadBusinesses = useCallback(async () => {
-    setIsLoading(true);
-    try {
-      const { businesses } = await fetchBusinesses(filters);
-      setBusinesses(businesses);
-    } catch (error) {
-      console.error('Error fetching businesses:', error);
-    } finally {
-      setIsLoading(false);
-    }
-  }, [filters, fetchBusinesses]);
-
-  useEffect(() => {
-    loadBusinesses();
-  }, [loadBusinesses]);
-
   const handleAddBusiness = () => {
     router.push(PATHS.BUSINESSES.ADD);
   };
 
   const renderBusinesses = () => {
-    if (loading || isLoading) {
+    if (isPending) {
       return (
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {Array.from({ length: 4 }).map((_, index) => (
@@ -86,7 +66,7 @@ export default function BusinessList({ className }: { className?: string }) {
       );
     }
 
-    if (businesses.length === 0) {
+    if (businesses?.data.content.length === 0) {
       return (
         <div className="text-center py-8">
           <p className="text-lg mb-4">{t('noBusinessesFound')}</p>
@@ -100,7 +80,7 @@ export default function BusinessList({ className }: { className?: string }) {
 
     return (
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {businesses.map((business) => (
+        {businesses?.data.content.map((business) => (
           <BusinessCard key={business.id} business={business} />
         ))}
       </div>
@@ -117,7 +97,7 @@ export default function BusinessList({ className }: { className?: string }) {
       >
         {hasFilters && (
           <h1 className="text-sm font-bold">
-            {t('businessesFound', { count: businesses.length })}
+            {t('businessesFound', { count: businesses?.data.content.length })}
           </h1>
         )}
         <Button onClick={handleAddBusiness}>

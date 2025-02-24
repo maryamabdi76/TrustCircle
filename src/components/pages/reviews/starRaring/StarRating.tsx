@@ -1,9 +1,9 @@
 'use client';
 
 import { Star } from 'lucide-react';
-import { useTranslations } from 'next-intl';
-import { useState } from 'react';
-import { Control, useController } from 'react-hook-form';
+import { Control } from 'react-hook-form';
+
+import { useStarRating } from './useStarRating';
 
 interface StarRatingProps {
   name: string;
@@ -11,21 +11,15 @@ interface StarRatingProps {
 }
 
 export function StarRating({ name, control }: StarRatingProps) {
-  const { field } = useController({
-    name,
-    control,
-    defaultValue: 0,
-  });
-  const [hoveredRating, setHoveredRating] = useState(0);
-  const t = useTranslations('Reviews');
-
-  const ratingDescriptionKeys = {
-    1: 'veryPoor',
-    2: 'poor',
-    3: 'average',
-    4: 'great',
-    5: 'excellent',
-  } as const;
+  const {
+    field,
+    hoveredRating,
+    handleMouseEnter,
+    handleMouseLeave,
+    handleClick,
+    ratingText,
+    t,
+  } = useStarRating({ name, control });
 
   return (
     <div className="space-y-4">
@@ -37,10 +31,10 @@ export function StarRating({ name, control }: StarRatingProps) {
           <button
             key={star}
             type="button"
-            className="p-2 transition-all hover:scale-110 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-full"
-            onMouseEnter={() => setHoveredRating(star)}
-            onMouseLeave={() => setHoveredRating(0)}
-            onClick={() => field.onChange(star)}
+            className="cursor-pointer p-2 transition-all hover:scale-110 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-full"
+            onMouseEnter={() => handleMouseEnter(star)}
+            onMouseLeave={handleMouseLeave}
+            onClick={() => handleClick(star)}
           >
             <Star
               className={`w-12 h-12 transition-all ${
@@ -54,13 +48,7 @@ export function StarRating({ name, control }: StarRatingProps) {
       </div>
       {field.value > 0 && (
         <div className="text-center text-lg font-medium mt-2 text-primary">
-          {t(
-            `ratingDescription.${
-              ratingDescriptionKeys[
-                field.value as keyof typeof ratingDescriptionKeys
-              ]
-            }`
-          )}
+          {ratingText}
         </div>
       )}
     </div>
