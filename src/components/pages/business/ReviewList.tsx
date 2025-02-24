@@ -24,7 +24,7 @@ interface ReviewListProps {
 export function ReviewList({ businessId }: ReviewListProps) {
   const t = useTranslations('BusinessDetail');
 
-  const { data: reviews, isPending } = useGetReviews({ businessId });
+  const { data: reviews } = useGetReviews({ businessId });
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-center">
