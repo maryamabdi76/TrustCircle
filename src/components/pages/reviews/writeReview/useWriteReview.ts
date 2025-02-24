@@ -3,22 +3,22 @@
 import { useSession } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
 import { useRouter } from 'next/navigation';
-import { useForm } from 'react-hook-form';
+import { FieldValues, useForm } from 'react-hook-form';
 
 import { PATHS } from '@/constants/PATHS';
 import { useToast } from '@/hooks/use-toast';
 import { useGetBusinessById } from '@/hooks/useBusinesses';
 import { useCreateReview } from '@/hooks/useReviews';
-import { ReviewSchema, reviewSchema } from '@/schemas/review';
+import { reviewSchema } from '@/schemas/review';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useQueryClient } from '@tanstack/react-query';
 
 export function useWriteReview(businessId: string) {
-  const queryClient = useQueryClient();
-  const { data: session, status: sessionStatus } = useSession();
-  const router = useRouter();
-  const { toast } = useToast();
   const t = useTranslations('Reviews');
+  const router = useRouter();
+  const queryClient = useQueryClient();
+  const { toast } = useToast();
+  const { data: session, status: sessionStatus } = useSession();
   const { data: business, isPending } = useGetBusinessById(businessId);
 
   const { mutate: createReview } = useCreateReview({
@@ -42,17 +42,21 @@ export function useWriteReview(businessId: string) {
     register,
     handleSubmit,
     watch,
-  } = useForm<ReviewSchema>({
+  } = useForm({
     resolver: zodResolver(reviewSchema),
   });
 
   const content = watch('content', '');
 
-  const onSubmit = (data: ReviewSchema) => {
+  const onSubmit: (data: FieldValues) => Promise<void> = async (data) => {
+    const { rating, title, content } = data;
     createReview({
       businessId,
       authorId: session?.user?.id || '',
       authorName: session?.user?.name || '',
+      rating,
+      title,
+      content,
       ...data,
     });
   };

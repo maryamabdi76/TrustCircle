@@ -8,5 +8,3 @@ export const reviewSchema = z.object({
     .min(10, 'Content must be at least 10 characters')
     .max(1000, 'Content is too long'),
 });
-
-export type ReviewSchema = z.infer<typeof reviewSchema>;
