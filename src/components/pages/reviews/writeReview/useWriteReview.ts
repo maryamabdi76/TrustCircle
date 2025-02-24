@@ -25,6 +25,8 @@ export function useWriteReview(businessId: string) {
     onSuccess: () => {
       toast({ title: t('success'), description: t('reviewSubmitted') });
       queryClient.invalidateQueries({ queryKey: ['reviews'] });
+      queryClient.invalidateQueries({ queryKey: ['businesses'] });
+      queryClient.invalidateQueries({ queryKey: ['business'] });
       router.push(PATHS.BUSINESSES.DETAIL(businessId));
     },
     onError: () => {

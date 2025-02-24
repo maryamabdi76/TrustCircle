@@ -7,11 +7,11 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { useMemo } from 'react';
 
 import { Button } from '@/components/ui/button';
-import { Skeleton } from '@/components/ui/skeleton';
 import { PATHS } from '@/constants/PATHS';
 import { useGetBusinesses } from '@/hooks/useBusinesses';
 
 import BusinessCard from './BusinessCard';
+import { BusinessCardSkeleton } from './BusinessCardSkeleton';
 
 export default function BusinessList({ className }: { className?: string }) {
   const t = useTranslations('Business');
@@ -28,7 +28,8 @@ export default function BusinessList({ className }: { className?: string }) {
     }),
     [searchParams]
   );
-  const { data: businesses, isPending } = useGetBusinesses(filters);
+  const { data, isPending } = useGetBusinesses(filters);
+  const businesses = data?.data.content ?? [];
 
   const hasFilters = useMemo(
     () =>
@@ -45,28 +46,10 @@ export default function BusinessList({ className }: { className?: string }) {
 
   const renderBusinesses = () => {
     if (isPending) {
-      return (
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          {Array.from({ length: 4 }).map((_, index) => (
-            <div
-              key={index}
-              className="p-4 border rounded-lg shadow-sm space-y-4"
-            >
-              <Skeleton className="h-6 w-3/4" />
-              <Skeleton className="h-5 w-20" />
-              <Skeleton className="h-4 w-full" />
-              <Skeleton className="h-4 w-full" />
-              <div className="flex gap-2">
-                <Skeleton className="h-10 w-1/2" />
-                <Skeleton className="h-10 w-1/2" />
-              </div>
-            </div>
-          ))}
-        </div>
-      );
+      return <BusinessCardSkeleton />;
     }
 
-    if (businesses?.data.content.length === 0) {
+    if (businesses.length === 0) {
       return (
         <div className="text-center py-8">
           <p className="text-lg mb-4">{t('noBusinessesFound')}</p>
@@ -80,7 +63,7 @@ export default function BusinessList({ className }: { className?: string }) {
 
     return (
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {businesses?.data.content.map((business) => (
+        {businesses.map((business) => (
           <BusinessCard key={business.id} business={business} />
         ))}
       </div>
@@ -97,7 +80,7 @@ export default function BusinessList({ className }: { className?: string }) {
       >
         {hasFilters && (
           <h1 className="text-sm font-bold">
-            {t('businessesFound', { count: businesses?.data.content.length })}
+            {t('businessesFound', { count: businesses.length })}
           </h1>
         )}
         <Button onClick={handleAddBusiness}>

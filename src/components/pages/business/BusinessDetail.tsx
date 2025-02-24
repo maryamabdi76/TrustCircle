@@ -1,4 +1,5 @@
 'use client';
+
 import { Star } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
@@ -14,13 +15,15 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { PATHS } from '@/constants/PATHS';
 import { useGetBusinessById } from '@/hooks/useBusinesses';
+import { BusinessDetailSkeleton } from './BusinessDetailSkeleton';
 
 export default function BusinessDetail() {
   const t = useTranslations('BusinessDetail');
   const params = useParams();
-  const { data } = useGetBusinessById(params.id as string);
+  const { data, isPending } = useGetBusinessById(params.id as string);
   const business = data?.data;
 
+  if (isPending) return <BusinessDetailSkeleton />;
   if (!business) return <div>{t('businessNotFound')}</div>;
 
   return (

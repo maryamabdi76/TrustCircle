@@ -6,14 +6,20 @@ import { useParams } from 'next/navigation';
 
 import { BusinessPreview } from '@/components/pages/business/BusinessPreview';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 
 import { StarRating } from '../starRaring/StarRating';
 import { BusinessNotFound } from './BusinessNotFound';
 import { ReviewAuth } from './ReviewAuth';
-import { ReviewSkeleton } from './ReviewSkeleton';
+import { WriteReviewSkeleton } from './WriteReviewSkeleton';
 import { useWriteReview } from './useWriteReview';
 
 export default function WriteReview() {
@@ -32,7 +38,7 @@ export default function WriteReview() {
     register,
   } = useWriteReview(params.businessId);
 
-  if (sessionStatus === 'loading' || isLoading) return <ReviewSkeleton />;
+  if (sessionStatus === 'loading' || isLoading) return <WriteReviewSkeleton />;
   if (!business) return <BusinessNotFound />;
 
   return (
