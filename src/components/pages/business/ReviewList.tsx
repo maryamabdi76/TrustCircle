@@ -1,6 +1,6 @@
 'use client';
 
-import { Flag, Star, ThumbsUp, PenSquare } from 'lucide-react';
+import { Flag, PenSquare, Star, ThumbsUp } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import Link from 'next/link';
 
@@ -14,8 +14,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { reviews } from '@/data/reviews';
 import { PATHS } from '@/constants/PATHS';
+import { useGetReviews } from '@/hooks/useReviews';
 
 interface ReviewListProps {
   businessId: string;
@@ -23,37 +23,33 @@ interface ReviewListProps {
 
 export function ReviewList({ businessId }: ReviewListProps) {
   const t = useTranslations('BusinessDetail');
-  const businessReviews = reviews.filter(
-    (review) => review.businessId === businessId
-  );
 
+  const { data: reviews, isPending } = useGetReviews({ businessId });
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-center">
         <h3 className="text-xl font-semibold">{t('reviews')}</h3>
-        {businessReviews.length > 0 && (
-          <Select defaultValue="recent">
-            <SelectTrigger className="w-[180px]">
-              <SelectValue placeholder={t('sortBy')} />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="recent">
-                {t('sortOptions.mostRecent')}
-              </SelectItem>
-              <SelectItem value="highest">
-                {t('sortOptions.highestRated')}
-              </SelectItem>
-              <SelectItem value="lowest">
-                {t('sortOptions.lowestRated')}
-              </SelectItem>
-            </SelectContent>
-          </Select>
-        )}
+        <Select defaultValue="recent">
+          <SelectTrigger className="w-[180px]">
+            <SelectValue placeholder={t('sortBy')} />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="recent">
+              {t('sortOptions.mostRecent')}
+            </SelectItem>
+            <SelectItem value="highest">
+              {t('sortOptions.highestRated')}
+            </SelectItem>
+            <SelectItem value="lowest">
+              {t('sortOptions.lowestRated')}
+            </SelectItem>
+          </SelectContent>
+        </Select>
       </div>
 
-      {businessReviews.length > 0 ? (
+      {reviews?.data.content?.length ? (
         <div className="space-y-4">
-          {businessReviews.map((review) => (
+          {reviews?.data.content.map((review) => (
             <Card key={review.id}>
               <CardHeader>
                 <div className="flex items-center justify-between">
@@ -85,9 +81,9 @@ export function ReviewList({ businessId }: ReviewListProps) {
                 </div>
               </CardHeader>
               <CardContent>
-                <p className="mb-4">
+                <p className="mb-4 flex gap-2">
                   <span className="text-gray-500">{review.authorName}: </span>
-                  {review.content}
+                  <span>{review.content}</span>
                 </p>
                 <div className="flex flex-col md:flex-row gap-4 items-center justify-between">
                   <div className="flex items-center gap-2 text-sm text-muted-foreground"></div>

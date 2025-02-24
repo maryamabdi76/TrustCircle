@@ -8,13 +8,12 @@ import { Footer, Navbar, ThemeProvider } from '@/components/layout';
 import { Toaster } from '@/components/ui/toaster';
 import { AuthProvider } from '@/context/AuthProvider';
 import { cn } from '@/lib/utils';
+import ClientProvider from '@/providers/ClientProvider';
 import { Analytics } from '@vercel/analytics/next';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 
 import type React from 'react';
 import type { Metadata } from 'next';
-import { QueryClientProvider } from '@tanstack/react-query';
-
 const iranYekanFont = localFont({
   src: [
     {
@@ -53,12 +52,12 @@ export default async function RootLayout({
 
   return (
     <html lang={locale} dir={locale === 'fa' ? 'rtl' : 'ltr'}>
-      <body
-        className={cn('font-sans antialiased bg-background text-foreground', {
-          [iranYekanFont.className]: locale === 'fa',
-        })}
-      >
-        <QueryClientProvider client={queryClient}>
+      <ClientProvider>
+        <body
+          className={cn('font-sans antialiased bg-background text-foreground', {
+            [iranYekanFont.className]: locale === 'fa',
+          })}
+        >
           <NextIntlClientProvider messages={messages}>
             <AuthProvider>
               <ThemeProvider
@@ -74,11 +73,11 @@ export default async function RootLayout({
               </ThemeProvider>
             </AuthProvider>
           </NextIntlClientProvider>
-        </QueryClientProvider>
-        <Toaster />
-        <SpeedInsights />
-        <Analytics />
-      </body>
+          <Toaster />
+          <SpeedInsights />
+          <Analytics />
+        </body>
+      </ClientProvider>
     </html>
   );
 }

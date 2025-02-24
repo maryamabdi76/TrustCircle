@@ -1,36 +1,10 @@
-import { getServerSession } from 'next-auth';
-import { NextRequest, NextResponse } from 'next/server';
+import { NextRequest } from 'next/server';
 
-import { reviews } from '@/data/reviews';
-import { authOptions } from '@/lib/auth';
+import { markReviewHelpfulHandler } from '../../handlers/markReviewHelpfulHandler';
 
-export async function POST(
-  request: NextRequest,
+export async function PATCH(
+  req: NextRequest,
   context: { params: Promise<{ id: string }> }
 ) {
-  try {
-    const { id } = await context.params;
-    const session = await getServerSession(authOptions);
-
-    if (!session) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-    }
-
-    const review = reviews.find((r) => r.id === id);
-
-    if (!review) {
-      return NextResponse.json({ error: 'Review not found' }, { status: 404 });
-    }
-
-    // In a real app, we would track which users have marked which reviews as helpful
-    review.helpful = (review.helpful || 0) + 1;
-
-    return NextResponse.json({ helpful: review.helpful });
-  } catch (error) {
-    console.log('🚀 ~ error:', error);
-    return NextResponse.json(
-      { error: 'Failed to mark review as helpful' },
-      { status: 500 }
-    );
-  }
+  return markReviewHelpfulHandler(req, context);
 }

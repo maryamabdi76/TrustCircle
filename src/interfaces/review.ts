@@ -13,16 +13,10 @@ export interface IReview {
   helpful?: number;
 }
 
-export interface FetchReviewsOptions {
-  sort?: SortType;
-  page?: number;
-  limit?: number;
-  userId?: string;
-}
-
-export interface GetReviewsParams {
+export interface IGetReviewsParams {
   businessId?: string | null;
   sort?: SortType;
   page?: number;
   limit?: number;
+  userId?: string;
 }

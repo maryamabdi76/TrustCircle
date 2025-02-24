@@ -1,124 +1,96 @@
-+---public
-|   |   file.svg
-|   |   globe.svg
-|   |   logo.svg
-|   |   next.svg
-|   |   placeholder.svg
-|   |   TrustCircle.svg
-|   |   vercel.svg
-|   |   window.svg
-|   |
-|   +---images
-|   |       auth-bg.png
-|   |       bag-1.jpg
-|   |       bag-2.jpg
-|   |       bg-2.jpg
-|   |       bg.jpg
-|   |       bg.png
-|   |       handshake-circle.jpg
-|   |       Landing.webp
-|   |       phone.jpg
-|   |       receipt.jpg
-|   |       sphere-1.jpg
-|   |       sphere-2.jpg
-|   |       sphere-3.jpg
-|   |       TrustCircle.png
-|   |       TrustCircleLanding.jpg
-|   |       TrustCircleLanding1.png
-|   |
-|   \---messages
-|           en.json
-|           fa.json
-|
+        
 \---src
     +---app
     |   |   favicon.ico
     |   |   globals.css
     |   |   layout.tsx
     |   |   page.tsx
-    |   |
+    |   |   
     |   +---api
     |   |   +---auth
     |   |   |   \---[...nextauth]
     |   |   |           route.ts
-    |   |   |
+    |   |   |           
     |   |   +---businesses
     |   |   |   |   route.ts
-    |   |   |   |
+    |   |   |   |   
     |   |   |   \---[id]
     |   |   |           route.ts
-    |   |   |
+    |   |   |           
     |   |   \---reviews
+    |   |       |   data.ts
     |   |       |   route.ts
-    |   |       |
+    |   |       |   schema.ts
+    |   |       |   service.ts
+    |   |       |   
     |   |       \---[id]
     |   |           |   route.ts
-    |   |           |
+    |   |           |   
     |   |           \---helpful
     |   |                   route.ts
-    |   |
+    |   |                   
     |   +---auth
     |   |   +---signin
     |   |   |       page.tsx
-    |   |   |
+    |   |   |       
     |   |   \---signup
     |   |           page.tsx
-    |   |
+    |   |           
     |   +---businesses
     |   |   |   page.tsx
-    |   |   |
+    |   |   |   
     |   |   +---add
     |   |   |       page.tsx
-    |   |   |
+    |   |   |       
     |   |   \---[id]
     |   |           page.tsx
-    |   |
+    |   |           
     |   +---fonts
     |   |       IRANYekan-Bold.ttf
     |   |       IRANYekan-Light.ttf
     |   |       IRANYekan-Regular.ttf
-    |   |
+    |   |       
     |   +---profile
     |   |       page.tsx
-    |   |
+    |   |       
     |   \---reviews
     |       \---write
     |           \---[businessId]
     |                   page.tsx
-    |
+    |                   
     +---components
     |   +---common
     |   |   +---glow
     |   |   |       Glow.tsx
-    |   |   |
+    |   |   |       
     |   |   +---instagramLink
     |   |   |       InstagramLink.tsx
-    |   |   |
+    |   |   |       
     |   |   +---starRating
     |   |   |       StarRating.tsx
-    |   |   |
+    |   |   |       
     |   |   \---websiteLink
     |   |           WebsiteLink.tsx
-    |   |
+    |   |           
     |   +---icons
     |   |       Logo.tsx
-    |   |
+    |   |       
     |   +---layout
     |   |   |   index.tsx
-    |   |   |
+    |   |   |   
     |   |   +---footer
     |   |   |       Footer.tsx
-    |   |   |
+    |   |   |       
     |   |   +---navbar
     |   |   |       animations.ts
     |   |   |       MobileMenu.tsx
     |   |   |       Navbar.tsx
     |   |   |       ToggleLanguage.tsx
     |   |   |       ToggleTheme.tsx
-    |   |   |
+    |   |   |       
     |   |   \---themeProvider
     |   |           ThemeProvider.tsx
-    |   |
+    |   |           
     |   +---pages
     |   |   +---business
     |   |   |       BusinessCard.tsx
@@ -128,7 +100,7 @@
     |   |   |       BusinessPreview.tsx
     |   |   |       RatingDistribution.tsx
     |   |   |       ReviewList.tsx
-    |   |   |
+    |   |   |       
     |   |   +---landing
     |   |   |       Benefits.tsx
     |   |   |       Cta.tsx
@@ -139,24 +111,24 @@
     |   |   |       Newsletter.tsx
     |   |   |       Statistics.tsx
     |   |   |       Testimonials.tsx
-    |   |   |
+    |   |   |       
     |   |   +---profile
     |   |   |       Profile.tsx
-    |   |   |
+    |   |   |       
     |   |   +---reviews
     |   |   |   |   StarRating.tsx
-    |   |   |   |
+    |   |   |   |   
     |   |   |   \---writeReview
     |   |   |           useWriteReview.ts
     |   |   |           WriteReview.tsx
-    |   |   |
+    |   |   |           
     |   |   +---signin
     |   |   |       SignIn.tsx
-    |   |   |
+    |   |   |       
     |   |   \---signup
     |   |           SignUp.tsx
     |   |           useSignUp.tsx
-    |   |
+    |   |           
     |   \---ui
     |           avatar.tsx
     |           badge.tsx
@@ -176,37 +148,40 @@
     |           textarea.tsx
     |           toast.tsx
     |           toaster.tsx
-    |
+    |           
     +---constants
     |       PATHS.ts
-    |
+    |       
     +---context
     |       AuthProvider.tsx
-    |
+    |       
     +---data
     |       businesses.ts
     |       categories.ts
     |       reviews.ts
     |       users.ts
-    |
+    |       
+    +---enums
+    |       sortTypes.ts
+    |       
     +---hooks
     |       use-toast.ts
     |       useBusinesses.ts
     |       useReviews.ts
-    |
+    |       
     +---i18n
     |       request.ts
-    |
+    |       
+    +---interfaces
+    |       business.ts
+    |       review.ts
+    |       
     +---lib
     |       auth.ts
     |       utils.ts
-    |
-    +---service
-    |       businesses.ts
-    |       reviews.ts
-    |       user.ts
-    |
-    +---styles
-    \---types
-            business.ts
-            review.ts
+    |       
+    +---providers
+    |       ClientProvider.tsx
+    |       getQueryClient.ts
+    |       
+    \---styles

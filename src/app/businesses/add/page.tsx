@@ -34,10 +34,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
+import { PATHS } from '@/constants/PATHS';
 import { categories } from '@/data/categories';
 import { useToast } from '@/hooks/use-toast';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { PATHS } from '@/constants/PATHS';
 
 const businessSchema = z
   .object({
