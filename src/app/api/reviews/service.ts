@@ -1,5 +1,5 @@
 import { SortType } from '@/enums/sortTypes';
-import { GetReviewsParams, IReview } from '@/interfaces/review';
+import { IGetReviewsParams, IReview } from '@/interfaces/review';
 
 import { reviewUpdateSchema } from './schema';
 
@@ -15,7 +15,7 @@ export class ReviewService {
     sort = SortType.RECENT,
     page = 1,
     limit = 10,
-  }: GetReviewsParams) {
+  }: IGetReviewsParams) {
     const filteredReviews = businessId
       ? this.reviews.filter((r) => r.businessId === businessId)
       : [...this.reviews];
