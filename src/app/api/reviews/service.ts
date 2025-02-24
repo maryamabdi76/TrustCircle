@@ -2,6 +2,8 @@ import { SortType } from '@/enums/sortTypes';
 import { IGetReviewsParams, IReview } from '@/interfaces/review';
 
 import { reviewUpdateSchema } from './schema';
+import { BusinessService } from '../businesses/service';
+import { businesses } from '../businesses/data';
 
 export class ReviewService {
   private reviews: IReview[];
@@ -36,7 +38,7 @@ export class ReviewService {
     const paginatedReviews = filteredReviews.slice(start, start + limit);
 
     return {
-      reviews: paginatedReviews,
+      content: paginatedReviews,
       total: filteredReviews.length,
       totalPages: Math.ceil(filteredReviews.length / limit),
     };
@@ -49,6 +51,12 @@ export class ReviewService {
     >,
     user: { id?: string; name?: string | null }
   ) {
+    const businessService = new BusinessService(businesses);
+    const business = businessService.getBusinessById(data.businessId);
+    if (!business) {
+      throw new Error('Business not found');
+    }
+
     const newReview: IReview = {
       id: crypto.randomUUID(),
       businessId: data.businessId,
@@ -63,6 +71,8 @@ export class ReviewService {
     };
 
     this.reviews.push(newReview);
+    businessService.updateBusinessRating(business);
+
     return newReview;
   }
 

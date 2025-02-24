@@ -20,14 +20,14 @@ export async function getReviewsHandler(request: Request) {
       ? sort
       : SortType.RECENT;
 
-    const { reviews, total, totalPages } = reviewService.getReviews({
+    const { content, total, totalPages } = reviewService.getReviews({
       businessId,
       sort: validSort,
       page,
       limit,
     });
 
-    return NextResponse.json({ content: reviews, total, page, totalPages });
+    return NextResponse.json({ content, total, page, totalPages });
   } catch (error) {
     return handleError({ error });
   }

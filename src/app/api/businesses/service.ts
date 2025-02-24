@@ -1,3 +1,5 @@
+import { reviews } from '../reviews/data';
+import { ReviewService } from '../reviews/service';
 import type { BusinessSchema } from './schema';
 import { IBusiness } from '@/interfaces/business';
 
@@ -18,6 +20,10 @@ export class BusinessService {
     limit: number = 10
   ) {
     let filteredBusinesses = [...this.businesses];
+
+    filteredBusinesses.forEach((business) =>
+      this.updateBusinessRating(business)
+    );
 
     if (category) {
       filteredBusinesses = filteredBusinesses.filter(
@@ -92,6 +98,49 @@ export class BusinessService {
   }
 
   getBusinessById = (id: string) => {
-    return this.businesses.find((b) => b.id === id);
+    const business = this.businesses?.find((b) => b.id === id);
+    if (!business) return undefined;
+
+    this.updateBusinessRating(business);
+    return business;
   };
+
+  updateBusinessRating(business: IBusiness) {
+    if (!business) {
+      throw new Error('Business not found!');
+    }
+
+    // Reset rating distribution if undefined
+    if (!business.ratingDistribution) {
+      business.ratingDistribution = {};
+    }
+
+    // Recalculate rating distribution from reviews
+
+    const reviewService = new ReviewService(reviews);
+    const reviewsForBusiness = reviewService.getReviews({
+      businessId: business.id,
+    }).content;
+
+    // Reset rating distribution
+    business.ratingDistribution = {};
+    reviewsForBusiness.forEach((review) => {
+      business.ratingDistribution[review.rating] =
+        (business.ratingDistribution[review.rating] || 0) + 1;
+    });
+
+    // Recalculate score
+    const totalReviews = reviewsForBusiness.length;
+    const totalScore = reviewsForBusiness.reduce(
+      (sum, review) => sum + review.rating,
+      0
+    );
+
+    business.score = totalReviews > 0 ? totalScore / totalReviews : 0;
+    business.reviewCount = totalReviews;
+
+    this.businesses = this.businesses.map((b) =>
+      b.id === business.id ? { ...business } : b
+    );
+  }
 }
