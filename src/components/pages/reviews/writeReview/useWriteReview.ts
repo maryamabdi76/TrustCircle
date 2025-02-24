@@ -7,14 +7,14 @@ import { useEffect, useState } from 'react';
 import { FieldValues, useForm } from 'react-hook-form';
 import { z } from 'zod';
 
+import { PATHS } from '@/constants/PATHS';
 import { useToast } from '@/hooks/use-toast';
 import { useBusinesses } from '@/hooks/useBusinesses';
-import { useReviews } from '@/hooks/useReviews';
 import { zodResolver } from '@hookform/resolvers/zod';
 
-import type { IBusiness } from '@/types/business';
-import { PATHS } from '@/constants/PATHS';
-
+import type { IBusiness } from '@/interfaces/business';
+import { useCreateReview } from '@/hooks/useReviews';
+import { useQueryClient } from '@tanstack/react-query';
 // Define review schema for validation
 const reviewSchema = z.object({
   rating: z.number().min(1).max(5),
@@ -23,6 +23,7 @@ const reviewSchema = z.object({
 });
 
 export function useWriteReview(businessId: string) {
+  const query = useQueryClient();
   const { data: session, status: sessionStatus } = useSession();
   const router = useRouter();
   const { toast } = useToast();
@@ -30,7 +31,25 @@ export function useWriteReview(businessId: string) {
   const [business, setBusiness] = useState<IBusiness | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const { fetchBusinessById } = useBusinesses();
-  const { createReview } = useReviews();
+  const { mutate: createReview } = useCreateReview({
+    onSuccess: () => {
+      toast({
+        title: t('success'),
+        description: t('reviewSubmitted'),
+      });
+      query.invalidateQueries({
+        queryKey: ['reviews'],
+      });
+      router.push(PATHS.BUSINESSES.DETAIL(businessId));
+    },
+    onError: () => {
+      toast({
+        title: t('error'),
+        description: t('errorSubmittingReview'),
+        variant: 'destructive',
+      });
+    },
+  });
 
   // Set up react-hook-form with Zod validation
   const {
@@ -69,32 +88,14 @@ export function useWriteReview(businessId: string) {
   // Form submit handler
   const onSubmit: (data: FieldValues) => Promise<void> = async (data) => {
     const { rating, title, content } = data;
-    try {
-      // Call API to submit the review
-      const result = await createReview({
-        businessId,
-        authorId: session?.user?.id || '',
-        authorName: session?.user?.name || '',
-        rating,
-        title,
-        content,
-      });
-
-      if (result) {
-        toast({
-          title: t('success'),
-          description: t('reviewSubmitted'),
-        });
-        router.push(PATHS.BUSINESSES.DETAIL(businessId));
-      }
-    } catch (error) {
-      console.error('Error submitting review:', error);
-      toast({
-        title: t('error'),
-        description: t('errorSubmittingReview'),
-        variant: 'destructive',
-      });
-    }
+    createReview({
+      businessId,
+      authorId: session?.user?.id || '',
+      authorName: session?.user?.name || '',
+      rating,
+      title,
+      content,
+    });
   };
 
   return {

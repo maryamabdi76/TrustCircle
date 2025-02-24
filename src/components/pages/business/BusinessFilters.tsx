@@ -17,8 +17,8 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Slider } from '@/components/ui/slider';
-import { categories } from '@/data/categories';
 import { PATHS } from '@/constants/PATHS';
+import { categories } from '@/data/categories';
 
 export default function BusinessFilters({ className }: { className?: string }) {
   const t = useTranslations('Business');

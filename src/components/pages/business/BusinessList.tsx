@@ -1,5 +1,6 @@
 'use client';
 
+import clsx from 'clsx';
 import { Plus } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useRouter, useSearchParams } from 'next/navigation';
@@ -12,9 +13,7 @@ import { useBusinesses } from '@/hooks/useBusinesses';
 
 import BusinessCard from './BusinessCard';
 
-import type { IBusiness } from '@/types/business';
-import clsx from 'clsx';
-
+import type { IBusiness } from '@/interfaces/business';
 export default function BusinessList({ className }: { className?: string }) {
   const t = useTranslations('Business');
   const { loading, fetchBusinesses } = useBusinesses();

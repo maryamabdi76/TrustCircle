@@ -6,7 +6,7 @@ import { WebsiteLink } from '@/components/common/websiteLink/WebsiteLink';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent } from '@/components/ui/card';
 
-import type { IBusiness } from '@/types/business';
+import type { IBusiness } from '@/interfaces/business';
 interface BusinessPreviewProps {
   business: IBusiness;
   className?: string;

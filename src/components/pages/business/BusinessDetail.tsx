@@ -11,7 +11,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { PATHS } from '@/constants/PATHS';
-import { IBusiness } from '@/types/business';
+import { IBusiness } from '@/interfaces/business';
 
 export default function BusinessDetail({ business }: { business: IBusiness }) {
   const t = useTranslations('BusinessDetail');

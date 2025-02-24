@@ -1,3 +1,5 @@
+import { SortType } from '@/enums/sortTypes';
+
 export interface IReview {
   id: string;
   businessId: string;
@@ -9,4 +11,12 @@ export interface IReview {
   date: string;
   verifiedPurchase?: boolean;
   helpful?: number;
+}
+
+export interface IGetReviewsParams {
+  businessId?: string | null;
+  sort?: SortType;
+  page?: number;
+  limit?: number;
+  userId?: string;
 }

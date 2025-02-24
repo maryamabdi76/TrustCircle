@@ -4,38 +4,29 @@ import { Eye, Loader2, Star, ThumbsUp, User } from 'lucide-react';
 import { signOut, useSession } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
 import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { PATHS } from '@/constants/PATHS';
-import { useReviews } from '@/hooks/useReviews';
-import { IReview } from '@/types/review';
+import { useGetReviews } from '@/hooks/useReviews';
 
 export default function Profile() {
   const { data: session, status } = useSession();
   const router = useRouter();
   const t = useTranslations('Profile');
   const [activeTab, setActiveTab] = useState('overview');
-  const { fetchReviews } = useReviews();
-  const [userReviews, setUserReviews] = useState<IReview[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    const loadUserReviews = async () => {
-      try {
-        const data = await fetchReviews({ userId: session?.user.id });
-        setUserReviews(data.reviews);
-      } catch (error) {
-        console.error('Error fetching user reviews:', error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-    loadUserReviews();
-  }, [session, fetchReviews]);
+  const { data: userReviews, isPending } = useGetReviews({
+    userId: session?.user.id,
+  });
 
   if (status === 'loading') {
     return (
@@ -51,7 +42,7 @@ export default function Profile() {
   }
 
   const userStats = {
-    reviewsWritten: userReviews.length,
+    reviewsWritten: userReviews?.data.content.length,
     reviewsRead: 0, // This would be fetched from the backend in a real app
     helpfulVotes: 0, // This would be fetched from the backend in a real app
   };
@@ -128,13 +119,13 @@ export default function Profile() {
               </div>
             </TabsContent>
             <TabsContent value="reviews">
-              {isLoading ? (
+              {isPending ? (
                 <div className="flex justify-center">
                   <Loader2 className="w-6 h-6 animate-spin" />
                 </div>
-              ) : userReviews.length > 0 ? (
+              ) : userReviews?.data.content.length ? (
                 <div className="space-y-4">
-                  {userReviews.map((review) => (
+                  {userReviews?.data.content.map((review) => (
                     <Card key={review.id}>
                       <CardHeader>
                         <CardTitle>{review.title}</CardTitle>
