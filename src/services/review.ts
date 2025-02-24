@@ -1,9 +1,11 @@
-import { SortType } from '@/enums/sortTypes';
-import type { IGetReviewsParams, IReview } from '@/interfaces/review';
-import AxiosManager from './axiosManager';
-import { IPagination } from '@/interfaces/api';
 import { AxiosResponse } from 'axios';
 
+import { SortType } from '@/enums/sortTypes';
+import { IPagination } from '@/interfaces/api';
+
+import AxiosManager from './axiosManager';
+
+import type { IGetReviewsParams, IReview } from '@/interfaces/review';
 const api = AxiosManager.getInstance();
 const baseUrl = '/reviews';
 

@@ -1,9 +1,9 @@
-import {
-  UseInfiniteQueryOptions,
-  UseMutationOptions,
-  UseQueryOptions,
-} from '@tanstack/react-query';
 import { AxiosError, AxiosResponse } from 'axios';
+
+import {
+    UseInfiniteQueryOptions, UseMutationOptions, UseQueryOptions
+} from '@tanstack/react-query';
+
 import { IError } from './axios';
 
 /**

@@ -1,7 +1,9 @@
+'use client';
 import { Star } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useParams } from 'next/navigation';
 
 import { InstagramLink } from '@/components/common/instagramLink/InstagramLink';
 import { WebsiteLink } from '@/components/common/websiteLink/WebsiteLink';
@@ -11,10 +13,15 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { PATHS } from '@/constants/PATHS';
-import { IBusiness } from '@/interfaces/business';
+import { useGetBusinessById } from '@/hooks/useBusinesses';
 
-export default function BusinessDetail({ business }: { business: IBusiness }) {
+export default function BusinessDetail() {
   const t = useTranslations('BusinessDetail');
+  const params = useParams();
+  const { data } = useGetBusinessById(params.id as string);
+  const business = data?.data;
+
+  if (!business) return <div>{t('businessNotFound')}</div>;
 
   return (
     <>
