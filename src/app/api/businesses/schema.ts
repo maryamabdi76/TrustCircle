@@ -10,3 +10,5 @@ export const businessSchema = z
   .refine((data) => data.instagram || data.website, {
     message: 'Either Instagram or Website is required',
   });
+
+export type BusinessSchema = z.infer<typeof businessSchema>;
