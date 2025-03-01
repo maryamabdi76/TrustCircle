@@ -4,12 +4,17 @@ import { ChromeIcon } from 'lucide-react';
 import { signIn } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useState } from 'react';
 
 import { Button } from '@/components/ui/button';
 import {
-    Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
 } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -19,6 +24,8 @@ export default function SignIn() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const returnUrl = searchParams.get('returnUrl') || '/';
   const t = useTranslations('Auth');
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -32,8 +39,12 @@ export default function SignIn() {
     if (result?.error) {
       console.error(result.error);
     } else {
-      router.push('/');
+      router.push(returnUrl); // Redirect to returnUrl after login
     }
+  };
+
+  const handleGoogleSignIn = async () => {
+    await signIn('google', { callbackUrl: returnUrl });
   };
 
   return (
@@ -98,7 +109,7 @@ export default function SignIn() {
           <Button
             variant="outline"
             className="w-full"
-            onClick={() => signIn('google')}
+            onClick={handleGoogleSignIn}
           >
             <ChromeIcon className="mr-2" />
             {t('signInWithGoogle')}
