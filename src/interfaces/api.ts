@@ -1,4 +1,5 @@
 export interface IPagination<T> {
+  page: number;
   totalPages: number;
   totalElements: number;
   size: number;

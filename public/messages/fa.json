@@ -170,7 +170,10 @@
     "clearFilters": "پاک کردن فیلترها",
     "allCategories": "همه دسته‌ها",
     "applyFilters": "اعمال فیلترها",
-    "businessesFound": "{count} کسب‌وکار یافت شد"
+    "businessesFound": "{count} کسب‌وکار یافت شد",
+    "selectBusiness": "انتخاب کسب‌وکار",
+    "searchBusiness": "جستجو کسب‌وکار",
+    "searchBusinessPlaceholder": "نام کسب‌وکار را وارد کنید"
   },
   "BusinessDetail": {
     "basedOn": "بر اساس {count} نظر",
@@ -214,6 +217,7 @@
     "errorSubmittingReview": "خطایی در ثبت نظر رخ داد. لطفاً دوباره تلاش کنید.",
     "errorLoadingBusiness": "بارگذاری اطلاعات کسب‌وکار با مشکل مواجه شد. لطفاً دوباره تلاش کنید.",
     "pleaseSelectRating": "لطفاً قبل از ثبت، یک امتیاز انتخاب کنید",
+    "pleaseSelectBusiness": "لطفاً یک کسب‌وکار را انتخاب کنید",
     "pleaseSignIn": "لطفاً وارد شوید",
     "signInToReview": "برای نوشتن نظر باید وارد شوید",
     "signIn": "ورود",

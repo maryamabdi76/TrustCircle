@@ -5,7 +5,7 @@ import { AxiosError, AxiosResponse } from 'axios';
 import { IPagination } from '@/interfaces/api';
 import { IBusiness, IGetBusinessesParams } from '@/interfaces/business';
 import { businessApi } from '@/services/business';
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useInfiniteQuery, useMutation, useQuery } from '@tanstack/react-query';
 
 import { IError } from './axios';
 import { TMutationOptions, TQueryOptions } from './hooks';
@@ -19,6 +19,26 @@ export const useGetBusinesses = (
     queryFn: () => businessApi.getBusinesses(params),
     ...queryOptions,
   });
+
+export const useInfiniteGetBusinesses = (
+  { search }: { search: string },
+  queryOptions?: object
+) => {
+  return useInfiniteQuery({
+    queryKey: ['businesses', search],
+    queryFn: async ({ pageParam = 0 }) =>
+      businessApi.getBusinesses({
+        search,
+        page: pageParam,
+      }),
+    initialPageParam: 0,
+    getNextPageParam: (lastPage) => {
+      const { page: currentPage, totalPages } = lastPage.data;
+      return currentPage + 1 < totalPages ? currentPage + 1 : undefined;
+    },
+    ...queryOptions,
+  });
+};
 
 export const useGetBusinessById = (
   id: string,

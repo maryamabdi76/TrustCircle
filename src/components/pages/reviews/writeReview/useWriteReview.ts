@@ -50,6 +50,10 @@ export function useWriteReview(businessId: string) {
 
   const content = watch('content', '');
 
+  const handleSelectBusiness = (businessId: string) => {
+    router.push(PATHS.REVIEWS.WRITE(businessId));
+  };
+
   const onSubmit: (data: FieldValues) => Promise<void> = async (data) => {
     const { rating, title, content } = data;
     createReview({
@@ -72,6 +76,7 @@ export function useWriteReview(businessId: string) {
     isSubmitting,
     session,
     sessionStatus,
+    handleSelectBusiness,
     handleSubmit: handleSubmit(onSubmit),
     register,
   };

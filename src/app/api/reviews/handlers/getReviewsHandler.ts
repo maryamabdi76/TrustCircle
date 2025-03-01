@@ -12,8 +12,8 @@ export async function getReviewsHandler(request: Request) {
     const url = new URL(request.url);
     const businessId = url.searchParams.get('businessId');
     const sort = (url.searchParams.get('sort') as SortType) || SortType.RECENT;
-    const page = Number(url.searchParams.get('page')) || 1;
-    const limit = Number(url.searchParams.get('limit')) || 10;
+    const page = Number(url.searchParams.get('page')) || 0;
+    const size = Number(url.searchParams.get('size')) || 10;
 
     // Ensure sort is a valid SortType value
     const validSort = Object.values(SortType).includes(sort)
@@ -24,7 +24,7 @@ export async function getReviewsHandler(request: Request) {
       businessId,
       sort: validSort,
       page,
-      limit,
+      size,
     });
 
     return NextResponse.json({ content, total, page, totalPages });

@@ -3,7 +3,7 @@
 import { Loader2 } from 'lucide-react';
 import { useSession } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
@@ -41,6 +41,7 @@ type BusinessFormData = z.infer<typeof businessSchema>;
 export default function AddBusinessPage() {
   const { data: session } = useSession();
   const router = useRouter();
+  const searchParams = useSearchParams();
   const { toast } = useToast();
   const t = useTranslations('Business');
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -85,7 +86,10 @@ export default function AddBusinessPage() {
         title: t('success'),
         description: t('businessAdded'),
       });
-      router.push(PATHS.BUSINESSES.DETAIL(result.id));
+      const returnUrl = searchParams.get('returnUrl')
+        ? PATHS.REVIEWS.WRITE(result.id)
+        : PATHS.BUSINESSES.DETAIL(result.id);
+      router.push(returnUrl);
     } catch (error) {
       console.error('Error adding business:', error);
       toast({

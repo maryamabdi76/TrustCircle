@@ -15,6 +15,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { PATHS } from '@/constants/PATHS';
 import { useGetBusinessById } from '@/hooks/useBusinesses';
+
 import { BusinessDetailSkeleton } from './BusinessDetailSkeleton';
 
 export default function BusinessDetail() {

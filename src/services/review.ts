@@ -12,15 +12,15 @@ const baseUrl = '/reviews';
 export const reviewApi = {
   getReviews: ({
     sort = SortType.RECENT,
-    page = 1,
-    limit = 10,
+    page = 0,
+    size = 10,
     userId,
     businessId,
   }: IGetReviewsParams = {}): Promise<AxiosResponse<IPagination<IReview>>> => {
     const params = new URLSearchParams({
       sort,
       page: page.toString(),
-      limit: limit.toString(),
+      size: size.toString(),
     });
 
     if (businessId) params.append('businessId', businessId);

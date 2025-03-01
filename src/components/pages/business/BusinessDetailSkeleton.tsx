@@ -1,7 +1,8 @@
 'use client';
 
-import { Skeleton } from '@/components/ui/skeleton';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Skeleton } from '@/components/ui/skeleton';
+
 import { ReviewCardSkeleton } from './ReviewCardSkeleton';
 
 export function BusinessDetailSkeleton() {

@@ -1,5 +1,6 @@
 'use client';
 
+import clsx from 'clsx';
 import { Star } from 'lucide-react';
 import { Control } from 'react-hook-form';
 
@@ -8,9 +9,10 @@ import { useStarRating } from './useStarRating';
 interface StarRatingProps {
   name: string;
   control: Control;
+  disabled?: boolean;
 }
 
-export function StarRating({ name, control }: StarRatingProps) {
+export function StarRating({ name, control, disabled }: StarRatingProps) {
   const {
     field,
     hoveredRating,
@@ -30,8 +32,13 @@ export function StarRating({ name, control }: StarRatingProps) {
         {[1, 2, 3, 4, 5].map((star) => (
           <button
             key={star}
+            title="star"
             type="button"
-            className="cursor-pointer p-2 transition-all hover:scale-110 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-full"
+            disabled={disabled}
+            className={clsx(
+              'p-2 transition-all hover:scale-110 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-full',
+              disabled ? 'cursor-not-allowed' : 'cursor-pointer'
+            )}
             onMouseEnter={() => handleMouseEnter(star)}
             onMouseLeave={handleMouseLeave}
             onClick={() => handleClick(star)}

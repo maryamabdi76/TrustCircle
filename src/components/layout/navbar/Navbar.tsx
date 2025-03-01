@@ -50,9 +50,16 @@ export const Navbar = () => {
         </Link>
 
         <div className="flex items-center gap-2">
-          <Button variant="default" asChild>
+          <Button variant="ghost" asChild>
             <Link href={PATHS.BUSINESSES.ROOT}>{t('businesses')}</Link>
           </Button>
+          <Button
+            variant="ghost"
+            onClick={() => router.push(PATHS.REVIEWS.WRITE('new'))}
+          >
+            {t('writeReview')}
+          </Button>
+
           {sessionStatus === 'loading' ? (
             <Skeleton className="size-8 rounded-full" />
           ) : session ? (

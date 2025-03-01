@@ -51,13 +51,17 @@ export default async function RootLayout({
   const messages = await getMessages();
 
   return (
-    <html lang={locale} dir={locale === 'fa' ? 'rtl' : 'ltr'}>
-      <ClientProvider>
-        <body
-          className={cn('font-sans antialiased bg-background text-foreground', {
-            [iranYekanFont.className]: locale === 'fa',
-          })}
-        >
+    <html
+      lang={locale}
+      dir={locale === 'fa' ? 'rtl' : 'ltr'}
+      suppressHydrationWarning
+    >
+      <body
+        className={cn('font-sans antialiased bg-background text-foreground', {
+          [iranYekanFont.className]: locale === 'fa',
+        })}
+      >
+        <ClientProvider>
           <NextIntlClientProvider messages={messages}>
             <AuthProvider>
               <ThemeProvider
@@ -76,8 +80,8 @@ export default async function RootLayout({
           <Toaster />
           <SpeedInsights />
           <Analytics />
-        </body>
-      </ClientProvider>
+        </ClientProvider>
+      </body>
     </html>
   );
 }
