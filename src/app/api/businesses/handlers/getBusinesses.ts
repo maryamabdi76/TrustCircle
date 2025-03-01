@@ -15,8 +15,8 @@ export async function getBusinesses(request: Request) {
       searchParams.get('websiteOrInstagram') || undefined;
     const rating = searchParams.get('rating') || undefined;
     const sort = searchParams.get('sort') || undefined;
-    const page = Number.parseInt(searchParams.get('page') || '1', 10);
-    const limit = Number.parseInt(searchParams.get('limit') || '10', 10);
+    const page = Number.parseInt(searchParams.get('page') || '0');
+    const size = Number.parseInt(searchParams.get('size') || '10');
 
     const response = businessService.getBusinesses(
       search,
@@ -25,7 +25,7 @@ export async function getBusinesses(request: Request) {
       rating,
       sort,
       page,
-      limit
+      size
     );
 
     return NextResponse.json(response);

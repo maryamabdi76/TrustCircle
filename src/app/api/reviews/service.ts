@@ -1,9 +1,9 @@
 import { SortType } from '@/enums/sortTypes';
 import { IGetReviewsParams, IReview } from '@/interfaces/review';
 
-import { reviewUpdateSchema } from './schema';
-import { BusinessService } from '../businesses/service';
 import { businesses } from '../businesses/data';
+import { BusinessService } from '../businesses/service';
+import { reviewUpdateSchema } from './schema';
 
 export class ReviewService {
   private reviews: IReview[];
@@ -15,8 +15,8 @@ export class ReviewService {
   getReviews({
     businessId,
     sort = SortType.RECENT,
-    page = 1,
-    limit = 10,
+    page = 0,
+    size = 10,
   }: IGetReviewsParams) {
     const filteredReviews = businessId
       ? this.reviews.filter((r) => r.businessId === businessId)
@@ -34,13 +34,13 @@ export class ReviewService {
       }
     });
 
-    const start = (page - 1) * limit;
-    const paginatedReviews = filteredReviews.slice(start, start + limit);
+    const start = page * size;
+    const paginatedReviews = filteredReviews.slice(start, start + size);
 
     return {
       content: paginatedReviews,
       total: filteredReviews.length,
-      totalPages: Math.ceil(filteredReviews.length / limit),
+      totalPages: Math.ceil(filteredReviews.length / size),
     };
   }
 

@@ -1,8 +1,9 @@
-import { reviews } from '../reviews/data';
-import { ReviewService } from '../reviews/service';
-import type { BusinessSchema } from './schema';
 import { IBusiness } from '@/interfaces/business';
 
+import { reviews } from '../reviews/data';
+import { ReviewService } from '../reviews/service';
+
+import type { BusinessSchema } from './schema';
 export class BusinessService {
   private businesses: IBusiness[];
 
@@ -16,8 +17,8 @@ export class BusinessService {
     websiteOrInstagram?: string,
     rating?: string,
     sort?: string,
-    page: number = 1,
-    limit: number = 10
+    page: number = 0,
+    size: number = 10
   ) {
     let filteredBusinesses = [...this.businesses];
 
@@ -68,14 +69,14 @@ export class BusinessService {
     });
 
     // Pagination
-    const start = (page - 1) * limit;
-    const paginatedBusinesses = filteredBusinesses.slice(start, start + limit);
+    const start = page * size;
+    const paginatedBusinesses = filteredBusinesses.slice(start, start + size);
 
     return {
       content: paginatedBusinesses,
       total: filteredBusinesses.length,
       page,
-      totalPages: Math.ceil(filteredBusinesses.length / limit),
+      totalPages: Math.ceil(filteredBusinesses.length / size),
     };
   }
 

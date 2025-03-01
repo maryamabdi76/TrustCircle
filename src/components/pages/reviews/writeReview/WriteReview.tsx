@@ -17,10 +17,10 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 
 import { StarRating } from '../starRaring/StarRating';
-import { BusinessNotFound } from './BusinessNotFound';
 import { ReviewAuth } from './ReviewAuth';
-import { WriteReviewSkeleton } from './WriteReviewSkeleton';
 import { useWriteReview } from './useWriteReview';
+import { WriteReviewSkeleton } from './WriteReviewSkeleton';
+import { BusinessSelect } from '@/components/common/businessSelect/BusinessSelect ';
 
 export default function WriteReview() {
   const params = useParams<{ businessId: string }>();
@@ -34,17 +34,29 @@ export default function WriteReview() {
     isSubmitting,
     session,
     sessionStatus,
+    handleSelectBusiness,
     handleSubmit,
     register,
   } = useWriteReview(params.businessId);
+  console.log('🚀 ~ WriteReview ~ errors:', errors);
 
   if (sessionStatus === 'loading' || isLoading) return <WriteReviewSkeleton />;
-  if (!business) return <BusinessNotFound />;
 
   return (
     <div className="min-h-screen bg-background p-4 md:p-8">
       <div className="max-w-3xl mx-auto space-y-6">
-        <BusinessPreview business={business} />
+        {business ? (
+          <BusinessPreview business={business} />
+        ) : (
+          <div className="flex flex-col gap-2">
+            <BusinessSelect onSelect={handleSelectBusiness} />
+            {!business && (
+              <p className="text-sm text-destructive">
+                {t('pleaseSelectBusiness')}
+              </p>
+            )}
+          </div>
+        )}
 
         <Card className="overflow-hidden shadow-lg transition-shadow hover:shadow-xl">
           <CardHeader className="bg-gradient-to-r from-primary/10 via-primary/5 to-transparent">
@@ -53,7 +65,11 @@ export default function WriteReview() {
           </CardHeader>
           <CardContent className="p-6">
             <form onSubmit={handleSubmit} className="space-y-8">
-              <StarRating name="rating" control={control} />
+              <StarRating
+                disabled={!business}
+                name="rating"
+                control={control}
+              />
               {errors?.rating && (
                 <p className="text-sm text-destructive">
                   {t('pleaseSelectRating')}
@@ -65,6 +81,7 @@ export default function WriteReview() {
                   {t('reviewTitle')}
                 </label>
                 <Input
+                  disabled={!business}
                   id="title"
                   {...register('title')}
                   placeholder={t('reviewTitlePlaceholder')}
@@ -80,6 +97,7 @@ export default function WriteReview() {
                   {t('reviewContent')}
                 </label>
                 <Textarea
+                  disabled={!business}
                   id="content"
                   {...register('content')}
                   placeholder={t('reviewContentPlaceholder')}

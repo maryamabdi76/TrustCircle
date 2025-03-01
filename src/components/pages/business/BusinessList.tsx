@@ -23,8 +23,8 @@ export default function BusinessList({ className }: { className?: string }) {
       category: searchParams.get('category') || '',
       websiteOrInstagram: searchParams.get('websiteOrInstagram') || '',
       rating: Number.parseFloat(searchParams.get('rating') || '0'),
-      page: Number.parseInt(searchParams.get('page') || '1'),
-      limit: Number.parseInt(searchParams.get('limit') || '10'),
+      page: Number.parseInt(searchParams.get('page') || '0'),
+      size: Number.parseInt(searchParams.get('size') || '10'),
     }),
     [searchParams]
   );

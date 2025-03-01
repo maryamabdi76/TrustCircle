@@ -18,11 +18,12 @@ export interface IBusiness {
 }
 
 export interface IGetBusinessesParams {
+  search?: string;
   name?: string;
   category?: string;
   websiteOrInstagram?: string;
   rating?: number;
   sort?: 'rating' | 'name';
   page?: number;
-  limit?: number;
+  size?: number;
 }

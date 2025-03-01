@@ -170,7 +170,10 @@
     "clearFilters": "Clear Filters",
     "allCategories": "All Categories",
     "applyFilters": "Apply Filters",
-    "businessesFound": "{count} businesses found"
+    "businessesFound": "{count} businesses found",
+    "selectBusiness": "Select Business",
+    "searchBusiness": "Search Business",
+    "searchBusinessPlaceholder": "Enter business name"
   },
   "BusinessDetail": {
     "basedOn": "Based on {count} reviews",
@@ -214,6 +217,7 @@
     "errorSubmittingReview": "There was an error submitting your review. Please try again.",
     "errorLoadingBusiness": "Could not load business information. Please try again.",
     "pleaseSelectRating": "Please select a rating before submitting",
+    "pleaseSelectBusiness": "Please select a business",
     "pleaseSignIn": "Please Sign In",
     "signInToReview": "You need to be signed in to write a review",
     "signIn": "Sign In",
