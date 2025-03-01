@@ -1,17 +1,15 @@
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
-import { Control, useController } from 'react-hook-form';
+import { FieldValues, useController } from 'react-hook-form';
+import { StarRatingProps } from './StarRating';
 
-interface UseStarRatingProps {
-  name: string;
-  control: Control;
-}
-
-export function useStarRating({ name, control }: UseStarRatingProps) {
+export function useStarRating<T extends FieldValues>({
+  name,
+  control,
+}: StarRatingProps<T>) {
   const { field } = useController({
     name,
     control,
-    defaultValue: 0,
   });
 
   const [hoveredRating, setHoveredRating] = useState(0);

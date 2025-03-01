@@ -2,17 +2,21 @@
 
 import clsx from 'clsx';
 import { Star } from 'lucide-react';
-import { Control } from 'react-hook-form';
 
 import { useStarRating } from './useStarRating';
+import { Control, FieldValues, Path } from 'react-hook-form';
 
-interface StarRatingProps {
-  name: string;
-  control: Control;
+export interface StarRatingProps<T extends FieldValues> {
+  name: Path<T>;
+  control: Control<T>;
   disabled?: boolean;
 }
 
-export function StarRating({ name, control, disabled }: StarRatingProps) {
+export function StarRating<T extends FieldValues>({
+  name,
+  control,
+  disabled,
+}: StarRatingProps<T>) {
   const {
     field,
     hoveredRating,

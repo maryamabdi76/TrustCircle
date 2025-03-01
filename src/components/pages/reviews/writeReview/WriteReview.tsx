@@ -13,6 +13,14 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 
@@ -30,15 +38,14 @@ export default function WriteReview() {
     content,
     control,
     errors,
+    form,
     isLoading,
     isSubmitting,
     session,
     sessionStatus,
     handleSelectBusiness,
     handleSubmit,
-    register,
   } = useWriteReview(params.businessId);
-  console.log('🚀 ~ WriteReview ~ errors:', errors);
 
   if (sessionStatus === 'loading' || isLoading) return <WriteReviewSkeleton />;
 
@@ -64,71 +71,93 @@ export default function WriteReview() {
             <CardDescription>{t('shareYourExperience')}</CardDescription>
           </CardHeader>
           <CardContent className="p-6">
-            <form onSubmit={handleSubmit} className="space-y-8">
-              <StarRating
-                disabled={!business}
-                name="rating"
-                control={control}
-              />
-              {errors?.rating && (
-                <p className="text-sm text-destructive">
-                  {t('pleaseSelectRating')}
-                </p>
-              )}
-
-              <div className="space-y-2">
-                <label htmlFor="title" className="block text-sm font-medium">
-                  {t('reviewTitle')}
-                </label>
-                <Input
-                  disabled={!business}
-                  id="title"
-                  {...register('title')}
-                  placeholder={t('reviewTitlePlaceholder')}
-                  maxLength={100}
-                />
-                {errors?.title && (
-                  <p className="text-sm text-destructive">{t('titleError')}</p>
-                )}
-              </div>
-
-              <div className="space-y-2">
-                <label htmlFor="content" className="block text-sm font-medium">
-                  {t('reviewContent')}
-                </label>
-                <Textarea
-                  disabled={!business}
-                  id="content"
-                  {...register('content')}
-                  placeholder={t('reviewContentPlaceholder')}
-                  maxLength={1000}
-                />
-                <div className="text-sm text-muted-foreground text-right">
-                  {content.length}/1000
-                </div>
-                {errors?.content && (
-                  <p className="text-sm text-destructive">
-                    {t('contentError')}
-                  </p>
-                )}
-              </div>
-
-              {session ? (
-                <Button
-                  type="submit"
-                  className="w-full py-6 text-lg"
-                  disabled={isSubmitting}
-                >
-                  {isSubmitting ? (
-                    <Loader2 className="w-4 h-4 animate-spin" />
-                  ) : (
-                    t('submitReview')
+            <Form {...form}>
+              <form onSubmit={handleSubmit} className="space-y-8">
+                {/* Star Rating Field */}
+                <FormField
+                  control={control}
+                  name="rating"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormControl>
+                        <StarRating
+                          disabled={!business}
+                          name={field.name}
+                          control={control}
+                        />
+                      </FormControl>
+                      <FormMessage>
+                        {errors?.rating && t('pleaseSelectRating')}
+                      </FormMessage>
+                    </FormItem>
                   )}
-                </Button>
-              ) : (
-                <ReviewAuth />
-              )}
-            </form>
+                />
+
+                {/* Review Title Field */}
+                <FormField
+                  control={control}
+                  name="title"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>{t('reviewTitle')}</FormLabel>
+                      <FormControl>
+                        <Input
+                          disabled={!business}
+                          {...field}
+                          placeholder={t('reviewTitlePlaceholder')}
+                          maxLength={100}
+                        />
+                      </FormControl>
+                      <FormMessage>
+                        {errors?.title && t('titleError')}
+                      </FormMessage>
+                    </FormItem>
+                  )}
+                />
+
+                {/* Review Content Field */}
+                <FormField
+                  control={control}
+                  name="content"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>{t('reviewContent')}</FormLabel>
+                      <FormControl>
+                        <Textarea
+                          disabled={!business}
+                          {...field}
+                          placeholder={t('reviewContentPlaceholder')}
+                          maxLength={1000}
+                        />
+                      </FormControl>
+                      <div className="text-sm text-muted-foreground text-right">
+                        {content.length}/1000
+                      </div>
+                      <FormMessage>
+                        {errors?.content && t('contentError')}
+                      </FormMessage>
+                    </FormItem>
+                  )}
+                />
+
+                {/* Submit Button or Auth Prompt */}
+                {session ? (
+                  <Button
+                    type="submit"
+                    className="w-full py-6 text-lg"
+                    disabled={isSubmitting}
+                  >
+                    {isSubmitting ? (
+                      <Loader2 className="w-4 h-4 animate-spin" />
+                    ) : (
+                      t('submitReview')
+                    )}
+                  </Button>
+                ) : (
+                  <ReviewAuth />
+                )}
+              </form>
+            </Form>
           </CardContent>
         </Card>
       </div>

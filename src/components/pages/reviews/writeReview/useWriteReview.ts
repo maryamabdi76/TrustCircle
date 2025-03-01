@@ -38,15 +38,21 @@ export function useWriteReview(businessId: string) {
     },
   });
 
+  const form = useForm({
+    resolver: zodResolver(reviewSchema),
+    defaultValues: {
+      rating: 0,
+      title: '',
+      content: '',
+    },
+  });
+
   const {
     control,
     formState: { errors, isSubmitting },
-    register,
     handleSubmit,
     watch,
-  } = useForm({
-    resolver: zodResolver(reviewSchema),
-  });
+  } = form;
 
   const content = watch('content', '');
 
@@ -72,12 +78,12 @@ export function useWriteReview(businessId: string) {
     content,
     control,
     errors,
+    form,
     isLoading: isPending,
     isSubmitting,
     session,
     sessionStatus,
     handleSelectBusiness,
     handleSubmit: handleSubmit(onSubmit),
-    register,
   };
 }

@@ -17,6 +17,7 @@ export const businessApi = {
   getBusinessById: (id: string): Promise<AxiosResponse<IBusiness>> =>
     api.get<IBusiness>(`${baseUrl}/${id}`),
 
-  createBusiness: (data: Omit<IBusiness, 'id' | 'score' | 'reviewCount'>) =>
-    api.post<IBusiness>(baseUrl, data),
+  createBusiness: (
+    data: Omit<IBusiness, 'id' | 'score' | 'ratingDistribution'>
+  ) => api.post<IBusiness>(baseUrl, data),
 };

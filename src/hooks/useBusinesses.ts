@@ -53,7 +53,7 @@ export const useGetBusinessById = (
 export const useCreateBusiness = (
   mutationOptions?: TMutationOptions<
     IBusiness,
-    Omit<IBusiness, 'id' | 'score' | 'reviewCount'>
+    Omit<IBusiness, 'id' | 'score' | 'ratingDistribution'>
   >
 ) =>
   useMutation({
