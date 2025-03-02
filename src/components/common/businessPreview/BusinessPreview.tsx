@@ -5,6 +5,7 @@ import { InstagramLink } from '@/components/common/instagramLink/InstagramLink';
 import { WebsiteLink } from '@/components/common/websiteLink/WebsiteLink';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent } from '@/components/ui/card';
+import { categories } from '@/data/categories';
 
 import type { IBusiness } from '@/interfaces/business';
 interface BusinessPreviewProps {
@@ -13,6 +14,10 @@ interface BusinessPreviewProps {
 }
 
 export function BusinessPreview({ business, className }: BusinessPreviewProps) {
+  const businessCategory =
+    categories.find((c) => c.name === business.category)?.nameFA ||
+    business.category;
+
   return (
     <Card
       className={`overflow-hidden shadow-lg transition-all hover:shadow-xl ${className}`}
@@ -37,7 +42,7 @@ export function BusinessPreview({ business, className }: BusinessPreviewProps) {
                 <Star className="w-4 h-4 text-primary fill-primary mr-1" />
                 <span className="font-medium">{business.score.toFixed(1)}</span>
               </div>
-              <Badge variant="secondary">{business.category}</Badge>
+              <Badge variant="secondary">{businessCategory}</Badge>
             </div>
             <div className="flex flex-wrap gap-4 text-sm">
               {business.websiteUrl && (

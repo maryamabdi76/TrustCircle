@@ -73,7 +73,12 @@ export class ReviewService {
     this.reviews.push(newReview);
     businessService.updateBusinessRating(business);
 
-    return newReview;
+    return new Promise<IReview>((resolve) => {
+      setTimeout(() => {
+        console.log('✅ Review successfully added:', newReview);
+        resolve(newReview);
+      }, 50);
+    });
   }
 
   getReviewById = (id: string) => {

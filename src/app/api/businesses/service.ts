@@ -95,7 +95,13 @@ export class BusinessService {
     };
 
     this.businesses.push(newBusiness);
-    return newBusiness;
+
+    return new Promise<IBusiness>((resolve) => {
+      setTimeout(() => {
+        console.log('✅ Business successfully added:', newBusiness);
+        resolve(newBusiness);
+      }, 50);
+    });
   }
 
   getBusinessById = (id: string) => {

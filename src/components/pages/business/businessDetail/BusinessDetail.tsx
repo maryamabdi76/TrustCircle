@@ -8,13 +8,15 @@ import { useParams } from 'next/navigation';
 
 import { InstagramLink } from '@/components/common/instagramLink/InstagramLink';
 import { WebsiteLink } from '@/components/common/websiteLink/WebsiteLink';
-import { RatingDistribution } from '@/components/pages/business/RatingDistribution';
 import { ReviewList } from '@/components/pages/business/businessReviews/ReviewList';
+import { RatingDistribution } from '@/components/pages/business/RatingDistribution';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { PATHS } from '@/constants/PATHS';
+import { categories } from '@/data/categories';
 import { useGetBusinessById } from '@/hooks/useBusinesses';
+
 import { BusinessDetailSkeleton } from './BusinessDetailSkeleton';
 
 export default function BusinessDetail() {
@@ -25,6 +27,10 @@ export default function BusinessDetail() {
 
   if (isPending) return <BusinessDetailSkeleton />;
   if (!business) return <div>{t('businessNotFound')}</div>;
+
+  const businessCategory =
+    categories.find((c) => c.name === business.category)?.nameFA ||
+    business.category;
 
   return (
     <>
@@ -58,7 +64,7 @@ export default function BusinessDetail() {
                     </span>
                   </div>
                   <div className="flex flex-wrap gap-2">
-                    <Badge variant="outline">{business.category}</Badge>
+                    <Badge variant="outline">{businessCategory}</Badge>
                     {business.tags?.map((tag) => (
                       <Badge key={tag} variant="secondary">
                         {tag}
