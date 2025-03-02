@@ -1,4 +1,4 @@
-import BusinessDetail from '@/components/pages/business/BusinessDetail';
+import BusinessDetail from '@/components/pages/business/businessDetail/BusinessDetail';
 
 export default function BusinessPage() {
   return (

@@ -9,13 +9,12 @@ import { useParams } from 'next/navigation';
 import { InstagramLink } from '@/components/common/instagramLink/InstagramLink';
 import { WebsiteLink } from '@/components/common/websiteLink/WebsiteLink';
 import { RatingDistribution } from '@/components/pages/business/RatingDistribution';
-import { ReviewList } from '@/components/pages/business/ReviewList';
+import { ReviewList } from '@/components/pages/business/businessReviews/ReviewList';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { PATHS } from '@/constants/PATHS';
 import { useGetBusinessById } from '@/hooks/useBusinesses';
-
 import { BusinessDetailSkeleton } from './BusinessDetailSkeleton';
 
 export default function BusinessDetail() {

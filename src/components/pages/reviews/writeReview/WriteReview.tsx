@@ -4,7 +4,7 @@ import { Loader2 } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useParams } from 'next/navigation';
 
-import { BusinessPreview } from '@/components/pages/business/BusinessPreview';
+import { BusinessPreview } from '@/components/common/businessPreview/BusinessPreview';
 import { Button } from '@/components/ui/button';
 import {
   Card,

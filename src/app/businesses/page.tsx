@@ -1,7 +1,7 @@
 import { useTranslations } from 'next-intl';
 
 import BusinessFilters from '@/components/pages/business/BusinessFilters';
-import BusinessList from '@/components/pages/business/BusinessList';
+import BusinessList from '@/components/pages/business/businessList/BusinessList';
 
 export default function BusinessesPage() {
   const t = useTranslations('Business');

@@ -10,8 +10,8 @@ import { Button } from '@/components/ui/button';
 import { PATHS } from '@/constants/PATHS';
 import { useGetBusinesses } from '@/hooks/useBusinesses';
 
-import BusinessCard from './BusinessCard';
-import { BusinessCardSkeleton } from './BusinessCardSkeleton';
+import BusinessCard from '../businessCard/BusinessCard';
+import { BusinessCardSkeleton } from '../businessCard/BusinessCardSkeleton';
 
 export default function BusinessList({ className }: { className?: string }) {
   const t = useTranslations('Business');
