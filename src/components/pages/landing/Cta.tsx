@@ -1,6 +1,8 @@
 import { useTranslations } from 'next-intl';
+import Link from 'next/link';
 
 import { Button } from '@/components/ui/button';
+import { PATHS } from '@/constants/PATHS';
 
 export const Cta = () => {
   const t = useTranslations('LandingPage');
@@ -15,8 +17,13 @@ export const Cta = () => {
           <p className="text-lg sm:text-xl mb-8 text-primary-foreground/80">
             {t('cta.subtitle')}
           </p>
-          <Button size="lg" variant="secondary" className="px-8 py-3 text-lg">
-            {t('cta.button')}
+          <Button
+            size="lg"
+            variant="secondary"
+            className="px-8 py-3 text-lg"
+            asChild
+          >
+            <Link href={PATHS.SIGNUP.ROOT}>{t('cta.button')}</Link>
           </Button>
         </div>
       </div>

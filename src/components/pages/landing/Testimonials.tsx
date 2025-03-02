@@ -1,7 +1,7 @@
 'use client';
 
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import { useState } from 'react';
 
 import { Button } from '@/components/ui/button';
@@ -11,6 +11,9 @@ const testimonialKeys = ['alice', 'bob', 'carol'];
 
 export const Testimonials = () => {
   const t = useTranslations('LandingPage');
+  const locale = useLocale();
+  const isRTL = locale === 'fa';
+
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const nextTestimonial = () => {
@@ -49,17 +52,25 @@ export const Testimonials = () => {
           <div className="absolute top-1/2 -translate-y-1/2 left-0 right-0 flex justify-between px-4">
             <Button
               variant="ghost"
-              onClick={prevTestimonial}
+              onClick={isRTL ? nextTestimonial : prevTestimonial}
               className="p-2 rounded-full hover:bg-muted"
             >
-              <ChevronLeft className="h-6 w-6" />
+              {isRTL ? (
+                <ChevronRight className="h-6 w-6" />
+              ) : (
+                <ChevronLeft className="h-6 w-6" />
+              )}
             </Button>
             <Button
               variant="ghost"
-              onClick={nextTestimonial}
+              onClick={isRTL ? prevTestimonial : nextTestimonial}
               className="p-2 rounded-full hover:bg-muted"
             >
-              <ChevronRight className="h-6 w-6" />
+              {isRTL ? (
+                <ChevronLeft className="h-6 w-6" />
+              ) : (
+                <ChevronRight className="h-6 w-6" />
+              )}
             </Button>
           </div>
         </div>

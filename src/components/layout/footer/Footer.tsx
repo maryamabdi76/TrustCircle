@@ -4,6 +4,8 @@ import { Facebook, Instagram, Linkedin, Twitter } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import Link from 'next/link';
 
+import { PATHS } from '@/constants/PATHS';
+
 export const Footer = () => {
   const t = useTranslations('Footer');
 
@@ -25,7 +27,7 @@ export const Footer = () => {
             <ul className="space-y-2 text-sm">
               <li>
                 <Link
-                  href="/about"
+                  href="#"
                   className="text-muted-foreground hover:text-primary transition-colors"
                 >
                   {t('aboutUs')}
@@ -33,7 +35,7 @@ export const Footer = () => {
               </li>
               <li>
                 <Link
-                  href="/how-it-works"
+                  href="#"
                   className="text-muted-foreground hover:text-primary transition-colors"
                 >
                   {t('howItWorks')}
@@ -41,7 +43,7 @@ export const Footer = () => {
               </li>
               <li>
                 <Link
-                  href="/reviews"
+                  href={PATHS.REVIEWS.ROOT}
                   className="text-muted-foreground hover:text-primary transition-colors"
                 >
                   {t('reviews')}
@@ -49,7 +51,7 @@ export const Footer = () => {
               </li>
               <li>
                 <Link
-                  href="/contact"
+                  href="#"
                   className="text-muted-foreground hover:text-primary transition-colors"
                 >
                   {t('contactUs')}
@@ -64,7 +66,7 @@ export const Footer = () => {
             <ul className="space-y-2 text-sm">
               <li>
                 <Link
-                  href="/terms"
+                  href="#"
                   className="text-muted-foreground hover:text-primary transition-colors"
                 >
                   {t('termsOfService')}
@@ -72,7 +74,7 @@ export const Footer = () => {
               </li>
               <li>
                 <Link
-                  href="/privacy"
+                  href="#"
                   className="text-muted-foreground hover:text-primary transition-colors"
                 >
                   {t('privacyPolicy')}
@@ -80,7 +82,7 @@ export const Footer = () => {
               </li>
               <li>
                 <Link
-                  href="/cookies"
+                  href="#"
                   className="text-muted-foreground hover:text-primary transition-colors"
                 >
                   {t('cookiePolicy')}

@@ -3,8 +3,10 @@
 import { motion } from 'framer-motion';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
+import Link from 'next/link';
 
 import { Button } from '@/components/ui/button';
+import { PATHS } from '@/constants/PATHS';
 
 function FloatingCirclePaths() {
   const circles = Array.from({ length: 50 }, (_, i) => ({
@@ -69,8 +71,8 @@ export const Hero = () => {
               <p className="text-xl text-muted-foreground">
                 {t('hero.subtitle')}
               </p>
-              <Button size="lg" className="text-lg px-8 w-fit">
-                {t('hero.cta')}
+              <Button size="lg" className="text-lg px-8 w-fit" asChild>
+                <Link href={PATHS.BUSINESSES.ROOT}>{t('hero.cta')}</Link>
               </Button>
             </div>
           </div>
