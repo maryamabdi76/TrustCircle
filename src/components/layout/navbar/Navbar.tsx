@@ -12,7 +12,11 @@ import { Logo } from '@/components/icons/Logo';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import {
-    DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuShortcut, DropdownMenuTrigger
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuShortcut,
+  DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { Skeleton } from '@/components/ui/skeleton';
 import { PATHS } from '@/constants/PATHS';
@@ -38,7 +42,7 @@ export const Navbar = () => {
   return (
     <nav className="fixed top-0 left-0 right-0 bg-white dark:bg-gray-900 shadow-md z-50">
       <div className="mx-auto flex items-center justify-between py-4 px-6">
-        <Link href={PATHS.LANDING.ROOT} className="flex items-center gap-3">
+        <Link href={PATHS.LANDING.ROOT} className="flex items-center gap-1">
           <Logo
             width={40}
             height={40}
@@ -50,14 +54,11 @@ export const Navbar = () => {
         </Link>
 
         <div className="flex items-center gap-2">
-          <Button variant="ghost" asChild>
+          <Button variant="ghost" asChild className="px-2">
             <Link href={PATHS.BUSINESSES.ROOT}>{t('businesses')}</Link>
           </Button>
-          <Button
-            variant="ghost"
-            onClick={() => router.push(PATHS.REVIEWS.WRITE('new'))}
-          >
-            {t('writeReview')}
+          <Button variant="ghost" asChild className="px-2">
+            <Link href={PATHS.REVIEWS.WRITE('new')}>{t('writeReview')}</Link>
           </Button>
 
           {sessionStatus === 'loading' ? (

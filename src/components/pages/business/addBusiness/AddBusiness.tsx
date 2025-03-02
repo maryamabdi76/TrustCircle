@@ -1,25 +1,41 @@
 'use client';
 
 import { Loader2 } from 'lucide-react';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 
 import { AuthPrompt } from '@/components/common/authPrompt/AuthPrompt';
 import { Button } from '@/components/ui/button';
 import {
-    Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
 } from '@/components/ui/card';
 import {
-    Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import {
-    Select, SelectContent, SelectItem, SelectTrigger, SelectValue
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
 } from '@/components/ui/select';
 
 import { useAddBusiness } from './useAddBusiness';
 
 export const AddBusiness = () => {
   const t = useTranslations('Business');
+  const locale = useLocale();
   const {
     control,
     filteredCategories,
@@ -72,7 +88,7 @@ export const AddBusiness = () => {
                           <SelectValue placeholder={t('selectCategory')} />
                         </SelectTrigger>
                       </FormControl>
-                      <SelectContent>
+                      <SelectContent className="max-h-80 w-full overflow-y-auto">
                         <div className="p-2 sticky top-0 bg-white dark:bg-gray-900 z-10">
                           <Input
                             placeholder={t('searchBusiness')}
@@ -82,7 +98,7 @@ export const AddBusiness = () => {
                         </div>
                         {filteredCategories.map((category) => (
                           <SelectItem key={category.name} value={category.name}>
-                            {category.nameFA}
+                            {locale === 'fa' ? category.nameFA : category.name}
                           </SelectItem>
                         ))}
                       </SelectContent>
