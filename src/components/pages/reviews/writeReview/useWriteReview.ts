@@ -3,13 +3,14 @@
 import { useSession } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
 import { useRouter } from 'next/navigation';
-import { FieldValues, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
+import { z } from 'zod';
 
 import { PATHS } from '@/constants/PATHS';
 import { useToast } from '@/hooks/use-toast';
 import { useGetBusinessById } from '@/hooks/useBusinesses';
 import { useCreateReview } from '@/hooks/useReviews';
-import { reviewSchema } from '@/schemas/review';
+import { useReviewSchema } from '@/schemas/review';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useQueryClient } from '@tanstack/react-query';
 
@@ -17,6 +18,7 @@ export function useWriteReview(businessId: string) {
   const t = useTranslations('Reviews');
   const router = useRouter();
   const queryClient = useQueryClient();
+  const reviewSchema = useReviewSchema();
   const { toast } = useToast();
   const { data: session, status: sessionStatus } = useSession();
   const { data: business, isPending } = useGetBusinessById(businessId);
@@ -38,7 +40,7 @@ export function useWriteReview(businessId: string) {
     },
   });
 
-  const form = useForm({
+  const form = useForm<z.infer<typeof reviewSchema>>({
     resolver: zodResolver(reviewSchema),
     defaultValues: {
       rating: 0,
@@ -49,7 +51,7 @@ export function useWriteReview(businessId: string) {
 
   const {
     control,
-    formState: { errors, isSubmitting },
+    formState: { isSubmitting },
     handleSubmit,
     watch,
   } = form;
@@ -60,15 +62,13 @@ export function useWriteReview(businessId: string) {
     router.push(PATHS.REVIEWS.WRITE(businessId));
   };
 
-  const onSubmit: (data: FieldValues) => Promise<void> = async (data) => {
-    const { rating, title, content } = data;
+  const onSubmit: (
+    data: z.infer<typeof reviewSchema>
+  ) => Promise<void> = async (data) => {
     createReview({
       businessId,
       authorId: session?.user?.id || '',
       authorName: session?.user?.name || '',
-      rating,
-      title,
-      content,
       ...data,
     });
   };
@@ -77,7 +77,6 @@ export function useWriteReview(businessId: string) {
     business: business?.data,
     content,
     control,
-    errors,
     form,
     isLoading: isPending,
     isSubmitting,

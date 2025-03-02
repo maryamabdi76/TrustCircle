@@ -133,7 +133,8 @@
     "signUpWithGoogle": "ثبت نام با گوگل",
     "forgotPassword": "رمز عبور را فراموش کرده‌اید؟",
     "noAccount": "حساب کاربری ندارید؟",
-    "alreadyHaveAccount": "قبلاً حساب کاربری دارید؟ وارد شوید"
+    "alreadyHaveAccount": "قبلاً حساب کاربری دارید؟ وارد شوید",
+    "pleaseSignIn": "لطفاً وارد شوید"
   },
   "Business": {
     "businesses": "کسب‌وکارها",
@@ -164,7 +165,6 @@
     "success": "موفقیت",
     "businessAdded": "کسب‌وکار با موفقیت اضافه شد",
     "errorAddingBusiness": "خطایی در افزودن کسب‌وکار رخ داد. لطفاً دوباره تلاش کنید.",
-    "pleaseSignIn": "لطفاً برای افزودن کسب‌وکار وارد شوید",
     "searchBusinesses": "جستجوی کسب‌وکارها...",
     "noBusinessesFound": "هیچ کسب‌وکاری یافت نشد. آیا می‌خواهید یکی اضافه کنید؟",
     "clearFilters": "پاک کردن فیلترها",
@@ -173,7 +173,13 @@
     "businessesFound": "{count} کسب‌وکار یافت شد",
     "selectBusiness": "انتخاب کسب‌وکار",
     "searchBusiness": "جستجو کسب‌وکار",
-    "searchBusinessPlaceholder": "نام کسب‌وکار را وارد کنید"
+    "searchBusinessPlaceholder": "نام کسب‌وکار را وارد کنید",
+    "nameRequired": "نام کسب‌وکار الزامی است",
+    "categoryRequired": "دسته‌بندی الزامی است",
+    "instagramOptional": "نام کاربری اینستاگرام (اختیاری)",
+    "websiteInvalid": "آدرس وب‌سایت نامعتبر است",
+    "requireOneContact": "حداقل یکی از این دو گزینه (اینستاگرام یا وب‌سایت) الزامی است",
+    "signInToAddBusiness": "برای افزودن کسب‌وکار باید وارد شوید"
   },
   "BusinessDetail": {
     "basedOn": "بر اساس {count} نظر",
@@ -218,8 +224,7 @@
     "errorLoadingBusiness": "بارگذاری اطلاعات کسب‌وکار با مشکل مواجه شد. لطفاً دوباره تلاش کنید.",
     "pleaseSelectRating": "لطفاً قبل از ثبت، یک امتیاز انتخاب کنید",
     "pleaseSelectBusiness": "لطفاً یک کسب‌وکار را انتخاب کنید",
-    "pleaseSignIn": "لطفاً وارد شوید",
-    "signInToReview": "برای نوشتن نظر باید وارد شوید",
+    "signInToWriteReview": "برای نوشتن نظر باید وارد شوید",
     "signIn": "ورود",
     "loading": "در حال بارگذاری...",
     "businessNotFound": "کسب‌وکار یافت نشد",

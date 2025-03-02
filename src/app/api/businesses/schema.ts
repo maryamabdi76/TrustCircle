@@ -5,9 +5,9 @@ export const businessSchema = z
     name: z.string().min(1, 'Business name is required'),
     category: z.string().min(1, 'Category is required'),
     instagram: z.string().optional(),
-    website: z.string().url().optional(),
+    websiteUrl: z.string().url().optional(),
   })
-  .refine((data) => data.instagram || data.website, {
+  .refine((data) => data.instagram || data.websiteUrl, {
     message: 'Either Instagram or Website is required',
   });
 

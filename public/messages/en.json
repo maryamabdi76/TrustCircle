@@ -133,7 +133,8 @@
     "signUpWithGoogle": "Sign up with Google",
     "forgotPassword": "Forgot password?",
     "noAccount": "Don't have an account?",
-    "alreadyHaveAccount": "Already have an account? Sign in"
+    "alreadyHaveAccount": "Already have an account? Sign in",
+    "pleaseSignIn": "Please Sign In"
   },
   "Business": {
     "businesses": "Businesses",
@@ -164,7 +165,6 @@
     "success": "Success",
     "businessAdded": "Business added successfully",
     "errorAddingBusiness": "There was an error adding the business. Please try again.",
-    "pleaseSignIn": "Please sign in to add a business",
     "searchBusinesses": "Search businesses...",
     "noBusinessesFound": "No businesses found. Would you like to add one?",
     "clearFilters": "Clear Filters",
@@ -173,7 +173,13 @@
     "businessesFound": "{count} businesses found",
     "selectBusiness": "Select Business",
     "searchBusiness": "Search Business",
-    "searchBusinessPlaceholder": "Enter business name"
+    "searchBusinessPlaceholder": "Enter business name",
+    "nameRequired": "Business name is required",
+    "categoryRequired": "Category is required",
+    "instagramOptional": "Instagram handle (optional)",
+    "websiteInvalid": "Invalid website URL",
+    "requireOneContact": "Either Instagram or Website is required",
+    "signInToAddBusiness": "You nedd to be signed in to add a business"
   },
   "BusinessDetail": {
     "basedOn": "Based on {count} reviews",
@@ -218,8 +224,7 @@
     "errorLoadingBusiness": "Could not load business information. Please try again.",
     "pleaseSelectRating": "Please select a rating before submitting",
     "pleaseSelectBusiness": "Please select a business",
-    "pleaseSignIn": "Please Sign In",
-    "signInToReview": "You need to be signed in to write a review",
+    "signInToWriteReview": "You need to be signed in to write a review",
     "signIn": "Sign In",
     "loading": "Loading...",
     "businessNotFound": "Business Not Found",

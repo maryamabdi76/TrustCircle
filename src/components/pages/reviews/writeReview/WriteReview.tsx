@@ -4,7 +4,9 @@ import { Loader2 } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useParams } from 'next/navigation';
 
+import { AuthPrompt } from '@/components/common/authPrompt/AuthPrompt';
 import { BusinessPreview } from '@/components/common/businessPreview/BusinessPreview';
+import { BusinessSelect } from '@/components/common/businessSelect/BusinessSelect ';
 import { Button } from '@/components/ui/button';
 import {
   Card,
@@ -25,10 +27,8 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 
 import { StarRating } from '../starRaring/StarRating';
-import { ReviewAuth } from './ReviewAuth';
 import { useWriteReview } from './useWriteReview';
 import { WriteReviewSkeleton } from './WriteReviewSkeleton';
-import { BusinessSelect } from '@/components/common/businessSelect/BusinessSelect ';
 
 export default function WriteReview() {
   const params = useParams<{ businessId: string }>();
@@ -37,7 +37,6 @@ export default function WriteReview() {
     business,
     content,
     control,
-    errors,
     form,
     isLoading,
     isSubmitting,
@@ -86,9 +85,7 @@ export default function WriteReview() {
                           control={control}
                         />
                       </FormControl>
-                      <FormMessage>
-                        {errors?.rating && t('pleaseSelectRating')}
-                      </FormMessage>
+                      <FormMessage />
                     </FormItem>
                   )}
                 />
@@ -108,9 +105,7 @@ export default function WriteReview() {
                           maxLength={100}
                         />
                       </FormControl>
-                      <FormMessage>
-                        {errors?.title && t('titleError')}
-                      </FormMessage>
+                      <FormMessage />
                     </FormItem>
                   )}
                 />
@@ -133,9 +128,7 @@ export default function WriteReview() {
                       <div className="text-sm text-muted-foreground text-right">
                         {content.length}/1000
                       </div>
-                      <FormMessage>
-                        {errors?.content && t('contentError')}
-                      </FormMessage>
+                      <FormMessage />
                     </FormItem>
                   )}
                 />
@@ -154,7 +147,7 @@ export default function WriteReview() {
                     )}
                   </Button>
                 ) : (
-                  <ReviewAuth />
+                  <AuthPrompt message={t('signInToWriteReview')} />
                 )}
               </form>
             </Form>
