@@ -14,6 +14,11 @@ export const reviewPostSchema = z.object({
     .string()
     .min(10, 'Content must be at least 10 characters')
     .max(1000, 'Content must be less than 1000 characters'),
+  images: z
+    .array(z.string())
+    .max(5, 'Maximum 5 images allowed')
+    .optional()
+    .default([]),
 });
 
 export const reviewUpdateSchema = z.object({
@@ -32,4 +37,5 @@ export const reviewUpdateSchema = z.object({
     .min(10, 'Content must be at least 10 characters')
     .max(1000, 'Content must be less than 1000 characters')
     .optional(),
+  images: z.array(z.string()).max(5, 'Maximum 5 images allowed').optional(),
 });

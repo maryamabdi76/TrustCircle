@@ -205,7 +205,8 @@
     "report": "گزارش",
     "businessNotFound": "کسب‌وکار یافت نشد",
     "noReviews": "هنوز هیچ نظری برای این کسب و کار ثبت نشده است.",
-    "beFirstToReview": "اولین نفری باشید که نظر می‌دهید"
+    "beFirstToReview": "اولین نفری باشید که نظر می‌دهید",
+    "viewImage": "مشاهده تصویر کامل"
   },
   "Reviews": {
     "writeReview": "نوشتن نظر",
@@ -238,7 +239,13 @@
       "average": "متوسط - قابل قبول بود",
       "great": "خوب - تجربه خوبی داشتم",
       "excellent": "عالی - کاملاً راضی هستم"
-    }
+    },
+    "uploadImages": "آپلود تصاویر (اختیاری)",
+    "maxImagesAllowed": "حداکثر ۵ تصویر مجاز است",
+    "imagesUploaded": "{count, plural, =1 {# تصویر آپلود شد} other {# تصویر آپلود شد}}",
+    "uploadingImages": "در حال آپلود تصاویر...",
+    "uploadSuccess": "تصاویر با موفقیت آپلود شدند",
+    "uploadError": "آپلود تصاویر با خطا مواجه شد"
   },
   "Profile": {
     "overview": "نمای کلی",

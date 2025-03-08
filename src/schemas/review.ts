@@ -17,5 +17,10 @@ export const useReviewSchema = () => {
       .string()
       .min(10, { message: t('contentError') })
       .max(1000, { message: t('contentError') }),
+    images: z
+      .array(z.string())
+      .max(5, t('maxImagesAllowed'))
+      .optional()
+      .default([]),
   });
 };

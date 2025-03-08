@@ -11,6 +11,7 @@ export interface IReview {
   date: string;
   verifiedPurchase?: boolean;
   helpful?: number;
+  images?: string[];
 }
 
 export interface IGetReviewsParams {

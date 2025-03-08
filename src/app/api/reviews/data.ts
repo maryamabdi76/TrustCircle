@@ -17,6 +17,7 @@ export const reviews: IReview[] = [
     date: '2023-05-15T10:30:00Z',
     verifiedPurchase: true,
     helpful: 52,
+    images: [],
   },
   {
     id: '2',
@@ -30,6 +31,7 @@ export const reviews: IReview[] = [
     date: '2023-06-02T14:45:00Z',
     verifiedPurchase: true,
     helpful: 34,
+    images: [],
   },
   {
     id: '3',
@@ -43,6 +45,7 @@ export const reviews: IReview[] = [
     date: '2023-07-10T09:15:00Z',
     verifiedPurchase: true,
     helpful: 64,
+    images: [],
   },
   {
     id: '4',
@@ -56,6 +59,7 @@ export const reviews: IReview[] = [
     date: '2023-08-05T16:20:00Z',
     verifiedPurchase: true,
     helpful: 41,
+    images: [],
   },
   {
     id: '5',
@@ -69,6 +73,7 @@ export const reviews: IReview[] = [
     date: '2023-09-12T11:00:00Z',
     verifiedPurchase: true,
     helpful: 29,
+    images: [],
   },
   {
     id: '6',
@@ -82,5 +87,6 @@ export const reviews: IReview[] = [
     date: '2023-10-01T08:40:00Z',
     verifiedPurchase: true,
     helpful: 48,
+    images: [],
   },
 ];

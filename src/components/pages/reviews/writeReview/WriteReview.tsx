@@ -29,6 +29,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { StarRating } from '../starRaring/StarRating';
 import { useWriteReview } from './useWriteReview';
 import { WriteReviewSkeleton } from './WriteReviewSkeleton';
+import { FileUpload } from '@/components/ui/file-upload';
 
 export default function WriteReview() {
   const params = useParams<{ businessId: string }>();
@@ -128,6 +129,35 @@ export default function WriteReview() {
                       <div className="text-sm text-muted-foreground text-right">
                         {content.length}/1000
                       </div>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                {/* Image Upload Field */}
+                <FormField
+                  control={control}
+                  name="images"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>{t('uploadImages')}</FormLabel>
+                      <FormControl>
+                        <div className="space-y-2">
+                          <FileUpload
+                            disabled={!business || isSubmitting}
+                            value={field.value}
+                            onChange={field.onChange}
+                            maxFiles={5}
+                          />
+                          {field.value.length > 0 && (
+                            <p className="text-sm text-muted-foreground">
+                              {t('imagesUploaded', {
+                                count: field.value.length,
+                              })}
+                            </p>
+                          )}
+                        </div>
+                      </FormControl>
                       <FormMessage />
                     </FormItem>
                   )}

@@ -13,6 +13,7 @@ import { useCreateReview } from '@/hooks/useReviews';
 import { useReviewSchema } from '@/schemas/review';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useQueryClient } from '@tanstack/react-query';
+import { deleteImage } from '@/lib/blob-storage';
 
 export function useWriteReview(businessId: string) {
   const t = useTranslations('Reviews');
@@ -31,12 +32,21 @@ export function useWriteReview(businessId: string) {
       queryClient.invalidateQueries({ queryKey: ['business'] });
       router.push(PATHS.BUSINESSES.DETAIL(businessId));
     },
-    onError: () => {
+    onError: (_, data) => {
       toast({
         title: t('error'),
         description: t('errorSubmittingReview'),
         variant: 'destructive',
       });
+
+      // Clean up any uploaded images if the review submission fails
+      if (data.images && data.images.length > 0) {
+        data.images.forEach(async (imageUrl) => {
+          if (!imageUrl.startsWith('data:')) {
+            await deleteImage(imageUrl);
+          }
+        });
+      }
     },
   });
 
@@ -46,6 +56,7 @@ export function useWriteReview(businessId: string) {
       rating: 0,
       title: '',
       content: '',
+      images: [],
     },
   });
 

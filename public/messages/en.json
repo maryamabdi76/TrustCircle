@@ -205,7 +205,8 @@
     "report": "Report",
     "businessNotFound": "Business not found",
     "noReviews": "There are no reviews for this business yet.",
-    "beFirstToReview": "Be the first to write a review"
+    "beFirstToReview": "Be the first to write a review",
+    "viewImage": "View full image"
   },
   "Reviews": {
     "writeReview": "Write a Review",
@@ -238,7 +239,13 @@
       "average": "Average - It was okay",
       "great": "Great - I had a good experience",
       "excellent": "Excellent - I'm very satisfied"
-    }
+    },
+    "uploadImages": "Upload Images (Optional)",
+    "maxImagesAllowed": "Maximum 5 images allowed",
+    "imagesUploaded": "{count, plural, =1 {# image uploaded} other {# images uploaded}}",
+    "uploadingImages": "Uploading images...",
+    "uploadSuccess": "Images uploaded successfully",
+    "uploadError": "Failed to upload images"
   },
   "Profile": {
     "overview": "Overview",
