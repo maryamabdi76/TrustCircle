@@ -68,6 +68,7 @@ export class ReviewService {
       date: new Date().toISOString(),
       helpful: 0,
       verifiedPurchase: false,
+      images: data.images,
     };
 
     this.reviews.push(newReview);

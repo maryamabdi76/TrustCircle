@@ -23,3 +23,7 @@ export function handleError({
     { status }
   );
 }
+
+export const isBase64Image = (url: string): boolean => {
+  return url?.startsWith('data:image/');
+};
