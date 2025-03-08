@@ -19,7 +19,7 @@ interface ReviewCardProps {
     date: string;
     authorName: string;
     content: string;
-    images: [];
+    images?: string[];
   };
 }
 
@@ -74,7 +74,7 @@ export function ReviewCard({ review }: ReviewCardProps) {
                 return (
                   <ImageDialog
                     key={index}
-                    images={review.images}
+                    images={review.images || []}
                     initialIndex={index}
                     className={`relative aspect-square rounded-md overflow-hidden border cursor-pointer hover:opacity-90 transition-opacity ${
                       hasMoreImages ? 'relative' : ''
@@ -87,7 +87,7 @@ export function ReviewCard({ review }: ReviewCardProps) {
                       className="object-cover"
                       unoptimized={isBase64Image(image)}
                     />
-                    {hasMoreImages && (
+                    {review.images && hasMoreImages && (
                       <div className="absolute inset-0 bg-black/60 flex items-center justify-center">
                         <span className="text-white text-lg font-medium">
                           +{review.images.length - 4}
