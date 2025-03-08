@@ -9,6 +9,7 @@ TrustCircle is a platform for businesses and users where customers can leave rev
 - Responsive UI using Tailwind CSS 🎨
 - Optimized state management with React Query ⚡
 - Form validation using Zod ✅
+- Image upload support via Vercel Blob Storage 🖼️
 
 ## 🛠️ Tech Stack
 - **Next.js** - React framework for server-side rendering and static site generation.
@@ -17,6 +18,7 @@ TrustCircle is a platform for businesses and users where customers can leave rev
 - **NextAuth.js** - Authentication for Next.js applications.
 - **React Query** - Data fetching and caching solution.
 - **Zod** - TypeScript-first schema validation.
+- **Vercel Blob Storage** - Secure file storage and retrieval.
 
 ## 📦 Installation
 ```bash
@@ -30,6 +32,7 @@ NEXTAUTH_URL=http://localhost:3000
 NEXTAUTH_SECRET=your_secret_key
 GOOGLE_CLIENT_ID=your_google_client_id
 GOOGLE_CLIENT_SECRET=your_google_client_secret
+BLOB_READ_WRITE_TOKEN=your_blob_storage_token
 ```
 
 ## 🏃‍♂️ Running the Project
