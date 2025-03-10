@@ -1,15 +1,14 @@
 import { NextResponse } from 'next/server';
 
-import { handleError } from '@/lib/utils';
+import { handleError } from '@/lib/server-utils';
 
-import { reviews } from '../data';
 import { ReviewService } from '../service';
 
 export async function getReviewByIdHandler(
   request: Request,
   context: { params: Promise<{ id: string }> }
 ) {
-  const reviewService = new ReviewService(reviews);
+  const reviewService = new ReviewService();
   try {
     const { id } = await context.params;
     const review = reviewService.getReviewById(id);

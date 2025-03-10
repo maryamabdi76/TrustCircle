@@ -1,8 +1,9 @@
-import { Button } from '@/components/ui/button';
-import { isBase64Image } from '@/lib/utils';
 import { ChevronLeft, ChevronRight, X } from 'lucide-react';
 import Image from 'next/image';
 import { useState } from 'react';
+
+import { Button } from '@/components/ui/button';
+import { isBase64Image } from '@/lib/utils';
 
 export const ImageDialog = ({
   images,

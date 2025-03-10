@@ -1,9 +1,14 @@
+import bcrypt from 'bcryptjs';
 import { DefaultSession, getServerSession, NextAuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import GoogleProvider from 'next-auth/providers/google';
 
+import {
+  createUser,
+  findUserByEmail,
+  findUserByProviderId,
+} from '@/app/api/auth/userRepo';
 import { PATHS } from '@/constants/PATHS';
-import { users } from '@/data/users';
 
 // Extend session type to include user ID
 declare module 'next-auth' {
@@ -24,6 +29,7 @@ declare module 'next-auth' {
 
 export const authOptions: NextAuthOptions = {
   providers: [
+    // Email + Password Authentication
     CredentialsProvider({
       name: 'Credentials',
       credentials: {
@@ -35,39 +41,69 @@ export const authOptions: NextAuthOptions = {
           return null;
         }
 
-        const user = users.find((user) => user.email === credentials.email);
+        const user = findUserByEmail(credentials.email);
+        if (!user) return null;
 
-        if (user && user.password === credentials.password) {
-          return {
-            id: user.id, // Include the user ID
-            name: user.name,
-            email: user.email,
-          };
-        }
+        // Compare hashed password
+        const isValid = bcrypt.compareSync(
+          credentials.password,
+          user?.password
+        );
+        if (!isValid) return null;
 
-        return null;
+        return {
+          id: user.id.toString(),
+          name: user.name,
+          email: user.email,
+        };
       },
     }),
+
+    // Google Authentication
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID as string,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
     }),
   ],
   secret: process.env.NEXTAUTH_SECRET,
-  debug: true,
+  debug: process.env.NODE_ENV === 'development',
+
   pages: {
     signIn: PATHS.SIGNIN.ROOT,
   },
+
   callbacks: {
+    async signIn({ user, account }) {
+      if (account?.provider === 'google') {
+        // Check if user already exists in DB
+        const existingUser = findUserByProviderId(
+          'google',
+          account.providerAccountId!
+        );
+        if (!existingUser) {
+          // Create new user in DB
+          createUser({
+            name: user.name || '',
+            email: user.email || '',
+            image: user.image || '',
+            provider: 'google',
+            providerAccountId: account.providerAccountId,
+          });
+        }
+      }
+      return true;
+    },
+
     async jwt({ token, user }) {
       if (user) {
-        token.id = user.id; // Store user ID in the token
+        token.id = user.id;
       }
       return token;
     },
+
     async session({ session, token }) {
       if (session.user) {
-        session.user.id = token.id as string; // Include user ID in the session
+        session.user.id = token.id as string;
       }
       return session;
     },

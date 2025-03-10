@@ -8,10 +8,10 @@ export interface IReview {
   rating: number;
   title: string;
   content: string;
-  date: string;
   verifiedPurchase?: boolean;
   helpful?: number;
   images?: string[];
+  createdAt: string;
 }
 
 export interface IGetReviewsParams {

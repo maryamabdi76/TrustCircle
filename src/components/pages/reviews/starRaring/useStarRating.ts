@@ -1,6 +1,7 @@
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 import { FieldValues, useController } from 'react-hook-form';
+
 import { StarRatingProps } from './StarRating';
 
 export function useStarRating<T extends FieldValues>({

@@ -1,12 +1,11 @@
 import { NextResponse } from 'next/server';
 
-import { handleError } from '@/lib/utils';
+import { handleError } from '@/lib/server-utils';
 
-import { businesses } from '../data';
 import { BusinessService } from '../service';
 
 export async function getBusinesses(request: Request) {
-  const businessService = new BusinessService(businesses);
+  const businessService = new BusinessService();
   try {
     const { searchParams } = new URL(request.url);
     const search = searchParams.get('search') || undefined;

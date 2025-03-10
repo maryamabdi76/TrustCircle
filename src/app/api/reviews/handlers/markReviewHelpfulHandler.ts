@@ -2,16 +2,15 @@ import { getServerSession } from 'next-auth';
 import { NextResponse } from 'next/server';
 
 import { authOptions } from '@/lib/auth';
-import { handleError } from '@/lib/utils';
+import { handleError } from '@/lib/server-utils';
 
-import { reviews } from '../data';
 import { ReviewService } from '../service';
 
 export async function markReviewHelpfulHandler(
   request: Request,
   context: { params: Promise<{ id: string }> }
 ) {
-  const reviewService = new ReviewService(reviews);
+  const reviewService = new ReviewService();
   try {
     const { id } = await context.params;
     const session = await getServerSession(authOptions);

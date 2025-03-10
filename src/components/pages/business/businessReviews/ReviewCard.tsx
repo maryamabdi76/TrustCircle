@@ -16,10 +16,10 @@ interface ReviewCardProps {
     rating: number;
     title: string;
     verifiedPurchase?: boolean;
-    date: string;
     authorName: string;
     content: string;
     images?: string[];
+    createdAt: string;
   };
 }
 
@@ -46,7 +46,7 @@ export function ReviewCard({ review }: ReviewCardProps) {
             </div>
             <h4 className="font-semibold">
               {review.title}{' '}
-              {review.verifiedPurchase && (
+              {!!review.verifiedPurchase && (
                 <Badge variant="secondary" color="green">
                   {t('verifiedPurchase')}
                 </Badge>
@@ -54,7 +54,7 @@ export function ReviewCard({ review }: ReviewCardProps) {
             </h4>
           </div>
           <span className="text-sm text-muted-foreground">
-            {new Date(review.date).toLocaleDateString()}
+            {new Date(review.createdAt).toLocaleDateString()}
           </span>
         </div>
       </CardHeader>
@@ -68,7 +68,7 @@ export function ReviewCard({ review }: ReviewCardProps) {
         {review.images && review.images.length > 0 && (
           <div className="mb-4">
             <div className="grid grid-cols-5 gap-2">
-              {review.images.slice(0, 5).map((image, index) => {
+              {review.images?.slice(0, 5).map((image, index) => {
                 const hasMoreImages =
                   review.images && review.images.length > 5 && index === 4;
                 return (

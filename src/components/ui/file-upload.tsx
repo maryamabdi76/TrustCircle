@@ -3,7 +3,7 @@
 import { UploadCloud, X } from 'lucide-react';
 import Image from 'next/image';
 import * as React from 'react';
-import { useDropzone, type DropzoneOptions } from 'react-dropzone';
+import { DropzoneOptions, useDropzone } from 'react-dropzone';
 
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
@@ -55,7 +55,7 @@ const FileUpload = React.forwardRef<HTMLInputElement, InputProps>(
       if (valueStr !== filesStr) {
         setFiles(value || []);
       }
-    }, [value]);
+    }, [value, files]);
 
     // Convert file to base64
     const fileToBase64 = (file: File): Promise<string> => {

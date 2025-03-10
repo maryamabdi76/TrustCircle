@@ -15,6 +15,7 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
+import { FileUpload } from '@/components/ui/file-upload';
 import {
   Form,
   FormControl,
@@ -29,7 +30,6 @@ import { Textarea } from '@/components/ui/textarea';
 import { StarRating } from '../starRaring/StarRating';
 import { useWriteReview } from './useWriteReview';
 import { WriteReviewSkeleton } from './WriteReviewSkeleton';
-import { FileUpload } from '@/components/ui/file-upload';
 
 export default function WriteReview() {
   const params = useParams<{ businessId: string }>();
