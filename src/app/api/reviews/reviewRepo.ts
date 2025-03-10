@@ -1,9 +1,6 @@
-import db from '@/lib/db';
+import { findBusinessById, updateBusinessRating } from '@/app/api/businesses/businessRepo';
 import { IReview } from '@/interfaces/review';
-import {
-  findBusinessById,
-  updateBusinessRating,
-} from '@/app/api/businesses/businessRepo';
+import db from '@/lib/db';
 
 /**
  * Create a new review and update the associated business rating.
@@ -53,6 +50,30 @@ export function getReviewsByBusiness(businessId: string): IReview[] {
     ...review,
     images: review.images ? JSON.parse(review.images as unknown as string) : [],
   }));
+}
+
+/**
+ * Update an existing review.
+ */
+export function updateReview(id: string, updateData: IReview) {
+  const review = findReviewById(id);
+  if (!review) return null;
+
+  const stmt = db.prepare(`
+    UPDATE reviews 
+    SET rating = ?, title = ?, content = ?, images = ?
+    WHERE id = ?
+  `);
+
+  stmt.run(
+    updateData.rating ?? review.rating,
+    updateData.title ?? review.title,
+    updateData.content ?? review.content,
+    JSON.stringify(updateData.images ?? review.images),
+    id
+  );
+
+  return findReviewById(id);
 }
 
 /**

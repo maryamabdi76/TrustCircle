@@ -2,9 +2,9 @@
 
 import clsx from 'clsx';
 import { Star } from 'lucide-react';
+import { Control, FieldValues, Path } from 'react-hook-form';
 
 import { useStarRating } from './useStarRating';
-import { Control, FieldValues, Path } from 'react-hook-form';
 
 export interface StarRatingProps<T extends FieldValues> {
   name: Path<T>;

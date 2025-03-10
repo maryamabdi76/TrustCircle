@@ -1,13 +1,14 @@
+import bcrypt from 'bcryptjs';
 import { DefaultSession, getServerSession, NextAuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import GoogleProvider from 'next-auth/providers/google';
-import bcrypt from 'bcryptjs';
-import { PATHS } from '@/constants/PATHS';
+
 import {
   createUser,
   findUserByEmail,
   findUserByProviderId,
 } from '@/app/api/auth/userRepo';
+import { PATHS } from '@/constants/PATHS';
 
 // Extend session type to include user ID
 declare module 'next-auth' {

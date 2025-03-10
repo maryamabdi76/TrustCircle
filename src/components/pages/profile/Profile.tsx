@@ -124,7 +124,7 @@ export default function Profile() {
                       <CardHeader>
                         <CardTitle>{review.title}</CardTitle>
                         <CardDescription>
-                          {new Date(review.date).toLocaleDateString()}
+                          {new Date(review.createdAt).toLocaleDateString()}
                         </CardDescription>
                       </CardHeader>
                       <CardContent>

@@ -1,6 +1,6 @@
-import db from '@/lib/db';
-import { IBusiness } from '@/interfaces/business';
 import { getReviewsByBusiness } from '@/app/api/reviews/reviewRepo';
+import { IBusiness } from '@/interfaces/business';
+import db from '@/lib/db';
 
 /**
  * Create a new business and update its rating after insertion.

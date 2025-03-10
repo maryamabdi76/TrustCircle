@@ -1,6 +1,8 @@
-import React from 'react';
 import { NextIntlClientProvider } from 'next-intl';
+import React from 'react';
+
 import { render } from '@testing-library/react';
+
 import enMessages from '../../public/messages/en.json';
 import faMessages from '../../public/messages/fa.json';
 

@@ -1,10 +1,8 @@
-import { IBusiness } from '@/interfaces/business';
 import {
-  createBusiness as createBusinessRepo,
-  getAllBusinesses as getBusinessesRepo,
-  findBusinessById as getBusinessByIdRepo,
-  updateBusinessRating as updateBusinessRatingRepo,
+    createBusiness as createBusinessRepo, findBusinessById as getBusinessByIdRepo,
+    getAllBusinesses as getBusinessesRepo, updateBusinessRating as updateBusinessRatingRepo
 } from '@/app/api/businesses/businessRepo';
+import { IBusiness } from '@/interfaces/business';
 
 export class BusinessService {
   getBusinesses(

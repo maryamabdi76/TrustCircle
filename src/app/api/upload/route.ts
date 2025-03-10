@@ -1,9 +1,10 @@
-import { NextResponse } from 'next/server';
-import { put } from '@vercel/blob';
 import { nanoid } from 'nanoid';
-import { handleUpload, type HandleUploadBody } from '@vercel/blob/client';
+import { NextResponse } from 'next/server';
+
 import { validateSession } from '@/lib/auth'; // Ensure correct import path
 import { handleError } from '@/lib/server-utils';
+import { put } from '@vercel/blob';
+import { handleUpload, HandleUploadBody } from '@vercel/blob/client';
 
 export async function POST(request: Request): Promise<NextResponse> {
   try {

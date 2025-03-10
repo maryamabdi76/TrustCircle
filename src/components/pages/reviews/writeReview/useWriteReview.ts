@@ -10,10 +10,10 @@ import { PATHS } from '@/constants/PATHS';
 import { useToast } from '@/hooks/use-toast';
 import { useGetBusinessById } from '@/hooks/useBusinesses';
 import { useCreateReview } from '@/hooks/useReviews';
+import { deleteImage } from '@/lib/blob-storage';
 import { useReviewSchema } from '@/schemas/review';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useQueryClient } from '@tanstack/react-query';
-import { deleteImage } from '@/lib/blob-storage';
 
 export function useWriteReview(businessId: string) {
   const t = useTranslations('Reviews');
@@ -80,6 +80,7 @@ export function useWriteReview(businessId: string) {
       businessId,
       authorId: session?.user?.id || '',
       authorName: session?.user?.name || '',
+      createdAt: new Date().toISOString(),
       ...data,
     });
   };

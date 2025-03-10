@@ -2,14 +2,13 @@ import { NextResponse } from 'next/server';
 
 import { handleError } from '@/lib/server-utils';
 
-import { businesses } from '../data';
 import { BusinessService } from '../service';
 
 export async function getBusinessByIdHandler(
   request: Request,
   context: { params: Promise<{ id: string }> }
 ) {
-  const businessService = new BusinessService(businesses);
+  const businessService = new BusinessService();
   try {
     const { id } = await context.params;
 

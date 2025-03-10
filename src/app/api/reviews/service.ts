@@ -1,12 +1,10 @@
-import { IReview } from '@/interfaces/review';
 import {
-  createReview as createReviewRepo,
-  getReviewsByBusiness as getReviewsByBusinessRepo,
-  findReviewById as getReviewByIdRepo,
-  deleteReview as deleteReviewRepo,
-  markReviewAsHelpful as markReviewAsHelpfulRepo,
+    createReview as createReviewRepo, deleteReview as deleteReviewRepo,
+    findReviewById as getReviewByIdRepo, getReviewsByBusiness as getReviewsByBusinessRepo,
+    markReviewAsHelpful as markReviewAsHelpfulRepo, updateReview as updateReviewRepo
 } from '@/app/api/reviews/reviewRepo';
 import { SortType } from '@/enums/sortTypes';
+import { IReview } from '@/interfaces/review';
 
 export class ReviewService {
   createReview(
@@ -67,6 +65,10 @@ export class ReviewService {
       total: reviews.length,
       totalPages: Math.ceil(reviews.length / size),
     };
+  }
+
+  updateReview(businessId: string, updateData: IReview) {
+    return updateReviewRepo(businessId, updateData);
   }
 
   getReviewsByBusiness(businessId: string) {

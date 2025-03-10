@@ -2,6 +2,7 @@
 
 import { useTranslations } from 'next-intl';
 import { usePathname, useRouter } from 'next/navigation';
+
 import { Button } from '@/components/ui/button';
 import { CardDescription, CardTitle } from '@/components/ui/card';
 import { PATHS } from '@/constants/PATHS';
