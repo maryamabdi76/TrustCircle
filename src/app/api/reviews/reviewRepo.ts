@@ -1,19 +1,23 @@
-import { findBusinessById, updateBusinessRating } from '@/app/api/businesses/businessRepo';
+import {
+  findBusinessById,
+  updateBusinessRating,
+} from '@/app/api/businesses/businessRepo';
 import { IReview } from '@/interfaces/review';
-import db from '@/lib/db';
+import pool from '@/lib/db';
 
 /**
  * Create a new review and update the associated business rating.
  */
-export function createReview(review: Omit<IReview, 'id'>) {
-  const stmt = db.prepare(`
+export async function createReview(review: Omit<IReview, 'id'>) {
+  const query = `
     INSERT INTO reviews (
       businessId, authorId, authorName, rating, title, content,
       verifiedPurchase, helpful, images, createdAt
-    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-  `);
+    ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
+    RETURNING *;
+  `;
 
-  const result = stmt.run(
+  const values = [
     review.businessId,
     review.authorId,
     review.authorName,
@@ -23,15 +27,16 @@ export function createReview(review: Omit<IReview, 'id'>) {
     review.verifiedPurchase ? 1 : 0,
     review.helpful ?? 0,
     JSON.stringify(review.images ?? []),
-    review.createdAt ?? new Date().toISOString()
-  );
+    review.createdAt ?? new Date().toISOString(),
+  ];
 
-  const newReview = findReviewById(result.lastInsertRowid.toString());
+  const result = await pool.query(query, values);
+  const newReview = result.rows[0];
 
   if (newReview) {
-    const business = findBusinessById(newReview.businessId);
+    const business = await findBusinessById(newReview.businessId);
     if (business) {
-      updateBusinessRating(business);
+      await updateBusinessRating(business);
     }
   }
 
@@ -41,69 +46,77 @@ export function createReview(review: Omit<IReview, 'id'>) {
 /**
  * Retrieve all reviews for a business and parse `images`.
  */
-export function getReviewsByBusiness(businessId: string): IReview[] {
-  const reviews = db
-    .prepare(`SELECT * FROM reviews WHERE businessId = ?`)
-    .all(businessId) as IReview[];
+export async function getReviewsByBusiness(
+  businessId: string
+): Promise<IReview[]> {
+  const query = 'SELECT * FROM reviews WHERE businessId = $1';
+  const result = await pool.query(query, [businessId]);
 
-  return reviews.map((review) => ({
+  return result.rows.map((review) => ({
     ...review,
-    images: review.images ? JSON.parse(review.images as unknown as string) : [],
+    images: review.images ? JSON.parse(review.images) : [],
   }));
 }
 
 /**
  * Update an existing review.
  */
-export function updateReview(id: string, updateData: IReview) {
-  const review = findReviewById(id);
+export async function updateReview(id: string, updateData: Partial<IReview>) {
+  const review = await findReviewById(id);
   if (!review) return null;
 
-  const stmt = db.prepare(`
+  const query = `
     UPDATE reviews 
-    SET rating = ?, title = ?, content = ?, images = ?
-    WHERE id = ?
-  `);
+    SET rating = $1, title = $2, content = $3, images = $4
+    WHERE id = $5
+    RETURNING *;
+  `;
 
-  stmt.run(
+  const values = [
     updateData.rating ?? review.rating,
     updateData.title ?? review.title,
     updateData.content ?? review.content,
     JSON.stringify(updateData.images ?? review.images),
-    id
-  );
+    id,
+  ];
 
-  return findReviewById(id);
+  const result = await pool.query(query, values);
+  return result.rows[0];
 }
 
 /**
  * Find a review by ID and parse `images`.
  */
-export function findReviewById(id: string): IReview | undefined {
-  const review = db.prepare(`SELECT * FROM reviews WHERE id = ?`).get(id) as
-    | IReview
-    | undefined;
+export async function findReviewById(id: string): Promise<IReview | undefined> {
+  const query = 'SELECT * FROM reviews WHERE id = $1';
+  const result = await pool.query(query, [id]);
 
-  if (review) {
-    review.images = review.images
-      ? JSON.parse(review.images as unknown as string)
-      : [];
+  if (result.rows[0]) {
+    const review = result.rows[0];
+    review.images = review.images ? JSON.parse(review.images) : [];
+    return review;
   }
 
-  return review;
+  return undefined;
 }
 
 /**
  * Delete a review and return `true` if successful.
  */
-export function deleteReview(id: string) {
-  return db.prepare(`DELETE FROM reviews WHERE id = ?`).run(id).changes > 0;
+export async function deleteReview(id: string): Promise<boolean> {
+  const query = 'DELETE FROM reviews WHERE id = $1';
+  const result = await pool.query(query, [id]);
+  return (result.rowCount ?? 0) > 0;
 }
 
 /**
  * Mark a review as helpful by increasing the count.
  */
-export function markReviewAsHelpful(id: string) {
-  db.prepare(`UPDATE reviews SET helpful = helpful + 1 WHERE id = ?`).run(id);
-  return findReviewById(id);
+export async function markReviewAsHelpful(
+  id: string
+): Promise<IReview | undefined> {
+  const query =
+    'UPDATE reviews SET helpful = helpful + 1 WHERE id = $1 RETURNING *';
+  const result = await pool.query(query, [id]);
+  return result.rows[0];
 }

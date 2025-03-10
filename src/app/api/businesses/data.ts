@@ -1,5 +1,5 @@
 import { IBusiness } from '@/interfaces/business';
-import db from '@/lib/db';
+import pool from '@/lib/db';
 
 export const businesses: IBusiness[] = [
   {
@@ -235,43 +235,39 @@ export const businesses: IBusiness[] = [
   },
 ];
 
-export function seedBusinesses() {
-  const result = db
-    .prepare(`SELECT COUNT(*) AS count FROM businesses`)
-    .get() as { count: number };
+export async function seedBusinesses() {
+  const result = await pool.query('SELECT COUNT(*) AS count FROM businesses');
+  const count = parseInt(result.rows[0].count, 10);
 
-  if (result.count === 0) {
+  if (count === 0) {
     console.log('No businesses found, inserting seed data...');
 
-    const stmt = db.prepare(`
+    const query = `
       INSERT INTO businesses (
         id, name, logo, websiteUrl, instagram, score, category,
         description, address, phone, email, reviewCount, ratingDistribution, createdAt
-      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-    `);
+      ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14)
+    `;
 
-    const insertMany = db.transaction((items) => {
-      for (const business of items) {
-        stmt.run(
-          business.id,
-          business.name,
-          business.logo ?? null,
-          business.websiteUrl ?? null,
-          business.instagram ?? null,
-          business.score,
-          business.category,
-          business.description ?? null,
-          business.address ?? null,
-          business.phone ?? null,
-          business.email ?? null,
-          business.reviewCount ?? 0,
-          JSON.stringify(business.ratingDistribution),
-          new Date().toISOString()
-        );
-      }
-    });
+    for (const business of businesses) {
+      await pool.query(query, [
+        business.id,
+        business.name,
+        business.logo ?? null,
+        business.websiteUrl ?? null,
+        business.instagram ?? null,
+        business.score,
+        business.category,
+        business.description ?? null,
+        business.address ?? null,
+        business.phone ?? null,
+        business.email ?? null,
+        business.reviewCount ?? 0,
+        JSON.stringify(business.ratingDistribution),
+        new Date().toISOString(),
+      ]);
+    }
 
-    insertMany(businesses);
     console.log('✅ Seeded initial business data.');
   } else {
     console.log('✅ Businesses already exist, skipping seeding.');
@@ -279,4 +275,4 @@ export function seedBusinesses() {
 }
 
 // Call this function on app start
-seedBusinesses();
+// seedBusinesses();

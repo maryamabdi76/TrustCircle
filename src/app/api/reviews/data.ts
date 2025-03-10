@@ -1,5 +1,5 @@
 import type { IReview } from '@/interfaces/review';
-import db from '@/lib/db';
+import pool from '@/lib/db';
 
 /**
  * Mock data representing reviews.
@@ -93,39 +93,35 @@ export const reviews: IReview[] = [
 ];
 
 // Function to seed reviews if not already present
-export function seedReviews() {
-  const result = db.prepare(`SELECT COUNT(*) AS count FROM reviews`).get() as {
-    count: number;
-  };
+export async function seedReviews() {
+  const result = await pool.query(`SELECT COUNT(*) AS count FROM reviews`);
+  const count = parseInt(result.rows[0].count, 10);
 
-  if (result.count === 0) {
+  if (count === 0) {
     console.log('No reviews found, inserting seed data...');
 
-    const stmt = db.prepare(`
+    const query = `
       INSERT INTO reviews (
         businessId, authorId, authorName, rating, title, content,
         verifiedPurchase, helpful, images, createdAt
-      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-    `);
+      ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
+    `;
 
-    const insertMany = db.transaction((items) => {
-      for (const review of items) {
-        stmt.run(
-          review.businessId,
-          review.authorId,
-          review.authorName,
-          review.rating,
-          review.title,
-          review.content,
-          review.verifiedPurchase ? 1 : 0,
-          review.helpful ?? 0,
-          JSON.stringify(review.images ?? []),
-          review.createdAt ?? new Date().toISOString()
-        );
-      }
-    });
+    for (const review of reviews) {
+      await pool.query(query, [
+        review.businessId,
+        review.authorId,
+        review.authorName,
+        review.rating,
+        review.title,
+        review.content,
+        review.verifiedPurchase,
+        review.helpful ?? 0,
+        JSON.stringify(review.images ?? []),
+        review.createdAt ?? new Date().toISOString(),
+      ]);
+    }
 
-    insertMany(reviews);
     console.log('✅ Seeded initial review data.');
   } else {
     console.log('✅ Reviews already exist, skipping seeding.');
@@ -133,4 +129,4 @@ export function seedReviews() {
 }
 
 // Run the seeding function on app startup
-seedReviews();
+// seedReviews();

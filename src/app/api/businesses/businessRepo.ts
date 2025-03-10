@@ -1,19 +1,20 @@
 import { getReviewsByBusiness } from '@/app/api/reviews/reviewRepo';
 import { IBusiness } from '@/interfaces/business';
-import db from '@/lib/db';
+import pool from '@/lib/db';
 
 /**
  * Create a new business and update its rating after insertion.
  */
-export function createBusiness(business: Omit<IBusiness, 'id'>) {
-  const stmt = db.prepare(`
+export async function createBusiness(business: Omit<IBusiness, 'id'>) {
+  const query = `
     INSERT INTO businesses (
       name, logo, websiteUrl, instagram, score, category,
       description, address, phone, email, reviewCount, ratingDistribution, createdAt
-    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-  `);
+    ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)
+    RETURNING *;
+  `;
 
-  const result = stmt.run(
+  const values = [
     business.name,
     business.logo ?? null,
     business.websiteUrl ?? null,
@@ -26,13 +27,14 @@ export function createBusiness(business: Omit<IBusiness, 'id'>) {
     business.email ?? null,
     0,
     JSON.stringify({}),
-    new Date().toISOString()
-  );
+    new Date().toISOString(),
+  ];
 
-  const newBusiness = findBusinessById(result.lastInsertRowid.toString());
+  const result = await pool.query(query, values);
+  const newBusiness = result.rows[0];
 
   if (newBusiness) {
-    updateBusinessRating(newBusiness);
+    await updateBusinessRating(newBusiness);
   }
 
   return newBusiness;
@@ -41,10 +43,9 @@ export function createBusiness(business: Omit<IBusiness, 'id'>) {
 /**
  * Retrieve all businesses and parse `ratingDistribution`.
  */
-export function getAllBusinesses(): IBusiness[] {
-  const businesses = db
-    .prepare(`SELECT * FROM businesses`)
-    .all() as IBusiness[];
+export async function getAllBusinesses(): Promise<IBusiness[]> {
+  const result = await pool.query('SELECT * FROM businesses');
+  const businesses = result.rows as IBusiness[];
 
   return businesses.map((business) => ({
     ...business,
@@ -57,10 +58,12 @@ export function getAllBusinesses(): IBusiness[] {
 /**
  * Find a business by ID and parse `ratingDistribution`.
  */
-export function findBusinessById(id: string): IBusiness | undefined {
-  const business = db
-    .prepare(`SELECT * FROM businesses WHERE id = ?`)
-    .get(id) as IBusiness | undefined;
+export async function findBusinessById(
+  id: string
+): Promise<IBusiness | undefined> {
+  const query = 'SELECT * FROM businesses WHERE id = $1';
+  const result = await pool.query(query, [id]);
+  const business = result.rows[0] as IBusiness | undefined;
 
   if (business) {
     business.ratingDistribution = business.ratingDistribution
@@ -74,9 +77,8 @@ export function findBusinessById(id: string): IBusiness | undefined {
 /**
  * Update a business's `score`, `reviewCount`, and `ratingDistribution`.
  */
-export function updateBusinessRating(business: IBusiness) {
-  const reviews = getReviewsByBusiness(business.id);
-  console.log('🚀 ~ updateBusinessRating ~ reviews:', reviews);
+export async function updateBusinessRating(business: IBusiness) {
+  const reviews = await getReviewsByBusiness(business.id);
 
   // ✅ Recalculate rating distribution
   const ratingDistribution: { [key: number]: number } = {};
@@ -94,16 +96,16 @@ export function updateBusinessRating(business: IBusiness) {
   business.ratingDistribution = ratingDistribution;
 
   // ✅ Ensure `ratingDistribution` is stored as a JSON string
-  return db
-    .prepare(
-      `UPDATE businesses 
-       SET score = ?, reviewCount = ?, ratingDistribution = ?
-       WHERE id = ?`
-    )
-    .run(
-      business.score,
-      business.reviewCount,
-      JSON.stringify(business.ratingDistribution),
-      business.id
-    );
+  const query = `
+    UPDATE businesses 
+    SET score = $1, reviewCount = $2, ratingDistribution = $3
+    WHERE id = $4
+  `;
+
+  await pool.query(query, [
+    business.score,
+    business.reviewCount,
+    JSON.stringify(business.ratingDistribution),
+    business.id,
+  ]);
 }

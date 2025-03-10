@@ -1,7 +1,10 @@
 import {
-    createReview as createReviewRepo, deleteReview as deleteReviewRepo,
-    findReviewById as getReviewByIdRepo, getReviewsByBusiness as getReviewsByBusinessRepo,
-    markReviewAsHelpful as markReviewAsHelpfulRepo, updateReview as updateReviewRepo
+  createReview as createReviewRepo,
+  deleteReview as deleteReviewRepo,
+  findReviewById as getReviewByIdRepo,
+  getReviewsByBusiness as getReviewsByBusinessRepo,
+  markReviewAsHelpful as markReviewAsHelpfulRepo,
+  updateReview as updateReviewRepo,
 } from '@/app/api/reviews/reviewRepo';
 import { SortType } from '@/enums/sortTypes';
 import { IReview } from '@/interfaces/review';
@@ -26,7 +29,7 @@ export class ReviewService {
 
     return createReviewRepo(newReview);
   }
-  getReviews({
+  async getReviews({
     businessId,
     sort = SortType.RECENT,
     page = 0,
@@ -37,7 +40,9 @@ export class ReviewService {
     page?: number;
     size?: number;
   }) {
-    const reviews = businessId ? getReviewsByBusinessRepo(businessId) : [];
+    const reviews = businessId
+      ? await getReviewsByBusinessRepo(businessId)
+      : [];
 
     // Sorting logic
     switch (sort) {

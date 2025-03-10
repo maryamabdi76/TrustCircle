@@ -1,11 +1,13 @@
 import {
-    createBusiness as createBusinessRepo, findBusinessById as getBusinessByIdRepo,
-    getAllBusinesses as getBusinessesRepo, updateBusinessRating as updateBusinessRatingRepo
+  createBusiness as createBusinessRepo,
+  findBusinessById as getBusinessByIdRepo,
+  getAllBusinesses as getBusinessesRepo,
+  updateBusinessRating as updateBusinessRatingRepo,
 } from '@/app/api/businesses/businessRepo';
 import { IBusiness } from '@/interfaces/business';
 
 export class BusinessService {
-  getBusinesses(
+  async getBusinesses(
     search?: string,
     category?: string,
     websiteOrInstagram?: string,
@@ -14,7 +16,7 @@ export class BusinessService {
     page: number = 0,
     size: number = 10
   ) {
-    let businesses = getBusinessesRepo();
+    let businesses = await getBusinessesRepo();
 
     // Filtering
     if (category) {

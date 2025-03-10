@@ -1,7 +1,10 @@
 import { IUser } from '@/interfaces/user';
-import db from '@/lib/db';
+import pool from '@/lib/db';
 
-export function createUser(userData: {
+/**
+ * Create a new user in the database.
+ */
+export async function createUser(userData: {
   name: string;
   email: string;
   password?: string;
@@ -9,41 +12,48 @@ export function createUser(userData: {
   provider?: string;
   providerAccountId?: string;
 }) {
-  const stmt = db.prepare(`
+  const query = `
     INSERT INTO users (name, email, password, image, provider, providerAccountId)
-    VALUES (?, ?, ?, ?, ?, ?)
-  `);
-  const info = stmt.run(
+    VALUES ($1, $2, $3, $4, $5, $6)
+    RETURNING *;
+  `;
+
+  const values = [
     userData.name,
     userData.email,
     userData.password ?? null,
     userData.image ?? null,
     userData.provider ?? null,
-    userData.providerAccountId ?? null
-  );
+    userData.providerAccountId ?? null,
+  ];
 
-  return info.lastInsertRowid;
+  const result = await pool.query(query, values);
+  const newUser = result.rows[0];
+  return newUser;
 }
 
-export function findUserByEmail(email: string) {
-  return db
-    .prepare(
-      `
-    SELECT * FROM users WHERE email = ?
-  `
-    )
-    .get(email) as IUser | undefined;
+/**
+ * Find a user by their email address.
+ */
+export async function findUserByEmail(
+  email: string
+): Promise<IUser | undefined> {
+  const result = await pool.query(`SELECT * FROM users WHERE email = $1`, [
+    email,
+  ]);
+  return result.rows[0] as IUser | undefined;
 }
 
-export function findUserByProviderId(
+/**
+ * Find a user by their provider and provider account ID.
+ */
+export async function findUserByProviderId(
   provider: string,
   providerAccountId: string
-) {
-  return db
-    .prepare(
-      `
-    SELECT * FROM users WHERE provider = ? AND providerAccountId = ?
-  `
-    )
-    .get(provider, providerAccountId);
+): Promise<IUser | undefined> {
+  const result = await pool.query(
+    `SELECT * FROM users WHERE provider = $1 AND providerAccountId = $2`,
+    [provider, providerAccountId]
+  );
+  return result.rows[0] as IUser | undefined;
 }

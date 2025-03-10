@@ -19,7 +19,7 @@ export async function deleteReviewHandler(
       return handleError({ message: 'Unauthorized', status: 401 });
     }
 
-    const review = reviewService.getReviewById(id);
+    const review = await reviewService.getReviewById(id);
     if (!review) {
       return handleError({ error: 'Review not found', status: 404 });
     }

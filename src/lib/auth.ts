@@ -41,7 +41,7 @@ export const authOptions: NextAuthOptions = {
           return null;
         }
 
-        const user = findUserByEmail(credentials.email);
+        const user = await findUserByEmail(credentials.email);
         if (!user) return null;
 
         // Compare hashed password

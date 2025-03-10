@@ -19,7 +19,7 @@ export async function getReviewsHandler(request: Request) {
       ? sort
       : SortType.RECENT;
 
-    const { content, total, totalPages } = reviewService.getReviews({
+    const { content, total, totalPages } = await reviewService.getReviews({
       businessId,
       sort: validSort,
       page,

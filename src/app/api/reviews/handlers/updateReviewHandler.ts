@@ -13,7 +13,7 @@ export async function updateReviewHandler(
   try {
     const { id } = await context.params;
     const session = await validateSession();
-    const review = reviewService.getReviewById(id);
+    const review = await reviewService.getReviewById(id);
     if (!review) {
       return NextResponse.json({ error: 'Review not found' }, { status: 404 });
     }
