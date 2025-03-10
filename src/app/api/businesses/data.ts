@@ -1,4 +1,5 @@
 import { IBusiness } from '@/interfaces/business';
+import db from '@/lib/db';
 
 export const businesses: IBusiness[] = [
   {
@@ -233,3 +234,49 @@ export const businesses: IBusiness[] = [
     },
   },
 ];
+
+export function seedBusinesses() {
+  const result = db
+    .prepare(`SELECT COUNT(*) AS count FROM businesses`)
+    .get() as { count: number };
+
+  if (result.count === 0) {
+    console.log('No businesses found, inserting seed data...');
+
+    const stmt = db.prepare(`
+      INSERT INTO businesses (
+        id, name, logo, websiteUrl, instagram, score, category,
+        description, address, phone, email, reviewCount, ratingDistribution, createdAt
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    `);
+
+    const insertMany = db.transaction((items) => {
+      for (const business of items) {
+        stmt.run(
+          business.id,
+          business.name,
+          business.logo ?? null,
+          business.websiteUrl ?? null,
+          business.instagram ?? null,
+          business.score,
+          business.category,
+          business.description ?? null,
+          business.address ?? null,
+          business.phone ?? null,
+          business.email ?? null,
+          business.reviewCount ?? 0,
+          JSON.stringify(business.ratingDistribution),
+          new Date().toISOString()
+        );
+      }
+    });
+
+    insertMany(businesses);
+    console.log('✅ Seeded initial business data.');
+  } else {
+    console.log('✅ Businesses already exist, skipping seeding.');
+  }
+}
+
+// Call this function on app start
+seedBusinesses();

@@ -1,4 +1,5 @@
 import type { IReview } from '@/interfaces/review';
+import db from '@/lib/db';
 
 /**
  * Mock data representing reviews.
@@ -14,7 +15,7 @@ export const reviews: IReview[] = [
     title: 'خدمات فوق‌العاده و نوآوری بی‌نظیر',
     content:
       'راهکارهای نوین تک واقعاً فراتر از انتظارات ما عمل کرد. سیستم‌های هوش مصنوعی آن‌ها توانستند فرآیندهای ما را بهینه کنند و بهره‌وری را افزایش دهند. تیم پشتیبانی بسیار حرفه‌ای و پاسخگو بود.',
-    date: '2023-05-15T10:30:00Z',
+    createdAt: '2023-05-15T10:30:00Z',
     verifiedPurchase: true,
     helpful: 52,
     images: [],
@@ -28,7 +29,7 @@ export const reviews: IReview[] = [
     title: 'کیفیت عالی اما کمی تأخیر در پیاده‌سازی',
     content:
       'محصولات ابری این شرکت بسیار کارآمد و پایدار هستند. ما تغییرات مثبتی در کسب‌وکار خود دیدیم، اما مراحل اجرایی کمی بیشتر از حد انتظار طول کشید. امیدوارم در آینده روند پیاده‌سازی سریع‌تر شود.',
-    date: '2023-06-02T14:45:00Z',
+    createdAt: '2023-06-02T14:45:00Z',
     verifiedPurchase: true,
     helpful: 34,
     images: [],
@@ -42,7 +43,7 @@ export const reviews: IReview[] = [
     title: 'کیفیت واقعی محصولات ارگانیک',
     content:
       'سبزیجات و میوه‌های ارگانیک سبز زمین بهترین گزینه برای کسانی است که به سلامت و محیط‌ زیست اهمیت می‌دهند. طعم محصولات بسیار تازه و طبیعی است و نسبت به رقبا کیفیت بالاتری دارد.',
-    date: '2023-07-10T09:15:00Z',
+    createdAt: '2023-07-10T09:15:00Z',
     verifiedPurchase: true,
     helpful: 64,
     images: [],
@@ -56,7 +57,7 @@ export const reviews: IReview[] = [
     title: 'طعم بی‌نظیر، اما بسته‌بندی جای پیشرفت دارد',
     content:
       'کیفیت مواد غذایی این برند فوق‌العاده است، اما انتظار داشتم بسته‌بندی‌ها کمی پایدارتر باشند. اگر بتوانند از مواد تجزیه‌پذیر بیشتری استفاده کنند، بی‌نقص خواهند شد.',
-    date: '2023-08-05T16:20:00Z',
+    createdAt: '2023-08-05T16:20:00Z',
     verifiedPurchase: true,
     helpful: 41,
     images: [],
@@ -70,7 +71,7 @@ export const reviews: IReview[] = [
     title: 'قابلیت‌ها خوب، اما پشتیبانی می‌توانست بهتر باشد',
     content:
       'سیستم‌های راهکارهای نوین تک عالی کار می‌کنند، اما زمانی که برای مشکل فنی با تیم پشتیبانی تماس گرفتم، پاسخ‌دهی کند بود. امیدوارم پشتیبانی سریع‌تر و مؤثرتر شود.',
-    date: '2023-09-12T11:00:00Z',
+    createdAt: '2023-09-12T11:00:00Z',
     verifiedPurchase: true,
     helpful: 29,
     images: [],
@@ -84,9 +85,52 @@ export const reviews: IReview[] = [
     title: 'بهترین انتخاب برای سبک زندگی سالم',
     content:
       'من مدت‌هاست که از محصولات این شرکت استفاده می‌کنم و کاملاً راضی هستم. محصولات همیشه تازه و باکیفیت هستند. خرید از آن‌ها حس حمایت از محیط زیست را به من می‌دهد.',
-    date: '2023-10-01T08:40:00Z',
+    createdAt: '2023-10-01T08:40:00Z',
     verifiedPurchase: true,
     helpful: 48,
     images: [],
   },
 ];
+
+// Function to seed reviews if not already present
+export function seedReviews() {
+  const result = db.prepare(`SELECT COUNT(*) AS count FROM reviews`).get() as {
+    count: number;
+  };
+
+  if (result.count === 0) {
+    console.log('No reviews found, inserting seed data...');
+
+    const stmt = db.prepare(`
+      INSERT INTO reviews (
+        businessId, authorId, authorName, rating, title, content,
+        verifiedPurchase, helpful, images, createdAt
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    `);
+
+    const insertMany = db.transaction((items) => {
+      for (const review of items) {
+        stmt.run(
+          review.businessId,
+          review.authorId,
+          review.authorName,
+          review.rating,
+          review.title,
+          review.content,
+          review.verifiedPurchase ? 1 : 0,
+          review.helpful ?? 0,
+          JSON.stringify(review.images ?? []),
+          review.createdAt ?? new Date().toISOString()
+        );
+      }
+    });
+
+    insertMany(reviews);
+    console.log('✅ Seeded initial review data.');
+  } else {
+    console.log('✅ Reviews already exist, skipping seeding.');
+  }
+}
+
+// Run the seeding function on app startup
+seedReviews();

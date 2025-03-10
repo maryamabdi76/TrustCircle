@@ -2,7 +2,7 @@ import { getServerSession } from 'next-auth';
 import { NextResponse } from 'next/server';
 
 import { authOptions } from '@/lib/auth';
-import { handleError } from '@/lib/utils';
+import { handleError } from '@/lib/server-utils';
 
 import { reviews } from '../data';
 import { ReviewService } from '../service';

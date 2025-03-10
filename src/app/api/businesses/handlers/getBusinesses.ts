@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 
-import { handleError } from '@/lib/utils';
+import { handleError } from '@/lib/server-utils';
 
 import { businesses } from '../data';
 import { BusinessService } from '../service';

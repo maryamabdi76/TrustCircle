@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 
 import { validateSession } from '@/lib/auth';
-import { handleError } from '@/lib/utils';
+import { handleError } from '@/lib/server-utils';
 
 import { reviews } from '../data';
 import { reviewPostSchema } from '../schema';

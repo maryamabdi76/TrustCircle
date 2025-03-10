@@ -3,7 +3,7 @@ import { put } from '@vercel/blob';
 import { nanoid } from 'nanoid';
 import { handleUpload, type HandleUploadBody } from '@vercel/blob/client';
 import { validateSession } from '@/lib/auth'; // Ensure correct import path
-import { handleError } from '@/lib/utils';
+import { handleError } from '@/lib/server-utils';
 
 export async function POST(request: Request): Promise<NextResponse> {
   try {
