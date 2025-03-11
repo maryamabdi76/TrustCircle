@@ -23,7 +23,7 @@ export async function updateReviewHandler(
     }
 
     const json = await request.json();
-    const updatedReview = reviewService.updateReview(id, json);
+    const updatedReview = await reviewService.updateReview(id, json);
 
     if (!updatedReview) {
       return NextResponse.json(

@@ -27,7 +27,7 @@ export const StarRating = ({ score }: { score: number }) => {
           );
         })}
       </div>
-      <span className="text-sm font-medium">{score.toFixed(1)}</span>
+      <span className="text-sm font-medium">{score?.toFixed(1)}</span>
     </div>
   );
 };

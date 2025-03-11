@@ -11,7 +11,7 @@ export async function getReviewByIdHandler(
   const reviewService = new ReviewService();
   try {
     const { id } = await context.params;
-    const review = reviewService.getReviewById(id);
+    const review = await reviewService.getReviewById(id);
 
     if (!review) {
       return handleError({ error: 'Review not found', status: 404 });

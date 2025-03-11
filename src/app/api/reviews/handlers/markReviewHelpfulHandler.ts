@@ -19,12 +19,12 @@ export async function markReviewHelpfulHandler(
       return handleError({ message: 'Unauthorized', status: 401 });
     }
 
-    const review = reviewService.getReviewById(id);
+    const review = await reviewService.getReviewById(id);
     if (!review) {
       return handleError({ error: 'Review not found', status: 404 });
     }
 
-    const helpfulCount = reviewService.markReviewAsHelpful(id);
+    const helpfulCount = await reviewService.markReviewAsHelpful(id);
     return NextResponse.json({ helpful: helpfulCount });
   } catch (error) {
     return handleError({

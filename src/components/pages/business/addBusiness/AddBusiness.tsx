@@ -140,30 +140,31 @@ export const AddBusiness = () => {
                   </FormItem>
                 )}
               />
+
+              <CardFooter>
+                {/* Submit Button or Auth Prompt */}
+                {session ? (
+                  <Button
+                    type="submit"
+                    className="w-full py-6 text-lg"
+                    disabled={isSubmitting}
+                  >
+                    {isSubmitting ? (
+                      <>
+                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                        {t('adding')}
+                      </>
+                    ) : (
+                      t('addBusiness')
+                    )}
+                  </Button>
+                ) : (
+                  <AuthPrompt message={t('signInToAddBusiness')} />
+                )}
+              </CardFooter>
             </form>
           </Form>
         </CardContent>
-        <CardFooter>
-          {/* Submit Button or Auth Prompt */}
-          {session ? (
-            <Button
-              type="submit"
-              className="w-full py-6 text-lg"
-              disabled={isSubmitting}
-            >
-              {isSubmitting ? (
-                <>
-                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                  {t('adding')}
-                </>
-              ) : (
-                t('addBusiness')
-              )}
-            </Button>
-          ) : (
-            <AuthPrompt message={t('signInToAddBusiness')} />
-          )}
-        </CardFooter>
       </Card>
     </div>
   );

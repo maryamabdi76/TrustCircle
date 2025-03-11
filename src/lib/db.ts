@@ -1,10 +1,10 @@
 import { Pool } from 'pg';
 
 // Use the connection string from Neon
-const connectionString = process.env.DATABASE_URL_UNPOOLED;
+const connectionString = process.env.NEON_DATABASE_URL;
 
 if (!connectionString) {
-  throw new Error('DATABASE_URL_UNPOOLED environment variable is not set.');
+  throw new Error('NEON_DATABASE_URL environment variable is not set.');
 }
 
 const pool = new Pool({

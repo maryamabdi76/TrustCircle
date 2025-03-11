@@ -17,7 +17,7 @@ export async function getBusinesses(request: Request) {
     const page = Number.parseInt(searchParams.get('page') || '0');
     const size = Number.parseInt(searchParams.get('size') || '10');
 
-    const response = businessService.getBusinesses(
+    const response = await businessService.getBusinesses(
       search,
       category,
       websiteOrInstagram,

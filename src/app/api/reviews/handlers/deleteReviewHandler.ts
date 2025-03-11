@@ -28,7 +28,7 @@ export async function deleteReviewHandler(
       return handleError({ message: 'Unauthorized', status: 403 });
     }
 
-    reviewService.deleteReview(id);
+    await reviewService.deleteReview(id);
     return NextResponse.json({ success: true });
   } catch (error) {
     return handleError({

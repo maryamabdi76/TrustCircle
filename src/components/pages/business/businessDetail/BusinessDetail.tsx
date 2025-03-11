@@ -56,7 +56,7 @@ export default function BusinessDetail() {
                     <div className="flex items-center">
                       <Star className="w-6 h-6 text-primary fill-primary" />
                       <span className="text-2xl font-bold ml-2">
-                        {business.score.toFixed(1)}
+                        {business.score?.toFixed(1)}
                       </span>
                     </div>
                     <span className="text-muted-foreground">

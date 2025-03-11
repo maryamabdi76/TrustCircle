@@ -10,7 +10,11 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import {
-    Select, SelectContent, SelectItem, SelectTrigger, SelectValue
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
 } from '@/components/ui/select';
 import { Slider } from '@/components/ui/slider';
 import { PATHS } from '@/constants/PATHS';
@@ -124,7 +128,7 @@ export default function BusinessFilters({ className }: { className?: string }) {
             <Label className="text-sm font-medium">{t('minimumRating')}</Label>
             <div className="flex items-center bg-muted text-muted-foreground rounded-md px-2 py-0.5 text-xs font-semibold">
               <Star className="w-3 h-3 mr-1 fill-current" />
-              <span>{rating[0].toFixed(1)}</span>
+              <span>{rating[0]?.toFixed(1)}</span>
             </div>
           </div>
           <Slider

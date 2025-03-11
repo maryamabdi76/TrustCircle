@@ -9,7 +9,7 @@ export async function createBusiness(business: Omit<IBusiness, 'id'>) {
   const query = `
     INSERT INTO businesses (
       name, logo, websiteUrl, instagram, score, category,
-      description, address, phone, email, reviewCount, ratingDistribution, createdAt
+      description, address, phone, email, "reviewCount", "ratingDistribution", "createdAt"
     ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)
     RETURNING *;
   `;
@@ -49,9 +49,10 @@ export async function getAllBusinesses(): Promise<IBusiness[]> {
 
   return businesses.map((business) => ({
     ...business,
-    ratingDistribution: business.ratingDistribution
-      ? JSON.parse(business.ratingDistribution as unknown as string)
-      : {},
+    ratingDistribution:
+      typeof business.ratingDistribution === 'string'
+        ? JSON.parse(business.ratingDistribution)
+        : business.ratingDistribution || {},
   }));
 }
 
@@ -63,15 +64,17 @@ export async function findBusinessById(
 ): Promise<IBusiness | undefined> {
   const query = 'SELECT * FROM businesses WHERE id = $1';
   const result = await pool.query(query, [id]);
-  const business = result.rows[0] as IBusiness | undefined;
+  const business = result.rows[0];
 
-  if (business) {
-    business.ratingDistribution = business.ratingDistribution
-      ? JSON.parse(business.ratingDistribution as unknown as string)
-      : {};
-  }
+  if (!business) return undefined;
 
-  return business;
+  return {
+    ...business,
+    ratingDistribution:
+      typeof business.ratingDistribution === 'string'
+        ? JSON.parse(business.ratingDistribution)
+        : business.ratingDistribution || {},
+  };
 }
 
 /**
@@ -98,7 +101,7 @@ export async function updateBusinessRating(business: IBusiness) {
   // ✅ Ensure `ratingDistribution` is stored as a JSON string
   const query = `
     UPDATE businesses 
-    SET score = $1, reviewCount = $2, ratingDistribution = $3
+    SET score = $1, "reviewCount" = $2, "ratingDistribution" = $3
     WHERE id = $4
   `;
 

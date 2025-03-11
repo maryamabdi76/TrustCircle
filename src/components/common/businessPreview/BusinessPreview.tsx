@@ -40,7 +40,9 @@ export function BusinessPreview({ business, className }: BusinessPreviewProps) {
             <div className="flex items-center gap-4 mb-3">
               <div className="flex items-center gap-2 py-1">
                 <Star className="w-4 h-4 text-primary fill-primary mr-1" />
-                <span className="font-medium">{business.score.toFixed(1)}</span>
+                <span className="font-medium">
+                  {business.score?.toFixed(1)}
+                </span>
               </div>
               <Badge variant="secondary">{businessCategory}</Badge>
             </div>

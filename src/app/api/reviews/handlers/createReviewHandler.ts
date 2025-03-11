@@ -24,7 +24,10 @@ export async function createReviewHandler(request: Request) {
       authorId: session.user.id,
       authorName: session.user.name || 'Anonymous',
     };
-    const newReview = reviewService.createReview(reviewData, session.user);
+    const newReview = await reviewService.createReview(
+      reviewData,
+      session.user
+    );
     return NextResponse.json(newReview, { status: 201 });
   } catch (error) {
     return handleError({ error });

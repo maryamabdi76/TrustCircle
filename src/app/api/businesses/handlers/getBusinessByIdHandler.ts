@@ -12,7 +12,7 @@ export async function getBusinessByIdHandler(
   try {
     const { id } = await context.params;
 
-    const business = businessService.getBusinessById(id);
+    const business = await businessService.getBusinessById(id);
 
     if (!business) {
       return handleError({

@@ -26,7 +26,7 @@ export async function createBusiness(request: Request) {
       score: 0,
       ratingDistribution: {},
     };
-    const newBusiness = businessService.createBusiness(newBusinessData);
+    const newBusiness = await businessService.createBusiness(newBusinessData);
     return NextResponse.json(newBusiness, { status: 201 });
   } catch (error) {
     return handleError({

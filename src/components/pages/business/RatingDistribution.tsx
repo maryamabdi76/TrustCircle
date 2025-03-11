@@ -27,7 +27,7 @@ export function RatingDistribution({ ratings }: RatingDistributionProps) {
             </div>
             <Progress value={percentage} className="flex-1" />
             <div className="w-16 text-right text-sm text-muted-foreground">
-              {percentage.toFixed(0)}%
+              {percentage?.toFixed(0)}%
             </div>
           </div>
         );

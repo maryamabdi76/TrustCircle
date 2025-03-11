@@ -11,8 +11,8 @@ import pool from '@/lib/db';
 export async function createReview(review: Omit<IReview, 'id'>) {
   const query = `
     INSERT INTO reviews (
-      businessId, authorId, authorName, rating, title, content,
-      verifiedPurchase, helpful, images, createdAt
+      "businessId", "authorId", "authorName", rating, title, content,
+      "verifiedPurchase", helpful, images, "createdAt"
     ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
     RETURNING *;
   `;
@@ -49,12 +49,15 @@ export async function createReview(review: Omit<IReview, 'id'>) {
 export async function getReviewsByBusiness(
   businessId: string
 ): Promise<IReview[]> {
-  const query = 'SELECT * FROM reviews WHERE businessId = $1';
+  const query = 'SELECT * FROM reviews WHERE "businessId" = $1';
   const result = await pool.query(query, [businessId]);
 
   return result.rows.map((review) => ({
     ...review,
-    images: review.images ? JSON.parse(review.images) : [],
+    images:
+      typeof review.images === 'string'
+        ? JSON.parse(review.images)
+        : review.images || [],
   }));
 }
 
